@@ -36,11 +36,26 @@ const schema = new mongoose.Schema({
     },
     dance: {
         type: Array,
-        default: ""
+        default: [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+        ]
     },
     itemwrap: {
         type: Array,
-        default: ""
+        default: [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
     },
     musicpack: {
         type: String,

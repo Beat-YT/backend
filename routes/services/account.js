@@ -1,11 +1,11 @@
-const User = require(`${__dirname}/../../model/User`)
 const config = require(`${__dirname}/../../config.json`)
 const jwt = require("jsonwebtoken")
 const request = require("request")
 const express = require("express")
+const bcrypt = require("bcrypt")
 const app = express.Router()
 
-var monog = {}
+const User = require(`${__dirname}/../../model/User`)
 
 const checkToken = require("../../middleware/checkToken")
 const createJWT = require("../../structs/createJWT")
@@ -21,8 +21,8 @@ Date.prototype.addHours = function(h) {
     return this;
 }
 
-app.post("/api/oauth/token", async (req, res) => {
-    if (req.method != "POST") return res.status(405).json(errors.method())
+app.all("/api/oauth/token", async (req, res) => {
+    if (req.method != "POST") return res.status(405).json(errors.method("com.epicgames.account.public", "prod"))
 
     switch (req.body.grant_type) {
         case "client_credentials": 
@@ -43,7 +43,7 @@ app.post("/api/oauth/token", async (req, res) => {
             })
 
             if (user) {
-                if (!verifyPassword(req.body.password, user.password)) return res.status(401).json(errors.create(
+                if (!bcrypt.compareSync(req.body.password, user.password)) return res.status(401).json(errors.create(
                     "errors.com.epicgames.account.invalid_account_credentials", 18031,
                     "Sorry the account credentials you are using are invalid",
                     "com.epicgames.account.public", "prod", []
@@ -139,6 +139,9 @@ app.all("/api/public/account/:accountId", checkToken, async (req, res) => {
     ))
 })
 
+app.get('/account/api/public/account/:accountId/externalAuths', checkToken, (req, res) => res.json({}))
+
+
 app.all("/api/public/account/displayName/:displayName", checkToken , async (req, res) => {
     if (req.method != "GET") return res.status(405).json(errors.method())
     var user = await User.findOne({displayName: req.params.displayName})
@@ -191,17 +194,11 @@ app.all("/api/public/account", checkToken, async (req, res) => {
     }))
 })
 
-app.get('*', function(req, res, next) {
-    // This middleware is not an error handler (only 3 arguments),
-    // Express will skip it because there was an error in the previous
-    // middleware
-    console.log('this will not print');
-  });
-  
-  app.use(function(error, req, res, next) {
-    // Any request to this server will get here, and will send an HTTP
-    // response with the error message 'woops'
-    res.json({ message: error.message });
-  });
-  
+app.use((req, res, next) => {
+    res.json(errors.create(
+        "errors.com.epicgames.common.not_found", 1004,
+        "Sorry the resource you were trying to find could not be found",
+        "com.epicgames.account.public", "prod"
+    ))
+})
 module.exports = app

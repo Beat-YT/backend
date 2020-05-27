@@ -6,18 +6,18 @@ const schema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    createdAt: {
+        type: Date,
+        default: new Date()
+    },
     vbucks: {
         type: Number,
         default: 2147483647
     },
-    gifts: {
-        type: Array,
-        default: []
-    },
-    accepted: {
-        type: Array,
-        default: []
+    mtxplatform: {
+        type: String,
+        default: "EpicPC"
     }
 })
 
-module.exports = mongoose.model("friends", schema)
+module.exports = mongoose.model("commoncore", schema)

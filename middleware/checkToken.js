@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
             case "com.epicgames.account.public":
             break;
         default:
-            originService = yes.split("/")[1]
+            originService = req.originalUrl.split("/")[1]
             break;
     }
 

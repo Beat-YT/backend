@@ -3,7 +3,9 @@ const bcrypt = require("bcrypt")
 const crypto = require("crypto")
 const app = express.Router()
 
+const CommonCore = require(`${__dirname}/../model/CommonCore`)
 const Friends = require(`${__dirname}/../model/Friends`)
+const Athena = require(`${__dirname}/../model/Athena`)
 const logging = require(`${__dirname}/../structs/logs`)
 const User = require(`${__dirname}/../model/User`)
 
@@ -35,6 +37,12 @@ app.post("/api/register", async (req, res) => {
 
     const friends = new Friends({id: id})
     friends.save()
+
+    const commoncore = new CommonCore({id: id})
+    commoncore.save()
+
+    const athena = new Athena({id: id})
+    athena.save()
 
     logging.accounts(`Created account \x1b[36m${req.body.username}\x1b[0m with the ID \x1b[36m${id}`)
     const createdUser = await user.save().catch(e => res.status(400).send(e))

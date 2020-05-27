@@ -21,6 +21,10 @@ module.exports = class JWTInfo {
                 permission: `friends:${this.jwt.sub}`,
                 abilities: ["READ", "UPDATE", "DELETE"]
             },
+            {
+                permission: `fortnite:profile:${this.accountId}:commands`,
+                abilities: ["ALL"]
+            }
         ])
     }
 

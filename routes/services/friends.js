@@ -4,9 +4,9 @@ const app = express.Router()
 const Friends = require(`${__dirname}/../../model/Friends`)
 
 //note: use checkToken as middleware anywhere you need to check a token for auth.
-const checkToken = require("../../middleware/checkToken")
-const createJWT = require("../../structs/createJWT")
-const errors = require("../../structs/errors")
+const checkToken = require(`${__dirname}/../../middleware/checkToken`)
+const createJWT = require(`${__dirname}/../../structs/createJWT`)
+const errors = require(`${__dirname}/../../structs/errors`)
 
 app.all("/api/v1/:accountId/friends", checkToken, async (req, res) => {
     if (req.method != "GET") return res.status(405).json(errors.method("friends", "prod"))

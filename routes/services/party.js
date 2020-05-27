@@ -1,6 +1,6 @@
 const express = require("express")
 const app = express.Router()
 
-const errors = require("../../structs/errors")
+const errors = require(`${__dirname}/../../structs/errors`)
 
 module.exports = app

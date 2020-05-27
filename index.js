@@ -6,8 +6,17 @@ const app = express()
 const logging = require(`${__dirname}/structs/logs`)
 const config = require(`${__dirname}/config.json`)
 
+//i know global isn't the best practice, but it works good enough
+global.parties = []
+global.xmppClients = []
+global.accessTokens = []
+global.refreshTokens = []
+global.exchangeCodes = {}
+
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({extended: true}))
+
+require("./xmpp/server")
 
 //db
 mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true}, (e) => {

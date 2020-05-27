@@ -11,10 +11,6 @@ const checkToken = require("../../middleware/checkToken")
 const createJWT = require("../../structs/createJWT")
 const errors = require("../../structs/errors")
 
-//i know global isn't the best practice, but it works good enough
-global.accessTokens = []
-global.refreshTokens = []
-global.exchangeCodes = {}
 
 Date.prototype.addHours = function(h) {
     this.setTime(this.getTime() + (h*60*60*1000));

@@ -27,12 +27,18 @@ app.all("/api/v1/:accountId/friends", checkToken, async (req, res) => {
     }))
 })
 
+app.all("/api/v1/:accountId/blocklist", checkToken, (req, res) => {
+    if (req.method != "GET") return res.status(405).json(errors.method("friends", "prod"))
+    if(!res.locals.jwt.checkPermission(`friends:${req.params.accountId}`, "READ")) return res.status(403).json(errors.permission(`friends:${req.params.accountId}`, "READ", "friends"))
+
+    res.json([])
+})
+
 app.all("/api/v1/:accountId/summary", checkToken, async (req, res) => {
     if (req.method != "GET") return res.status(405).json(errors.method("friends", "prod"))
     if(!res.locals.jwt.checkPermission(`friends:${req.params.accountId}`, "READ")) return res.status(403).json(errors.permission(`friends:${req.params.accountId}`, "READ", "friends"))
 
     var friends = await Friends.findOne({id: req.params.accountId})
-
     res.json({
         friends: friends.accepted.map(x => {
             return {

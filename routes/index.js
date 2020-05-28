@@ -12,4 +12,8 @@ app.use(express.static(path.join(__dirname, "/../html")))
 
 app.use("/id", require(`${__dirname}/id.js`))
 
+app.use("/aurora/connected", (req, res) => {
+    res.setHeader("content-type", "text/plain")
+    res.send(xmppClients.length.toString())
+})
 module.exports = app

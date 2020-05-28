@@ -1,39 +1,41 @@
-const config = require(`${__dirname}/../config.json`)
-const request = require("request")
-const cache = {
-    cosmetichash: null,
-    keychainhash: null
-}
+const config = require(`${__dirname}/../config.json`);
+const https = require('https');
+const path = require("path");
+const fs = require("fs");
 
+module.exports = {
+    keychain() {
+        return new Promise((resolve, reject) => {
+            https.get(config.keychainUrl, (res) => {
+                var shit = ""
+                res.on("data", data => shit += data.toString())
 
-
-function download() {
-    setInterval(() => {})
-}
-
-function getCosmetics() {
-    return new Promise((resolve, reject) => {
-        request.get(config.cosmeticsUrl, (err, res) => {
-            if (err) reject(err)
-
-            resolve(JSON.parse(res.body))
+                res.on("close", () => {
+                    fs.writeFileSync(path.join(__dirname, "../cache/keychain.json"), JSON.stringify(JSON.parse(shit), null, 4));
+                    resolve()
+                })
+            })
         })
-    })
-}
+    },
 
-function getKeychain() {
-    return new Promise((resolve, reject) => {
-        request.get(config.keychainUrl, (err, res) => {
-            if (err) reject(err)
-
-            resolve(JSON.parse(res.body))
+    cosmetics() {
+        return new Promise((resolve, reject) => {
+            https.get(config.cosmeticsUrl, (res) => {
+                var shit = ""
+                res.on("data", data => shit += data.toString())
+                res.on("close", () => {
+                    fs.writeFileSync(path.join(__dirname, "../cache/cosmetics.json"), JSON.stringify(JSON.parse(shit), null, 4));
+                    resolve()
+                })
+            })
         })
-    })
-}
+    },
 
+    getKeychain() {
+        return JSON.parse(fs.readFileSync(`${__dirname}/../cache/keychain.json`));
+    },
 
-
-module.exports = () => {
-    setInterval(() => download, 900000)
-    return cache
+    getCosmetics() {
+        return JSON.parse(fs.readFileSync(`${__dirname}/../cache/cosmetics.json`));
+    }
 }

@@ -1,9 +1,9 @@
 {
-    "port": 80,
+    "port": 443,
     "db": "mongodb://localhost:27017/fdev?readPreference=primary&ssl=false",
     
     "webhook": "https://discordapp.com/api/webhooks/714632640828801064/hHMpT2AVgLtqELiO_xxoScnPUToxz5XA0QfpI2xv9AODFaDtcHEfvzoaHABCgrh5jexC",
 
-    "cosmeticUrl": "https://snail-api.com/v1/cosmetics",
+    "cosmeticsUrl": "https://snail-api.com/v1/cosmetics",
     "keychainUrl": "https://snail-api.com/v1/keychain"
 }

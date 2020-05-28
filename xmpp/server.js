@@ -1,26 +1,18 @@
-
-/*const xmpp = require("node-xmpp-server")
-
-var server = new xmpp.C2S.TCPServer({
-    port: 8080,
-    domain: "localhost"
-})
-
-server.on('connection', function (client) {
-
-    
-})
-  /*const WebSocket = require('ws');
+const WebSocket = require('ws');
 const Client = require("./Client")
+const wss = new WebSocket.Server({ port: 80 });
 
+wss.on("connection", ws => {
+    console.log("connected")
+    var client = new Client(ws)
 
-//using port 443
-const wss = new WebSocket.Server({
-    port: 8080
+    ws.on("close", () => {
+        if (client.accountId) {
+            if (xmppClients.find(x => x.id = client.accountId)) xmppClients.splice(xmppClients.findIndex(x => x.id == client.accountId), 1)
+        }
+    })
 })
 
-
-wss.on("connection", (ws) => {
-    var client = new Client(ws)
-    client.connect() //starts coonnect routine
-})*/
+wss.on("error", ws => {
+    console.log("closed")
+})

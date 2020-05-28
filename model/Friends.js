@@ -6,11 +6,11 @@ const schema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    vbucks: {
-        type: Number,
-        default: 2147483647
+    incoming: {
+        type: Array,
+        default: []
     },
-    gifts: {
+    outgoing: {
         type: Array,
         default: []
     },

@@ -22,8 +22,10 @@ app.all("/api/oauth/token", async (req, res) => {
 
     switch (req.body.grant_type) {
         case "client_credentials": 
+            var token = createJWT("client_credentials")
+            clientTokens.push(`eg1~${token}`)
             res.json({
-                access_token: "4809072098ca4124bc21652f3d2d56fa",
+                access_token: `eg1~${token}`,
                 expires_in: 14400,
                 expires_at: new Date().addHours(4),
                 token_type: "bearer",
@@ -71,6 +73,7 @@ app.all("/api/oauth/token", async (req, res) => {
                 if (accessTokens.find(x => x.id = user.id)) accessTokens.splice(accessTokens.findIndex(x => x.id == user.id), 1)
                 accessTokens.push({
                     id: user.id,
+                    displayName: user.displayName,
                     token: `eg1~${token}`
                 })
             } else return res.status(400).json(errors.create(
@@ -190,8 +193,31 @@ app.all("/api/public/account", checkToken, async (req, res) => {
     }))
 })
 
+app.all("/api/public/account/:accountId/externalAuths", checkToken, (req, res) => res.json({}))
+
+app.all("/api/oauth/verify", checkToken, (req, res) => {
+    var token = accessTokens.find(x => x.token == req.headers.authorization.split(" ")[1])
+    
+    res.json({
+        access_token: token.token,
+        expires_in: 28800,
+        expires_at: new Date().addHours(8),
+        token_type: "bearer",
+        refresh_token: "cd581d37b0434726a37b0268bb99206c",
+        refresh_expires: 115200,
+        refresh_expires_at: new Date().addHours(8),
+        account_id: token.id,
+        client_id: "3446cd72694c4a4485d81b77adbb2141",
+        internal_client: true,
+        client_service: "fortnite",
+        displayName: token.displayName,
+        app: "fortnite",
+        in_app_id: token.id,
+        device_id: "164fb25bb44e42c5a027977d0d5da800"
+    })
+})
 app.use((req, res, next) => {
-    res.json(errors.create(
+    res.status(404).json(errors.create(
         "errors.com.epicgames.common.not_found", 1004,
         "Sorry the resource you were trying to find could not be found",
         "com.epicgames.account.public", "prod"

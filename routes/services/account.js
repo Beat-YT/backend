@@ -20,6 +20,9 @@ Date.prototype.addHours = function(h) {
 app.all("/api/oauth/token", async (req, res) => {
     if (req.method != "POST") return res.status(405).json(errors.method("com.epicgames.account.public", "prod"))
 
+    var token
+    var refresh
+
     switch (req.body.grant_type) {
         case "client_credentials": 
             var token = createJWT("client_credentials")
@@ -52,35 +55,47 @@ app.all("/api/oauth/token", async (req, res) => {
                 "com.epicgames.account.public", "prod", []
             ))
             
-            token = createJWT(user.displayName, user.id, req.body.grant_type)
+            token = createJWT(req.body.grant_type, user.id, user.displayName)
+            refresh = createJWT("refresh_token", user.id, user.displayName)
 
-            if (accessTokens.find(x => x.id = user.id)) accessTokens.splice(accessTokens.findIndex(x => x.id == user.id), 1)
+            if (refreshTokens.find(x => x.id == user.id)) refreshTokens.splice(refreshTokens.findIndex(x => x.id == user.id), 1)
+            refreshTokens.push({
+                id: user.id,
+                token: `eg1~${refresh}`
+            })
+
+            if (accessTokens.find(x => x.id == user.id)) accessTokens.splice(accessTokens.findIndex(x => x.id == user.id), 1)
             accessTokens.push({
                 id: user.id,
                 token: `eg1~${token}`
             })
+
             break;
-        //used for aurora launcher
-        case "exchange_code":
-            if (exchangeCodes[req.body.exchange_code]) {
-                var user = await User.findOne({id: exchangeCodes[req.body.exchange_code]}).catch(e => {
-                    next(e)
-                })
-                delete exchangeCodes[req.body.exchange_code]
-
-                token = createJWT(user.displayName, user.id, req.body.grant_type)
-
-                if (accessTokens.find(x => x.id = user.id)) accessTokens.splice(accessTokens.findIndex(x => x.id == user.id), 1)
-                accessTokens.push({
-                    id: user.id,
-                    displayName: user.displayName,
-                    token: `eg1~${token}`
-                })
-            } else return res.status(400).json(errors.create(
-                "errors.com.epicgames.account.oauth.exchange_code_not_found", 18057,
-                "Sorry the exchange code you supplied was not found. It is possible that it was no longer valid",
-                "com.epicgames.account.public", "prod", []
+        case "refresh_token":
+            if (!refreshTokens.find(x => x.token == req.body.refresh_token)) return res.status(400).json(errors.create(
+                "errors.com.epicgames.account.auth_token.invalid_refresh_token", 18036,
+                `Sorry the refresh token '${req.body.refresh_token}' is invalid`,
+                "prod", "com.epicgames.account.public", [req.body.refreshToken]
             ))
+
+            var user = await User.findOne({id: refreshTokens.find(x => x.token == req.body.refresh_token).id}).catch(e => {
+                next(e)
+            })
+
+            token = createJWT("password", user.id, user.displayName)
+            refresh = createJWT("refresh_token", user.id, user.displayName)
+
+            if (refreshTokens.find(x => x.id == user.id)) refreshTokens.splice(refreshTokens.findIndex(x => x.id == user.id), 1)
+            refreshTokens.push({
+                id: user.id,
+                token: `eg1~${refresh}`
+            })
+
+            if (accessTokens.find(x => x.id == user.id)) accessTokens.splice(accessTokens.findIndex(x => x.id == user.id), 1)
+            accessTokens.push({
+                id: user.id,
+                token: `eg1~${token}`
+            })
             break;
         default:
             return res.status(400).json(errors.create(
@@ -95,7 +110,7 @@ app.all("/api/oauth/token", async (req, res) => {
         expires_in: 28800,
         expires_at: new Date().addHours(8),
         token_type: "bearer",
-        refresh_token: "cd581d37b0434726a37b0268bb99206c",
+        refresh_token: `eg1~${refresh}`,
         refresh_expires: 115200,
         refresh_expires_at: new Date().addHours(8),
         account_id: user.id,

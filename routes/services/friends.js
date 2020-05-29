@@ -5,7 +5,6 @@ const Friends = require(`${__dirname}/../../model/Friends`)
 
 //note: use checkToken as middleware anywhere you need to check a token for auth.
 const checkToken = require(`${__dirname}/../../middleware/checkToken`)
-const createJWT = require(`${__dirname}/../../structs/createJWT`)
 const errors = require(`${__dirname}/../../structs/errors`)
 
 app.all("/api/v1/:accountId/friends", checkToken, async (req, res) => {
@@ -16,7 +15,7 @@ app.all("/api/v1/:accountId/friends", checkToken, async (req, res) => {
 
     res.json(friends.accepted.map(x => {
         return {
-            id: x.id, 
+            accountId: x.id, 
             groups: [], 
             mutual: 0, 
             alias: "", 
@@ -42,7 +41,7 @@ app.all("/api/v1/:accountId/summary", checkToken, async (req, res) => {
     res.json({
         friends: friends.accepted.map(x => {
             return {
-                id: x.id, 
+                accountId: x.id, 
                 groups: [], 
                 mutual: 0, 
                 alias: "", 
@@ -53,13 +52,13 @@ app.all("/api/v1/:accountId/summary", checkToken, async (req, res) => {
         }),
         incoming: friends.incoming.map(x => {
             return {
-                id: x.id, 
+                accountId: x.id, 
                 favorite: false
             }
         }),
         outgoing: friends.outgoing.map(x => {
             return {
-                id: x.id, 
+                accountId: x.id, 
                 favorite: false
             }
         }),
@@ -88,7 +87,7 @@ app.all("/api/v1/:accountId/friends/:friendId", checkToken, async (req, res) => 
             ))
 
             res.json({
-                id: friend.id, 
+                accountId: friend.id, 
                 groups: [], 
                 mutual: 0, 
                 alias: "", 
@@ -102,14 +101,14 @@ app.all("/api/v1/:accountId/friends/:friendId", checkToken, async (req, res) => 
 
             switch (true) {
                 case friends.accepted.find(x => x.id == req.params.friendId) != undefined:
-                    res.status(404).json(errors.create(
+                    res.status(400).json(errors.create(
                         "errors.com.epicgames.friends.duplicate_friendship", 14009,
                         `Friendship between ${req.params.accountId} and ${req.params.friendId} already exists`,
                         "friends", "prod", [req.params.accountId, req.params.friendId]
                     ))
                     break;
                 case friends.outgoing.find(x => x.id == req.params.friendId) != undefined:
-                    res.status(404).json(errors.create(
+                    res.status(400).json(errors.create(
                         "errors.com.epicgames.friends.friend_request_already_sent", 14014,
                         `Friendship request has already been sent to ${req.params.friendId}`,
                         "friends", "prod", [req.params.friendId]
@@ -119,12 +118,30 @@ app.all("/api/v1/:accountId/friends/:friendId", checkToken, async (req, res) => 
                     await Friends.updateOne({id: req.params.accountId}, {$pull: {incoming: {id: req.params.friendId}}, $push: {accepted: {id: req.params.friendId, createdAt: new Date()}}})
                     await Friends.updateOne({id: req.params.friendId}, {$pull: {outgoing: {id: req.params.accountId}}, $push: {accepted: {id: req.params.accountId, createdAt: new Date()}}})
 
+                    if (xmppClients.find(x => x.id == req.params.friendId)) {
+                        xmppClients.find(x => x.id == req.params.friendId).client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify({
+                            type: "FRIENDSHIP_REQUEST",
+                            timestamp: new Date(),
+                            from: req.params.accountId,
+                            to: req.params.friendId,
+                            status: "ACCEPTED"
+                        }))   
+                    }
                     res.status(204).end()
                     break;
                 default:
                     await Friends.updateOne({id: req.params.accountId}, {$push: {outgoing: {id: req.params.friendId}}})
                     await Friends.updateOne({id: req.params.friendId}, {$push: {incoming: {id: req.params.accountId}}})
 
+                    if (xmppClients.find(x => x.id == req.params.friendId)) {
+                        xmppClients.find(x => x.id == req.params.friendId).client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify({
+                            type: "FRIENDSHIP_REQUEST",
+                            timestamp: new Date(),
+                            from: req.params.accountId,
+                            to: req.params.friendId,
+                            status: "PENDING"
+                        }))
+                    }
                     res.status(204).end()
                     break
             }

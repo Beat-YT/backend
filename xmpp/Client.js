@@ -150,6 +150,16 @@ module.exports = class Client extends EventEmitter {
                     }
                 }).end().replace(`<?xml version="1.0"?>`, "").trim())
                 break;
+            default:
+                this.ws.send(xmlbuilder.create({
+                    'iq': {
+                        '@xmlns': 'jabber:client',
+                        '@to': this.jid,
+                        '@type': "result",
+                        '@id': uuid().replace(/-/g, '').toUpperCase()
+                    }
+                }).end().replace(`<?xml version="1.0"?>`, "").trim())
+                break;
         }
 
     }
@@ -157,10 +167,8 @@ module.exports = class Client extends EventEmitter {
     handlepresence(message) {
         try {
             var thing = JSON.parse(message.root.children.find(x => x.name == "status").content)
-            this.sendPresence(this.jid, this.jid.split("@")[0], JSON.stringify(thing))
-        } catch (e) {
-            console.log(e)
-        }
+            this.sendPresence(this.jid, this.jid.split("/")[0], JSON.stringify(thing))
+        } catch (e) {}
     }
 
     handlemessage(message) {

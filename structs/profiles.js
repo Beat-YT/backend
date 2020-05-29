@@ -23,7 +23,7 @@ module.exports = {
                         },
                         quantity: commoncore.vbucks,
                         templateId: "Currency:MtxPurchased"
-                    }
+                    },
                 },
                 stats: {
                     survey_data: {

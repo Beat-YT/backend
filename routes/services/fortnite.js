@@ -6,6 +6,7 @@ const cache = require(`${__dirname}/../../structs/caching`)
 const errors = require(`${__dirname}/../../structs/errors`)
 
 app.use(require(`${__dirname}/cloudstorage.js`))
+app.use(require(`${__dirname}/timeline.js`))
 
 function createResponse(changes, id, rvn) {
     rvn = Number(rvn)
@@ -45,5 +46,13 @@ app.all("/api/storefront/v2/keychain", (req, res) => {
     if(req.method != "GET") return res.status(405).json(errors.method("fortnite", "prod-live"))
 
     res.json(cache.getKeychain())
+})
+
+app.all("/api/game/v2/matchmakingservice/ticket/player/:accountId", (req, res) => {
+    res.status(403).json(errors.create(
+        "Matchmaking is not supported on FDev. Sorry for any inconvience.", 12002,
+        "dev.slushia.fdev.matchmaking.not_enabled",
+        "fortnite", "prod"
+    ))
 })
 module.exports = app

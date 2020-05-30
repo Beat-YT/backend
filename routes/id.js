@@ -76,5 +76,10 @@ app.post("/api/exchange", async (req, res) => {
     }
 })
 
+app.get("/api/clients", (req, res) => {
+    res.setHeader("content-type", "text/plain")
+    res.send(Object.keys(xmppClients).length.toString())
+})
+
 
 module.exports = app

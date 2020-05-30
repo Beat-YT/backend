@@ -129,6 +129,7 @@ app.all("/api/oauth/token", async (req, res) => {
 app.all("/api/oauth/sessions/kill/:accessToken", (req, res) => {
     if (req.method != "DELETE") return res.status(405).json(errors.method())
 
+    console.log(accessTokens.findIndex(x => x.token == req.headers.authorization.split(" ")[1]))
     accessTokens.splice(accessTokens.findIndex(x => x.token == req.headers.authorization.split(" ")[1]), 1)
     
     res.status(204).end()
@@ -153,7 +154,7 @@ app.all("/api/public/account/:accountId", checkToken, async (req, res) => {
     ))
 })
 
-app.get('/account/api/public/account/:accountId/externalAuths', checkToken, (req, res) => res.json({}))
+app.get('/api/public/account/:accountId/externalAuths', checkToken, (req, res) => res.json({}))
 
 
 app.all("/api/public/account/displayName/:displayName", checkToken , async (req, res) => {
@@ -231,6 +232,7 @@ app.all("/api/oauth/verify", checkToken, (req, res) => {
         device_id: "164fb25bb44e42c5a027977d0d5da800"
     })
 })
+
 app.use((req, res, next) => {
     res.status(404).json(errors.create(
         "errors.com.epicgames.common.not_found", 1004,

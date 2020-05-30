@@ -234,5 +234,12 @@ app.all("/api/v1/:accountId/recent/Fortnite", checkToken, (req, res) => {
     res.json([])
 })
 
+app.use((req, res, next) => {
+    res.status(404).json(errors.create(
+        "errors.com.epicgames.common.not_found", 1004,
+        "Sorry the resource you were trying to find could not be found",
+        "friends", "prod"
+    ))
+})
 
 module.exports = app

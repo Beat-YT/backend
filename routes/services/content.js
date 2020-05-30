@@ -17,7 +17,7 @@ app.get("/api/pages/fortnite-game", (req, res) => {
                 news: {
                     motds: [
                         {
-                            entryType: "Item",
+                            entryType: "Text",
                             image: "https://cdn.discordapp.com/attachments/713173890859270276/716048896257949726/1080aurora.png",
                             tileImage: "https://cdn.discordapp.com/attachments/713173890859270276/716049291348672662/1024aurora.png",
                             hidden: false,
@@ -25,7 +25,7 @@ app.get("/api/pages/fortnite-game", (req, res) => {
                             tabTitleOverride: "Aurora",
                             _type: "CommonUI Simple Message MOTD",
                             title: "Aurora",
-                            body: "Welcome to Aurora, a private server created by Slushia (@Slushia) & Cyuubi (@uguuNatalie). Join our Discord here for more information: discord.gg/AuroraPS",
+                            body: "Welcome to Aurora (Previously FDev), a private server created by Slushia (@Slushia) & Cyuubi (@uguuNatalie). Join our Discord here for more information: discord.gg/AuroraFN",
                             videoLoop: false,
                             videoStreamingEnabled: false,
                             sortingPriority: 0,
@@ -38,4 +38,6 @@ app.get("/api/pages/fortnite-game", (req, res) => {
         }
     })
 })
+
+
 module.exports = app

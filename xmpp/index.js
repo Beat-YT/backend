@@ -1,14 +1,18 @@
 const WebSocket = require('ws');
 const Client = require("./Client")
-const wss = new WebSocket.Server({ port: 443 });
+
+const logging = require(`${__dirname}/../structs/logs`)
+const config = require(`${__dirname}/../config.json`)
+
+const wss = new WebSocket.Server({ port: process.env.xmppPort || config.xmppPort || 443 });
+
 
 wss.on("connection", ws => {
     var client = new Client(ws)
 
     ws.on("close", () => {
-        if (client.accountId) {
-            if (xmppClients.find(x => x.id = client.accountId)) 
-                xmppClients.splice(xmppClients.findIndex(x => x.id == client.accountId), 1)
+        if (client.id) {
+            if (xmppClients[client.id]) delete xmppClients[client.id]
         }
     })
 })

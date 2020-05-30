@@ -1,6 +1,8 @@
 const express = require("express")
 const app = express.Router()
 
+const errors = require(`${__dirname}/../../structs/errors`)
+
 app.all("/api/service/bulk/status", (req, res) => {
     res.json([
         {
@@ -20,6 +22,14 @@ app.all("/api/service/bulk/status", (req, res) => {
             }
         }
     ])
+})
+
+app.use((req, res, next) => {
+    res.status(404).json(errors.create(
+        "errors.com.epicgames.common.not_found", 1004,
+        "Sorry the resource you were trying to find could not be found",
+        "lightswitch", "prod"
+    ))
 })
 
 module.exports = app

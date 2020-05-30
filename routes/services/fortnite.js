@@ -8,21 +8,6 @@ const errors = require(`${__dirname}/../../structs/errors`)
 app.use(require(`${__dirname}/cloudstorage.js`))
 app.use(require(`${__dirname}/timeline.js`))
 
-function createResponse(changes, id, rvn) {
-    rvn = Number(rvn)
-    if (!rvn) {}
-    else if (changes.length == 0) rvn = rvn
-    else rvn = rvn + 1
-    return {
-        profileRevision: rvn || 1,
-        profileId: id || "unknown",
-        profileChangesBaseRevision: rvn || 1,
-        profileChanges: changes || [],
-        serverTime: new Date(),
-        profileCommandRevision: rvn || 1,
-        responseVersion: 1
-    }
-}
 
 app.use(require(`${__dirname}/mcp`))
 
@@ -42,17 +27,23 @@ app.all("/api/game/v2/enabled_features", checkToken,  (req, res) => {
     res.json([])
 })
 
-app.all("/api/storefront/v2/keychain", (req, res) => {
+app.all("/api/storefront/v2/keychain", checkToken, (req, res) => {
     if(req.method != "GET") return res.status(405).json(errors.method("fortnite", "prod-live"))
 
     res.json(cache.getKeychain())
 })
 
-app.all("/api/game/v2/matchmakingservice/ticket/player/:accountId", (req, res) => {
+app.all("/api/game/v2/matchmakingservice/ticket/player/:accountId", checkToken, (req, res) => {
     res.status(403).json(errors.create(
         "Matchmaking is not supported on FDev. Sorry for any inconvience.", 12002,
         "dev.slushia.fdev.matchmaking.not_enabled",
         "fortnite", "prod"
     ))
+})
+
+app.all("/api/game/v2/privacy/account/:accountId", checkToken, (req, res) => {
+    res.json({
+        acceptInvites: "public"
+    })
 })
 module.exports = app

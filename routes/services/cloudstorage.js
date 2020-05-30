@@ -17,7 +17,7 @@ const uniqueFilenames = {
 }
 
 
-app.get("/api/cloudstorage/system", checkToken, (req, res) => {
+app.get("/api/cloudstorage/system", (req, res) => {
     var files = fs.readdirSync(`${__dirname}/../../cloudstorage`)
 
     files = files.map(x => {
@@ -39,7 +39,7 @@ app.get("/api/cloudstorage/system", checkToken, (req, res) => {
     res.json(files)
 })
 
-app.get("/api/cloudstorage/system/:filename", checkToken, (req, res) => {
+app.get("/api/cloudstorage/system/:filename", (req, res) => {
     const reversed = {}
     Object.keys(uniqueFilenames).forEach(x => reversed[uniqueFilenames[x]] = x)
 

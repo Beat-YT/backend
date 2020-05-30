@@ -129,7 +129,7 @@ app.all("/api/oauth/token", async (req, res) => {
 app.all("/api/oauth/sessions/kill/:accessToken", (req, res) => {
     if (req.method != "DELETE") return res.status(405).json(errors.method())
 
-    accessTokens.splice(accessTokens.findIndex(x => x.token == req.token), 1)
+    accessTokens.splice(accessTokens.findIndex(x => x.token == req.headers.authorization.split(" ")[1]), 1)
     
     res.status(204).end()
 })

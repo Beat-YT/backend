@@ -31,11 +31,7 @@ module.exports = async (req, res, next) => {
     try {
         const decoded = jwt.verify(req.headers.authorization.split("~")[1], "SlushWasHere")
         
-        if (decoded.am == "client_credentials") {
-            if (!clientTokens.includes(req.headers.authorization.split(" ")[1])) throw new Error("invalid")
-        } else {
-            if (!accessTokens.find(x => x.token == req.headers.authorization.split(" ")[1])) throw new Error("invalid")
-        }
+        if (!accessTokens.find(x => x.token == req.headers.authorization.split(" ")[1])) throw new Error("invalid")
         res.locals.jwt = new JWTInfo(decoded)
         
         next()

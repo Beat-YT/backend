@@ -48,8 +48,8 @@ module.exports = class Party {
             party: this
         })
 
-        if (xmppClients.find(x => x.id == joinInfo.connection.id.split("@")[0])) {
-            xmppClients.find(x => x.id == joinInfo.connection.id.split("@")[0]).client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify({
+        if (xmppClients[joinInfo.connection.id.split("@")[0]]) {
+            xmppClients[joinInfo.connection.id.split("@")[0]].client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify({
                 account_dn: joinInfo.meta["urn:epic:member:dn_s"],
                 account_id: joinInfo.connection.id.split("@")[0],
                 connection: {
@@ -73,7 +73,10 @@ module.exports = class Party {
     }
 
     getPartyLeader() {
-        return this.members.find(x => x.role == "CAPTAIN").account_id
+        try {
+            return this.members.find(x => x.role == "CAPTAIN").account_id
+        } catch {
+        }
     }
 
     setPartyLeader(id) {
@@ -105,7 +108,7 @@ module.exports = class Party {
 
         deleted.forEach(x => delete this.meta[x])
         this.revision++
-
+        
         this.sendMessageToClients({
             captain_id: this.getPartyLeader(),
             created_at: this.createdAt,
@@ -202,33 +205,38 @@ module.exports = class Party {
 
     removeMember(id) {
         var member = this.members.find(x => x.account_id == id)
-        this.members.splice(this.members.findIndex(x => x.account_id == id), 1)
-        parties.splice(parties.findIndex(x => x.id == this.id), 1, {
-            id: this.id,
-            members: this.members.map(x => {return x.account_id}),
-            party: this
-        })
-        
-        if (this.members.length == 0) return this.deleteParty()
 
-        if (member.role == "CAPTAIN") this.setPartyLeader(this.members[Math.floor(Math.random() * this.members.length)].account_id)
-
-        this.sendMessageToClients({
-            account_id: id,
-            member_state_update: {},
-            ns: "Fortnite",
-            party_id: this.id,
-            revision: this.revison || 0,
-            sent: new Date(),
-            type: "com.epicgames.social.party.notification.v0.MEMBER_LEFT"
-        })
+        if (member) {
+            this.members.splice(this.members.findIndex(x => x.account_id == id), 1)
+            parties.splice(parties.findIndex(x => x.id == this.id), 1, {
+                id: this.id,
+                members: this.members.map(x => {return x.account_id}),
+                party: this
+            })
+            
+            if (this.members.length == 0) return this.deleteParty()
+    
+            if (member.role == "CAPTAIN") this.setPartyLeader(this.members[Math.floor(Math.random() * this.members.length)].account_id)
+    
+            this.sendMessageToClients({
+                account_id: id,
+                member_state_update: {},
+                ns: "Fortnite",
+                party_id: this.id,
+                revision: this.revison || 0,
+                sent: new Date(),
+                type: "com.epicgames.social.party.notification.v0.MEMBER_LEFT"
+            })
+        }
     }
 
     sendMessageToClients(data) {
         this.members.forEach(r => {
             try {
-                xmppClients.find(x => x.id == r.account_id).sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify(data))
-            } catch {}
+                xmppClients[r.connections[0].id.split("@")[0]].client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify(data))
+            } catch (e){
+                console.log(e)
+            }
         })
     }
 

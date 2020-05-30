@@ -14,6 +14,14 @@ const schema = new mongoose.Schema({
         type: Number,
         default: 999
     },
+    banner: {
+        type: String,
+        default: ""
+    },
+    bannercolor: {
+        type: String,
+        default: ""
+    },
     character: {
         type: String,
         default: ""

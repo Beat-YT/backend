@@ -3,6 +3,8 @@ const EventEmitter = require("events").EventEmitter
 const xmlparser = require('xml-parser')
 const xmlbuilder = require("xmlbuilder")
 
+const Friends = require(`${__dirname}/../model/Friends`)
+
 module.exports = class Client extends EventEmitter {
     constructor(ws) {
         super()
@@ -81,12 +83,11 @@ module.exports = class Client extends EventEmitter {
             if (token.token == parsed[1]) {
                 this.id = parsed[0]
                 this.bIsAuthenticated = true
-                if (xmppClients.find(x => x.id = this.accountId)) xmppClients.splice(xmppClients.findIndex(x => x.id == this.accountId), 1)
-                xmppClients.push({
+                xmppClients[this.id] = {
                     id: this.id,
                     token: parsed[1],
                     client: this
-                })
+                }
 
                 this.ws.send(xmlbuilder.create({
                     'success': {
@@ -164,25 +165,61 @@ module.exports = class Client extends EventEmitter {
 
     }
 
-    handlepresence(message) {
+    async handlepresence(message) {
         try {
             var thing = JSON.parse(message.root.children.find(x => x.name == "status").content)
+            var friends = await Friends.findOne({id: this.id})
             this.sendPresence(this.jid, this.jid.split("/")[0], JSON.stringify(thing))
-        } catch (e) {}
+            this.sender = setInterval(() => {
+                this.sendPresence(this.jid, this.jid.split("/")[0], JSON.stringify(thing))
+                friends.accepted.forEach(friend => {
+                    if (xmppClients[friend.id]) {
+                        xmppClients[friend.id].client.sendPresence(`${friend.id}@prod.ol.epicgames.com`, this.jid, JSON.stringify(thing))
+                    }
+                })
+            }, 30000)
+            friends.accepted.forEach(friend => {
+                if (xmppClients[friend.id]) {
+                    xmppClients[friend.id].client.sendPresence(`${friend.id}@prod.ol.epicgames.com`, this.jid, JSON.stringify(thing))
+                }
+            })
+        } catch (e) {
+        }
     }
 
     handlemessage(message) {
-
+        //<message to="0f37f9ada53951e568b4640cf65b9d99@xmpp-service-prod.ol.epicgames.com" type="chat"><body>lmfaop</body></message>
+        switch(message.root.attributes.type) {
+            case "chat":
+                xmppClients[message.root.attributes.to.split("@")[0]].client.sendChat(this.jid, message.root.children[0].content)
+                break;
+        }
     }
 
     handleclose() {
-
+        clearInterval(this.sender)
+        delete xmppClients[this.id]
     }
 
     sendMessage(from, data) {
         this.ws.send(xmlbuilder.create({
             'message': {
                 '@xmlns': 'jabber:client',
+                '@to': this.jid,
+                '@from': from,
+                '@id': uuid().replace(/-/g, '').toUpperCase(),
+                'body': {
+                    "#text": data
+                }
+            }
+        }).end().replace(`<?xml version="1.0"?>`, "").trim())
+    }
+
+    sendChat(from, data) {
+        this.ws.send(xmlbuilder.create({
+            'message': {
+                '@xmlns': 'jabber:client',
+                '@type': "chat",
                 '@to': this.jid,
                 '@from': from,
                 '@id': uuid().replace(/-/g, '').toUpperCase(),

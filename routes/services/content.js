@@ -1,24 +1,40 @@
 const express = require("express")
+const request = require("request")
 const app = express.Router()
+
 
 
 app.get("/api/pages/fortnite-game", (req, res) => {
     res.json({
         "jcr:isCheckedOut": true,
-        "_title": "Fortnite Game",
+        _title: "Fortnite Game",
         "jcr:baseVersion": "a7ca237317f1e7883b3279-c38f-4aa7-a325-e099e4bf71e5",
-        "_activeDate": "2017-08-30T03:20:48.050Z",
-        "lastModified": new Date(),
-        "_locale": "en-US",
-        "subgameinfo": {
-            "lobby": {
-                "backgroundimage": "https://cdn2.unrealengine.com/Fortnite%2Ffortnite-game%2Flobby%2FT_Lobby_SeasonX-2048x1024-24e02780ed533da8001016f4e6fb14dd15e2f860.png",
-                "stage": "seasonx",
-                "_title": "lobby",
-                "_activeDate": "2019-05-31T21:24:39.892Z",
-                "lastModified":  "9999-12-31T23:59:59.999Z",
-                "_locale": "en-US"
-            },
+        _activeDate: "2017-08-30T03:20:48.050Z",
+        lastModified: new Date(),
+        _locale: "en-US",
+        subgameinfo: {
+            battleroyalenews: {
+                news: {
+                    motds: [
+                        {
+                            entryType: "Item",
+                            image: "https://cdn.discordapp.com/attachments/713173890859270276/716048896257949726/1080aurora.png",
+                            tileImage: "https://cdn.discordapp.com/attachments/713173890859270276/716049291348672662/1024aurora.png",
+                            hidden: false,
+                            videoMute: false,
+                            tabTitleOverride: "Aurora",
+                            _type: "CommonUI Simple Message MOTD",
+                            title: "Aurora",
+                            body: "Welcome to Aurora, a private server created by Slushia (@Slushia) & Cyuubi (@uguuNatalie). Join our Discord here for more information: discord.gg/AuroraPS",
+                            videoLoop: false,
+                            videoStreamingEnabled: false,
+                            sortingPriority: 0,
+                            id: `Aurora-News-0`,
+                            spotlight: false
+                        }
+                    ]
+                }
+            }   
         }
     })
 })

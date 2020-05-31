@@ -1,0 +1,32 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <title>Aurora</title>
+        <link rel="stylesheet" href="../css/index.css">
+    </head>
+    <body onload="loadData()">
+        <script>
+            function loadData() {
+                $.ajax({
+                    url: "/id/api/me",
+                    data: {
+                        zipcode: 97201
+                    },
+                    success: function(res) {
+                        //todo: fucking work whore
+                    },
+                    statusCode: {
+                        401: function() {
+                            window.location.href = "http://localhost/login";
+                        }
+                    }
+                });
+            }       
+        </script>
+        <div class="center">
+            <a id="thicc">Account</a><br>
+
+        </div>
+    </body>
+</html>

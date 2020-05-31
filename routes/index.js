@@ -4,16 +4,21 @@ const path = require("path")
 const app = express.Router()
 
 
-app.get("/", (req, res) => res.sendFile(path.join(__dirname, "/../html/index.html")))
+app.get("/", (req, res) => res.sendFile(path.join(__dirname, "/../public/html/index.html")))
 
-app.get("/download", (req, res) => res.sendFile(path.join(__dirname, "/../html/download.html")))
+app.get("/download", (req, res) => res.sendFile(path.join(__dirname, "/../public/html/download.html")))
 
-app.use(express.static(path.join(__dirname, "/../html")))
+app.get("/login", (req, res) => res.sendFile(path.join(__dirname, "/../public/html/login.html")))
+
+app.get("/signup", (req, res) => res.sendFile(path.join(__dirname, "/../public/html/signup.html")))
+
+app.get("/account", (req, res) => res.sendFile(path.join(__dirname, "/../public/html/account.html")))
+
+app.use('/css', express.static(`${__dirname}/../public/css/`))
+
+app.use('/files', express.static(`${__dirname}/../public/files/`))
+
 
 app.use("/id", require(`${__dirname}/id.js`))
 
-app.use("/aurora/connected", (req, res) => {
-    res.setHeader("content-type", "text/plain")
-    res.send(xmppClients.length.toString())
-})
 module.exports = app

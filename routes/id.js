@@ -1,3 +1,5 @@
+const cookieParser = require("cookie-parser")
+const request = require("request")
 const express = require("express")
 const bcrypt = require("bcrypt")
 const crypto = require("crypto")
@@ -8,6 +10,9 @@ const Friends = require(`${__dirname}/../model/Friends`)
 const Athena = require(`${__dirname}/../model/Athena`)
 const logging = require(`${__dirname}/../structs/logs`)
 const User = require(`${__dirname}/../model/User`)
+
+app.use(cookieParser())
+
 
 app.post("/api/register", async (req, res) => {
     if (req.body ? !req.body.username && !req.body.email && !req.body.password : true) {
@@ -80,5 +85,142 @@ app.get("/api/clients", (req, res) => {
     res.send(Object.keys(xmppClients).length.toString())
 })
 
+
+app.get('/api/register', (req, res) => {
+    res.write('<html>');
+    res.write('<form action="http://localhost/id/api/register" method="POST">');
+    res.write('<input type="email" name="email" placeholder="Email"> <br>'); 
+    res.write('<input type="text" name="username" placeholder="Username"> <br>'); 
+    res.write('<input type="password" name="password" placeholder="Password"> <br>'); 
+    res.write('<button type="submit">Login</button><br>');
+    res.write('</form>');
+    res.write('</html>');
+    res.end()
+})
+
+app.post("/api/login", async (req, res) => {
+    if (req.body ? !req.body.email && !req.body.password : true) {
+        return res.status(400).json({error: `${!req.body.username ? "Email" : "Password"} field was not provided.`})
+    }
+
+    var user = await User.findOne({email: req.body.email})
+
+    if (!user) return res.status(404).json({
+        code: 404,
+        message: "Account not found."
+    })
+
+    if (bcrypt.compareSync(req.body.password, user.password)) {
+        var code = bcrypt.hashSync(`${user.id}:omegalul`, bcrypt.genSaltSync(10))
+        res.cookie("id", user.id)
+        res.cookie("token", code)
+        res.status(204).end()
+    } else {
+        res.status(401).json({
+            code: 401,
+            message: "Credentials incorrect."
+        })
+    }
+
+})
+
+app.get("/api/me", async (req, res) => {
+
+    if (req.headers.discordauthor && req.headers.authorization == "slushbot!!") {
+        var user = await User.findOne({"discord.id": req.headers.discordauthor})
+
+        if (user) {
+            res.json({
+                id: user.id,
+                displayName: user.displayName,
+                email: user.email,
+                discord: user.discord
+            })  
+        }  else {
+            res.status(404).json({
+                code: 404,
+                message: "User is not linked to discord."
+            })
+        }
+    } else if (req.cookies.token) {
+        //2am: w hat could go wrong
+        if (!bcrypt.compareSync(`${req.cookies.id}:omegalul`, req.cookies.token)) return res.status(401).json({
+            code: 401,
+            message: "Unauthorized, is your token invalid?"
+        })
+
+        var user = await User.findOne({id: req.cookies.id})
+
+        res.json({
+            id: user.id,
+            displayName: user.displayName,
+            email: user.email,
+            discord: user.discord
+        })
+    } else res.status(404).end()
+})
+
+app.get("/api/discord/link", async (req, res) => {
+    if (!req.query.code) return res.status(400).json({
+        code: 400,
+        message: "Code query not provided"
+    })
+
+    request.post("https://discordapp.com/api/oauth2/token", ({form: {
+        client_id: "716499338016325712",
+        client_secret: "e_Tsc9ydOoGitRfhTr6I5izLOMtC5VZV",
+        grant_type: "authorization_code",
+        redirect_uri: "http://localhost/id/api/discord/link",
+        scope: ["identify"],
+        code: req.query.code
+    }}), (err, response, body) => {
+        body = JSON.parse(body)
+
+        request("https://discordapp.com/api/users/@me", ({
+            headers: {
+                authorization: `Bearer ${body.access_token}`
+            }
+        }), async (err, response, body) => {
+            body = JSON.parse(body)
+
+            if (bcrypt.compareSync(`${req.cookies.id}:omegalul`, req.cookies.token)) {
+                var check = await User.findOne({"discord.id": body.id})
+
+                if (check) await User.updateOne({id: check.id}, {discord: {}})
+                
+                await User.updateOne({id: req.cookies.id}, {discord: {
+                    id: body.id,
+                    username: body.username,
+                    discriminator: body.discriminator
+                }})
+
+                res.json({
+                    code: 200,
+                    message: "Successfully linked discord!"
+                })
+            } else return res.status(401).json({
+                code: 401,
+                message: "Unauthorized, is your token invalid?"
+            })
+        })
+
+
+    })
+})
+
+app.delete("/api/discord/unlink", async (req, res) => {
+
+    if (req.headers.discordauthor && req.headers.authorization == "slushbot!!") {
+        await User.updateOne({"discord.id": req.headers.discordauthor}, {discord: {}})
+
+        res.json({
+            code: 200,
+            message: "Unlinked account"
+        })
+    } else res.status(404).json({
+        code: 400,
+        message: "Unauthorized, is your token invalid?"
+    })
+})
 
 module.exports = app

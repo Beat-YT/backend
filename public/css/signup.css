@@ -1,0 +1,9 @@
+button {
+    box-sizing: border-box;
+    margin: 8px 0px;
+    padding: 12px 20px;
+    border-image: url("../files/gradient.png") 27 stretch;
+    background: rgba(0, 0, 0, 0);
+    overflow: hidden;
+    color: white;
+}

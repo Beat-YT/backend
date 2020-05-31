@@ -19,7 +19,7 @@ body,html {
     margin: 0;
     height: 100%;
     width: auto;
-    background: rgba(0, 0, 0, .9) url("gradient.png");
+    background: rgba(0, 0, 0, .9) url("../files/gradient.png");
     background-blend-mode: darken;
     overflow: hidden;
     background-size: cover;
@@ -43,7 +43,7 @@ body,html {
     font-size: 100px;
     -webkit-background-clip: text; 
     -webkit-text-fill-color: transparent; 
-    background-image: url("gradient.png");
+    background-image: url("../files/gradient.png");
     font-family: "SF Text"; 
     overflow: hidden;
     background-size: cover;
@@ -56,7 +56,7 @@ body,html {
     line-height: 60px;
     -webkit-background-clip: text; 
     -webkit-text-fill-color: transparent; 
-    background-image: url("gradient.png");
+    background-image:  url("../files/gradient.png");
     font-family: "SF Text"; 
     overflow: hidden;
     background-size: cover;

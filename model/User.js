@@ -27,6 +27,10 @@ const schema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: new Date()
+    },
+    discord: {
+        type: Object,
+        default: {}
     }
 })
 

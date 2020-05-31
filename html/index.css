@@ -19,8 +19,12 @@ body,html {
     margin: 0;
     height: 100%;
     width: auto;
-    background: rgba(0, 0, 0, .8) url("gradient.png");
-background-blend-mode: darken;
+    background: rgba(0, 0, 0, .9) url("gradient.png");
+    background-blend-mode: darken;
+    overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .center {
@@ -32,8 +36,6 @@ background-blend-mode: darken;
     left:50%; 
     font-size: 30px;
     transform:translate(-50%,-50%);
-    padding-left: inherit;
-    padding-right: inherit;
 }
 
 #thicc {
@@ -43,6 +45,9 @@ background-blend-mode: darken;
     -webkit-text-fill-color: transparent; 
     background-image: url("gradient.png");
     font-family: "SF Text"; 
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
 }
 
 #learnmore {
@@ -53,4 +58,7 @@ background-blend-mode: darken;
     -webkit-text-fill-color: transparent; 
     background-image: url("gradient.png");
     font-family: "SF Text"; 
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
 }

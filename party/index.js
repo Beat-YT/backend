@@ -5,7 +5,7 @@ module.exports = class Party {
         this.id = crypto.randomBytes(16).toString("hex")
         this.createdAt = new Date()
         this.updatedAt = new Date()
-        this.revison = 0
+        this.revision = 0
 
         this.config = {
             type: "DEFAULT",
@@ -64,12 +64,13 @@ module.exports = class Party {
                 },
                 ns: "Fortnite",
                 party_id: this.id,
-                revision: this.revison,
+                revision: this.revision,
                 sent: new Date(),
                 type: "com.epicgames.social.party.notification.v0.MEMBER_JOINED",
                 updated_at: new Date()
             }))
         }
+
     }
 
     getPartyLeader() {
@@ -96,7 +97,7 @@ module.exports = class Party {
             applicants: [],
             meta: this.meta,
             invites: [],
-            revision: this.revison || 0
+            revision: this.revision || 0
         }
     }
 
@@ -122,7 +123,7 @@ module.exports = class Party {
             party_state_updated: updated,
             party_sub_type: "default",
             party_type: "DEFAULT",
-            revison: this.revison,
+            revision: this.revision,
             sent: new Date(),
             type: "com.epicgames.social.party.notification.v0.PARTY_UPDATED",
             updated_at: new Date()
@@ -138,15 +139,15 @@ module.exports = class Party {
             }
             deleted.forEach(x => delete member.meta[x])
             member.revision++
-            this.members.splice(this.members.findIndex(x => x.id == id), 1, member)
+            this.members.splice(this.members.findIndex(x => x.account_id == id), 1, member)
 
             this.sendMessageToClients({
                 account_dn: member.meta["urn:epic:member:dn_s"],
                 account_id: member.account_id,
                 joined_at: member.joined_at,
-                member_state_overriden: {},
+                member_state_overridden: {},
                 member_state_removed: deleted,
-                member_state_update: updated,
+                member_state_updated: updated,
                 ns: "Fortnite",
                 party_id: this.id,
                 revision: member.revision,
@@ -176,7 +177,6 @@ module.exports = class Party {
             joined_at: new Date(),
             role: "MEMBER"
         })
-
         parties.splice(parties.findIndex(x => x.id == this.id), 1, {
             id: this.id,
             members: this.members.map(x => {return x.account_id}),
@@ -207,6 +207,15 @@ module.exports = class Party {
         var member = this.members.find(x => x.account_id == id)
 
         if (member) {
+            this.sendMessageToClients({
+                account_id: id,
+                member_state_update: {},
+                ns: "Fortnite",
+                party_id: this.id,
+                revision: this.revision || 0,
+                sent: new Date(),
+                type: "com.epicgames.social.party.notification.v0.MEMBER_LEFT"
+            })
             this.members.splice(this.members.findIndex(x => x.account_id == id), 1)
             parties.splice(parties.findIndex(x => x.id == this.id), 1, {
                 id: this.id,
@@ -217,25 +226,15 @@ module.exports = class Party {
             if (this.members.length == 0) return this.deleteParty()
     
             if (member.role == "CAPTAIN") this.setPartyLeader(this.members[Math.floor(Math.random() * this.members.length)].account_id)
-    
-            this.sendMessageToClients({
-                account_id: id,
-                member_state_update: {},
-                ns: "Fortnite",
-                party_id: this.id,
-                revision: this.revison || 0,
-                sent: new Date(),
-                type: "com.epicgames.social.party.notification.v0.MEMBER_LEFT"
-            })
+
         }
     }
 
     sendMessageToClients(data) {
         this.members.forEach(r => {
             try {
-                xmppClients[r.connections[0].id.split("@")[0]].client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify(data))
+                xmppClients[r.account_id].client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify(data))
             } catch (e){
-                console.log(e)
             }
         })
     }

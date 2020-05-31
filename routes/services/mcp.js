@@ -132,6 +132,113 @@ app.post("/api/game/v2/profile/:accountId/client/SetMtxPlatform", checkToken, as
     }
 });
 
+app.post("/api/game/v2/profile/:accountId/client/SetCosmeticLockerSlot", async (req, res) => {
+    if(req.method != "POST") return res.status(405).json(errors.method("fortnite", "prod-live"))
+
+    var bHasValidSlot = req.body.slotIndex ? true : req.body.slotIndex == 0 ? true : false
+    var bHasValidItem = req.body.itemToSlot ? true : req.body.itemToSlot == "" ? true : false
+
+    if (!bHasValidSlot || !bHasValidItem) {
+        return res.status(400).json(
+            error.create(
+                "errors.com.epicgames.validation.validation_failed", 1040, // Code
+                `Validation Failed. Valid fields are [lockerItem, category, slotIndex, itemToSlot]`, // Message
+
+                "fortnite", "prod-live", // Service & Intent
+
+                [req.query.profileId] // Variables
+            )
+        );
+    }
+
+    var item 
+    if (req.body.itemToSlot.split(":").length == 2) {
+        item = `${req.body.itemToSlot.split(":")[0]}:${req.body.itemToSlot.split(":")[1].toLowerCase()}`
+    } else {
+        item = ""
+    }
+
+    if (req.body.category == "Dance" || req.body.category == "ItemWrap") {
+        if (req.body.slotIndex == -1) {
+            var why = []
+            var num = req.body.category == "Dance" ? 6 : 7
+            for (i = 0; i < num; i++) {
+                why.push(item)
+            }
+            await Athena.updateOne({id: req.params.accountId}, {[req.body.category.toLowerCase()]: why})
+        } else await Athena.updateOne({id: req.params.accountId}, {$set: {[`${req.body.category.toLowerCase()}.${req.body.slotIndex}`]: req.body.itemToSlot}})
+    } else {
+        await Athena.updateOne({id: req.params.accountId}, {[req.body.category.toLowerCase()]: item})
+    }
+
+    var locker = await Athena.findOne({id: req.params.accountId})
+
+    res.json(createResponse([{
+        changeType: "itemAttrChanged",
+        attributeName: "locker_slots_data",
+        itemId: req.body.lockerItem,
+        attributeValue: {
+            slots: {
+                Glider: {
+                    items: [
+                        locker.glider
+                    ]
+                },
+                Dance: {
+                    items: locker.dance,
+                    activeVariants: [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                SkyDiveContrail: {
+                    items: [
+                        locker.skydivecontrail
+                    ]
+                },
+                LoadingScreen: {
+                    items: [
+                        locker.loadingscreen
+                    ]
+                },
+                Pickaxe: {
+                    items: [
+                        locker.pickaxe
+                    ]
+                },
+                ItemWrap: {
+                    items: locker.itemwrap,
+                },
+                MusicPack: {
+                    items: [
+                        locker.musicpack
+                    ]
+                },
+                Character: {
+                    items: [
+                        locker.character
+                    ],
+                    activeVariants: [
+                        null
+                    ]
+                },
+                Backpack: {
+                    items: [
+                        locker.backpack
+                    ],
+                    activeVariants: [
+                        null
+                    ]
+                }
+            }
+        }
+    }], "athena", Number(req.query.rvn)))
+})
+
 
 
 module.exports = app

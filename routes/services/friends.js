@@ -173,15 +173,11 @@ app.all("/api/v1/:accountId/friends/:friendId", checkToken, async (req, res) => 
         case "POST":
             switch (true) {
                 case friends.accepted.find(x => x.id == req.params.friendId) != undefined:
-                    res.json({
-                        accountId: req.params.friendId,
-                        groups: [],
-                        mutual: 0,
-                        alias: "",
-                        note: "",
-                        favorite: false,
-                        created: friends.accepted.find(x => x.id == req.params.friendId).createdAt
-                    })
+                    res.status(409).json(errors.create(
+                        "errors.com.epicgames.friends.friend_request_already_sent", 14014,
+                        `Friendship between ${req.params.accountId} and ${req.params.friendId} already exists.`,
+                        "friends", "prod", [req.params.friendId]
+                    ))
                     break;
                 case friends.outgoing.find(x => x.id == req.params.friendId) != undefined:
                     res.status(409).json(errors.create(
@@ -195,11 +191,62 @@ app.all("/api/v1/:accountId/friends/:friendId", checkToken, async (req, res) => 
                     await Friends.updateOne({id: req.params.friendId}, {$pull: {outgoing: {id: req.params.accountId}}, $push: {accepted: {id: req.params.accountId, createdAt: new Date()}}})
 
                     res.status(204).end()
+                    break;
                 default:
                     await Friends.updateOne({id: req.params.accountId}, {$push: {outgoing: {id: req.params.friendId, createdAt: new Date()}}})
                     await Friends.updateOne({id: req.params.friendId}, {$push: {incoming: {id: req.params.accountId, createdAt: new Date()}}})
 
+                    if (xmppClients[req.params.friendId]) {
+                        xmppClients[req.params.friendId].client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify({
+                            type: "FRIENDSHIP_REQUEST",
+                            timestamp: new Date(),
+                            from: req.params.accountId,
+                            to: req.params.friendId,
+                            status: "PENDING"
+                        }))
+
+                        //
+                        xmppClients[req.params.friendId].client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify({
+                            payload: {
+                                accountId: req.params.accountId,
+                                status: "PENDING",
+                                direction: "INBOUND",
+                                created: new Date(),
+                                favorite: false
+                            },
+                            type:"com.epicgames.friends.core.apiobjects.Friend",
+                            timestamp: new Date()
+                        }))
+                    }
                     res.status(204).end()
+                    break;
+            }
+            break;
+        case "DELETE":
+            switch (true) {
+                case friends.accepted.find(x => x.id == req.params.friendId) != undefined:
+                    await Friends.updateOne({id: req.params.accountId}, {$pull: {accepted: {id: req.params.friendId}}})
+                    await Friends.updateOne({id: req.params.friendId}, {$pull: {accepted: {id: req.params.accountId}}})
+
+                    res.status(204).end()
+                    break;
+                case friends.outgoing.find(x => x.id == req.params.friendId) != undefined:
+                    await Friends.updateOne({id: req.params.accountId}, {$pull: {outgoing: {id: req.params.friendId}}})
+                    await Friends.updateOne({id: req.params.friendId}, {$pull: {incoming: {id: req.params.accountId}}})    
+
+                    res.status(204).end()
+                    break;
+                case friends.incoming.find(x => x.id == req.params.friendId) != undefined:
+                    await Friends.updateOne({id: req.params.accountId}, {$pull: {incoming: {id: req.params.friendId}}})
+                    await Friends.updateOne({id: req.params.friendId}, {$pull: {outgoing: {id: req.params.accountId}}})    
+
+                    res.status(204).end()
+                default:
+                    res.status(404).json(errors.create(
+                        "errors.com.epicgames.friends.friendship_not_found", 14004,
+                        `Friendship between ${req.params.accountId} and ${req.params.friendId} does not exist`,
+                        "friends", "prod", [req.params.accountId, req.params.friendId]
+                    ))
                     break;
             }
             break;

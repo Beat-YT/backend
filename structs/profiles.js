@@ -1,5 +1,6 @@
 const Athena = require(`${__dirname}/../model/Athena`)
 const CommonCore = require(`${__dirname}/../model/CommonCore`)
+const caching = require(`${__dirname}/caching`)
 
 module.exports = {
     async commoncore(id) {
@@ -275,6 +276,22 @@ module.exports = {
                 },
             }
         }
+
+        caching.getCosmetics().forEach(cosmetic => {
+            final.profile.items[`${cosmetic.backendType}:${cosmetic.id}`] = {
+                templateId: `${cosmetic.backendType}:${cosmetic.id}`,
+                attributes: {
+                    max_level_bonus: 0,
+                    level: 1,
+                    item_seen: 1,
+                    xp: 0,
+                    variants: [],
+                    favorite: false
+                },
+                quantity: 1
+            }
+        })
+
         return final
     }
 }

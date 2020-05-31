@@ -7,9 +7,7 @@ const errors = require(`${__dirname}/../../structs/errors`)
 
 app.use(require(`${__dirname}/cloudstorage.js`))
 app.use(require(`${__dirname}/timeline.js`))
-
-
-app.use(require(`${__dirname}/mcp`))
+app.use(require(`${__dirname}/mcp.js`))
 
 app.all("/api/v2/versioncheck/Windows", (req, res) => {
     if(req.method != "GET") return res.status(405).json(errors.method("fortnite", "prod-live"))
@@ -35,7 +33,7 @@ app.all("/api/storefront/v2/keychain", checkToken, (req, res) => {
 
 app.all("/api/game/v2/matchmakingservice/ticket/player/:accountId", checkToken, (req, res) => {
     res.status(403).json(errors.create(
-        "Matchmaking is not supported on FDev. Sorry for any inconvience.", 12002,
+        "Matchmaking is not supported on Aurora. Sorry for any inconvience.", 12002,
         "dev.slushia.fdev.matchmaking.not_enabled",
         "fortnite", "prod"
     ))

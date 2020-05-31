@@ -166,26 +166,41 @@ module.exports = class Client extends EventEmitter {
     }
 
     async handlepresence(message) {
-        try {
-            var thing = JSON.parse(message.root.children.find(x => x.name == "status").content)
-            var friends = await Friends.findOne({id: this.id})
-            this.sendPresence(this.jid, this.jid.split("/")[0], JSON.stringify(thing))
-            this.sender = setInterval(() => {
+        if (message.root.attributes.to){
+            if (message.root.attributes.to.includes("muc.prod")) {
+                this.ws.send(xmlbuilder.create({
+                    'presence': {
+                        '@xmlns': 'jabber:client',
+                        '@to': this.jid,
+                        '@from': message.root.attributes.to,
+                        'x': {
+                            '@xmlns': "http://jabber.org/protocol/muc#user",
+                            'item': {
+                                "@affiliation": "owner",
+                                "@nick": message.root.attributes.to.split("/")[0],
+                                "@jid": this.jid
+                            }
+                        }
+                    }
+                }).end().replace(`<?xml version="1.0"?>`, "").trim())
+            }
+        } else {
+            try {
+                var thing = JSON.parse(message.root.children.find(x => x.name == "status").content)
+                var friends = await Friends.findOne({id: this.id})
                 this.sendPresence(this.jid, this.jid.split("/")[0], JSON.stringify(thing))
                 friends.accepted.forEach(friend => {
                     if (xmppClients[friend.id]) {
                         xmppClients[friend.id].client.sendPresence(`${friend.id}@prod.ol.epicgames.com`, this.jid, JSON.stringify(thing))
                     }
                 })
-            }, 30000)
-            friends.accepted.forEach(friend => {
-                if (xmppClients[friend.id]) {
-                    xmppClients[friend.id].client.sendPresence(`${friend.id}@prod.ol.epicgames.com`, this.jid, JSON.stringify(thing))
-                }
-            })
-        } catch (e) {
+            } catch (e) {
+
+            }
         }
     }
+
+
 
     handlemessage(message) {
         //<message to="0f37f9ada53951e568b4640cf65b9d99@xmpp-service-prod.ol.epicgames.com" type="chat"><body>lmfaop</body></message>

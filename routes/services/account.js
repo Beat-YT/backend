@@ -126,13 +126,18 @@ app.all("/api/oauth/token", async (req, res) => {
   
 // token killing
 
-app.all("/api/oauth/sessions/kill/:accessToken", (req, res) => {
+app.all("/api/oauth/sessions/kill/:accessToken", checkToken, (req, res) => {
     if (req.method != "DELETE") return res.status(405).json(errors.method())
 
-    console.log(accessTokens.findIndex(x => x.token == req.headers.authorization.split(" ")[1]))
-    accessTokens.splice(accessTokens.findIndex(x => x.token == req.headers.authorization.split(" ")[1]), 1)
-    
-    res.status(204).end()
+    if (accessTokens.find(x => x.token == req.params.accessToken)) {
+        if (xmppClients[res.locals.jwt.accountId]) delete xmppClients[res.locals.jwt.accountId]
+        accessTokens.splice(accessTokens.findIndex(x => x.token == req.params.accessToken), 1)
+        res.status(204).end()
+    } else res.status(404).json(errors.create(
+        "errors.com.epicgames.account.auth_token.unknown_oauth_session", 18051,
+        `Sorry we could not find the auth session '${req.params.accessToken}'`,
+        "com.epicgames.account.public", "prod", [req.params.accessToken] 
+    ))
 })
 
 

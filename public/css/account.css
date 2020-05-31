@@ -1,3 +1,33 @@
-body, html {
-    background-image: wheat;
+@font-face {
+    font-family: "SF Text Regular";
+    font-weight: 400;
+    src: url("https://sf.abarba.me/SF-UI-Text-Regular.otf");
+}
+
+label {
+    font-family: "SF Text Regular";
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    background-image:  url("../files/gradient.png");
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+
+input[type="submit"] {
+    border: none;
+    width: auto;
+    font-family: "SF Text Regular";
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    background-image:  url("../files/gradient.png");
+    overflow: hidden;
+    background-size: cover;
+    font-size: 50px;
+    background-position: center;
+}
+
+input[type="submit"]:hover {
+    cursor: pointer
 }

@@ -4,13 +4,23 @@
         <title>Aurora</title>
         <link rel="stylesheet" href="../css/index.css">
         <link rel="stylesheet" href="../css/login.css">
-    </head>
-    <body>
+        <link rel="stylesheet" href="../css/signup.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>
+            function checkAuth() {
+                if (document.cookie.split("=").find(x => x.includes("token"))) {
+                    window.location.replace("/account")
+                }
+            }
+        </script>
+    </head>    
+    <body onload="return checkAuth()">
         <div class="center">
             <a id="thicc">Login</a><br>
-            <form>
+            <form action="http://localhost/id/api/login" method="POST" >
                 <input type="email" name="email" placeholder="Email"><br>
                 <input type="password" name="password" id="" placeholder="password"><br>
+                <button type="submit">Login</button>
             </form>
             <a style="font-size: 20px;">Don't have an account?</a> 
             <a style="font-size: 20px;" id="learnmore" href="http://localhost/signup">Click here</a>

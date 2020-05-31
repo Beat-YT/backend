@@ -85,19 +85,6 @@ app.get("/api/clients", (req, res) => {
     res.send(Object.keys(xmppClients).length.toString())
 })
 
-
-app.get('/api/register', (req, res) => {
-    res.write('<html>');
-    res.write('<form action="http://localhost/id/api/register" method="POST">');
-    res.write('<input type="email" name="email" placeholder="Email"> <br>'); 
-    res.write('<input type="text" name="username" placeholder="Username"> <br>'); 
-    res.write('<input type="password" name="password" placeholder="Password"> <br>'); 
-    res.write('<button type="submit">Login</button><br>');
-    res.write('</form>');
-    res.write('</html>');
-    res.end()
-})
-
 app.post("/api/login", async (req, res) => {
     if (req.body ? !req.body.email && !req.body.password : true) {
         return res.status(400).json({error: `${!req.body.username ? "Email" : "Password"} field was not provided.`})
@@ -114,7 +101,7 @@ app.post("/api/login", async (req, res) => {
         var code = bcrypt.hashSync(`${user.id}:omegalul`, bcrypt.genSaltSync(10))
         res.cookie("id", user.id)
         res.cookie("token", code)
-        res.status(204).end()
+        res.redirect("/account")
     } else {
         res.status(401).json({
             code: 401,
@@ -150,12 +137,21 @@ app.get("/api/me", async (req, res) => {
         })
 
         var user = await User.findOne({id: req.cookies.id})
+        var athena = await Athena.findOne({id: user.id})
+        var commoncore = await CommonCore.findOne({id: user.id})
 
         res.json({
             id: user.id,
             displayName: user.displayName,
             email: user.email,
-            discord: user.discord
+            discord: user.discord,
+            athena: {
+                level: athena.level,
+                banner: athena.banner
+            },
+            commoncore: {
+                vbucks: commoncore.vbucks
+            }
         })
     } else res.status(404).end()
 })
@@ -194,10 +190,8 @@ app.get("/api/discord/link", async (req, res) => {
                     discriminator: body.discriminator
                 }})
 
-                res.json({
-                    code: 200,
-                    message: "Successfully linked discord!"
-                })
+                res.redirect("/account")
+
             } else return res.status(401).json({
                 code: 401,
                 message: "Unauthorized, is your token invalid?"
@@ -206,6 +200,12 @@ app.get("/api/discord/link", async (req, res) => {
 
 
     })
+})
+
+app.post("/api/logout", (req, res) => {
+    res.clearCookie("id")
+    res.clearCookie("token")
+    res.redirect("/login")
 })
 
 app.delete("/api/discord/unlink", async (req, res) => {
@@ -221,6 +221,50 @@ app.delete("/api/discord/unlink", async (req, res) => {
         code: 400,
         message: "Unauthorized, is your token invalid?"
     })
+})
+
+app.post("/api/vbucks", async (req, res) => {
+
+    if (req.headers.discordauthor && req.headers.authorization == "slushbot!!") {
+        var user = await User.findOne({"discord.id": req.headers.discordauthor})
+
+        
+    } else if (req.cookies.token) {
+        //2am: w hat could go wrong
+        if (!bcrypt.compareSync(`${req.cookies.id}:omegalul`, req.cookies.token)) return res.status(401).json({
+            code: 401,
+            message: "Unauthorized, is your token invalid?"
+        })
+
+        var vbucks
+        if (req.body.vbucks > 2147483647) vbucks = 2147483647; else vbucks = req.body.vbucks   
+
+        await CommonCore.updateOne({id: req.cookies.id}, {vbucks: vbucks})
+        res.redirect("/account")
+
+    } else res.status(404).end()
+})
+
+app.post("/api/level", async (req, res) => {
+    if (req.headers.discordauthor && req.headers.authorization == "slushbot!!") {
+        var user = await User.findOne({"discord.id": req.headers.discordauthor})
+
+        
+    } else if (req.cookies.token) {
+        //2am: w hat could go wrong
+        if (!bcrypt.compareSync(`${req.cookies.id}:omegalul`, req.cookies.token)) return res.status(401).json({
+            code: 401,
+            message: "Unauthorized, is your token invalid?"
+        })
+
+
+        var level
+        if (req.body.level > 2147483647) level = 2147483647; else level = req.body.level
+
+        await Athena.updateOne({id: req.cookies.id}, {level: level})
+        res.redirect("/account")
+
+    } else res.status(404).end()
 })
 
 module.exports = app

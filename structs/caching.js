@@ -37,5 +37,13 @@ module.exports = {
 
     getCosmetics() {
         return JSON.parse(fs.readFileSync(`${__dirname}/../cache/cosmetics.json`));
+    },
+
+    getBanners() {
+        return JSON.parse(fs.readFileSync(`${__dirname}/../cache/banners.json`));
+    },
+
+    getBannerColors() {
+        return JSON.parse(fs.readFileSync(`${__dirname}/../cache/colors.json`));
     }
 }

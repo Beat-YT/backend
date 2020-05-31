@@ -4,29 +4,50 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <title>Aurora</title>
         <link rel="stylesheet" href="../css/index.css">
+        <link rel="stylesheet" href="../css/login.css">
+        <link rel="stylesheet" href="../css/account.css">
     </head>
     <body onload="loadData()">
         <script>
             function loadData() {
                 $.ajax({
                     url: "/id/api/me",
-                    data: {
-                        zipcode: 97201
-                    },
                     success: function(res) {
-                        //todo: fucking work whore
-                    },
-                    statusCode: {
-                        401: function() {
-                            window.location.href = "http://localhost/login";
+                        $("#vbucks").attr("placeholder", res.commoncore.vbucks);
+                        $("#level").attr("placeholder", res.athena.level);
+                        if (res.discord.id) {
+                            $("#discordlink2").remove()
+                        } else {
+                            $("#discordlink1").remove()
+
                         }
+                    },
+                    error: function() {
+                        window.location.replace("/login")
                     }
                 });
-            }       
+            }   
         </script>
         <div class="center">
             <a id="thicc">Account</a><br>
-
-        </div>
+            <form action="/id/api/vbucks" method="POST">
+                <label for="vbucks">V-Bucks</label><br>
+                <input type="number" name="vbucks" id="vbucks"><br>
+            </form>
+            <form action="/id/api/level" method="POST">
+                <label for="vbucks">Level</label><br>
+                <input type="number" name="level" id="level"><br>
+            </form>
+            <div style="font-size: 20px" id="discordlink1">
+                <a>You are linked with Discord.</a>
+            </div>
+            <div style="font-size: 20px" id="discordlink2">
+                <a>You are not linked with Discord.</a>
+                <a style="font-size: 20px" id="learnmore" href="https://discord.com/oauth2/authorize?client_id=716499338016325712&redirect_uri=http%3A%2F%2Flocalhost%2Fid%2Fapi%2Fdiscord%2Flink&response_type=code&scope=identify">Click here</a>
+                <a>to link.</a>
+            </div>
+            <form action="/id/api/logout" method="post">
+                <input type="submit" value="Logout" />
+            </form>
     </body>
 </html>

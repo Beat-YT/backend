@@ -192,23 +192,44 @@ app.all("/api/v1/:accountId/friends/:friendId", checkToken, async (req, res) => 
 
                     if (xmppClients[req.params.friendId]) {
                         xmppClients[req.params.friendId].client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify({
-                            type: "FRIENDSHIP_REQUEST",
+                            type:"FRIENDSHIP_REQUEST",
                             timestamp: new Date(),
-                            from: req.params.accountId,
-                            to: req.params.friendId,
-                            status: "PENDING"
+                            from: req.params.friendId,
+                            to: req.params.accountId,
+                            status: "ACCEPTED"
                         }))
 
-                        
                         xmppClients[req.params.friendId].client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify({
                             payload: {
                                 accountId: req.params.accountId,
-                                status: "PENDING",
+                                status: "ACCEPTED",
                                 direction: "OUTBOUND",
                                 created: new Date(),
                                 favorite: false
                             },
-                            type:"com.epicgames.friends.core.apiobjects.Friend",
+                            type: "com.epicgames.friends.core.apiobjects.Friend",
+                            timestamp: new Date()
+                        }))
+                    }
+
+                    if (xmppClients[req.params.accountId]) {
+                        xmppClients[req.params.accountId].client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify({
+                            type:"FRIENDSHIP_REQUEST",
+                            timestamp: new Date(),
+                            from: req.params.friendId,
+                            to: req.params.accountId,
+                            status: "ACCEPTED"
+                        }))
+
+                        xmppClients[req.params.accountId].client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify({
+                            payload: {
+                                accountId: req.params.friendId,
+                                status: "ACCEPTED",
+                                direction: "INBOUND",
+                                created: new Date(),
+                                favorite: false
+                            },
+                            type: "com.epicgames.friends.core.apiobjects.Friend",
                             timestamp: new Date()
                         }))
                     }

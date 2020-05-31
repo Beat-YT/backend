@@ -286,7 +286,26 @@ app.all("/api/v1/Fortnite/user/:accountId/pings/:pingerId/join", checkToken, (re
 
 })
 
+app.all("/api/v1/Fortnite/parties/:partyId/members/:accountId/promote", checkToken, async (req, res) => {
+    if(req.method != "POST") return res.status(405).json(errors.method("party", "prod"))
 
+    var party = parties.find(x => x.id == req.params.partyId)
+    if (!party) return res.status(404).json(errors.create(
+        "errors.com.epicgames.social.party.party_not_found", 51002,
+        `Sorry, we couldn't find a party by id ${req.params.partyId}`,
+        "party", "prod", [req.params.partyId]
+    ))
+
+    if (!res.locals.jwt.accountId == party.party.getPartyLeader()) return res.status(403).json(errors.create(
+        "errors.com.epicgames.social.party.member_state_change_forbidden", 51014,
+        `The user ${res.locals.jwt.accountId} has no permission to change member state of ${req.params.accountId}`,
+        "party", "prod", [res.locals.jwt.accountId, req.params.accountId]
+    ))
+
+    party.party.setPartyLeader(req.params.accountId)
+    res.status(204).end()
+
+})
 app.use((req, res, next) => {
     res.status(404).json(errors.create(
         "errors.com.epicgames.common.not_found", 1004,

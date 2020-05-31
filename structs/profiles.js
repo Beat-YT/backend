@@ -6,7 +6,7 @@ module.exports = {
     async commoncore(id) {
         var commoncore = await CommonCore.findOne({id: id})
 
-        return {
+        var final = {
             changeType: "fullProfileUpdate",
             profile: {
                 _id: id,
@@ -71,6 +71,28 @@ module.exports = {
                 }
             }
         }
+
+        caching.getBanners().forEach(banner => {
+            final.profile.items[`HomebaseBannerIcon:${banner.toLowerCase()}`] = {
+                templateId: `HomebaseBannerIcon:${banner.toLowerCase()}`,
+                attributes: {
+                    "item_seen": true
+                },
+                quantity: 1
+            }
+        })
+
+        caching.getBannerColors().forEach(banner => {
+            final.profile.items[`HomebaseBannerColor:${banner.toLowerCase()}`] = {
+                templateId: `HomebaseBannerColor:${banner.toLowerCase()}`,
+                attributes: {
+                    "item_seen": true
+                },
+                quantity: 1
+            }
+        })
+        
+        return final
     },
 
     async athena(id) {
@@ -153,7 +175,7 @@ module.exports = {
                             use_count: 0,
                             banner_icon_template: "OtherBanner28",
                             banner_color_template: "defaultcolor0",
-                            locker_name: "FDev",
+                            locker_name: "Aurora",
                             item_seen: false,
                             favorite: false
                         },
@@ -224,7 +246,7 @@ module.exports = {
                             use_count: 0,
                             banner_icon_template: "OtherBanner28",
                             banner_color_template: "defaultcolor0",
-                            locker_name: "FDev",
+                            locker_name: "Aurora",
                             item_seen: false,
                             favorite: false
                         },

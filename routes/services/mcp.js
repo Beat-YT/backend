@@ -134,13 +134,15 @@ app.post("/api/game/v2/profile/:accountId/client/SetMtxPlatform", checkToken, as
 
 app.post("/api/game/v2/profile/:accountId/client/SetCosmeticLockerSlot", async (req, res) => {
     if(req.method != "POST") return res.status(405).json(errors.method("fortnite", "prod-live"))
+    if(!res.locals.jwt.checkPermission(`fortnite:profile:${req.params.accountId}:commands`, "ALL")) 
+        return res.status(403).json(errors.permission(`fortnite:profile:${req.params.accountId}:commands`, "ALL", "fortnite", "prod-live"))
 
     var bHasValidSlot = req.body.slotIndex ? true : req.body.slotIndex == 0 ? true : false
     var bHasValidItem = req.body.itemToSlot ? true : req.body.itemToSlot == "" ? true : false
 
     if (!bHasValidSlot || !bHasValidItem) {
         return res.status(400).json(
-            error.create(
+            errors.create(
                 "errors.com.epicgames.validation.validation_failed", 1040, // Code
                 `Validation Failed. Valid fields are [lockerItem, category, slotIndex, itemToSlot]`, // Message
 

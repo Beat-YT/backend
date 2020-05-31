@@ -8,3 +8,12 @@ input {
     overflow: hidden;
     color: white;
 }
+
+input[type="submit"] {
+    box-sizing: border-box;
+    width: 20%;
+    border-image: url("../files/gradient.png") 27 stretch;
+    background: rgba(0, 0, 0, 0);
+    overflow: hidden;
+    color: white;
+}

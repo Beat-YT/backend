@@ -82,9 +82,22 @@ module.exports = class Party {
 
     setPartyLeader(id) {
         var member = this.members.find(x => x.account_id == id)
-        if (!member) return
-        member.role == "CAPTAIN"
+        var captain = this.members.find(x => x.account_id == this.getPartyLeader())
+        member.role = "CAPTAIN"
+        captain.role = "MEMBER"
+
+        this.members.splice(this.members.findIndex(x => x.account_id == this.getPartyLeader()), 1, captain)
         this.members.splice(this.members.findIndex(x => x.account_id == id), 1, member)
+
+        this.sendMessageToClients({
+            account_id: id,
+            member_state_update: {},
+            ns: "Fortnite",
+            party_id: this.id,
+            revision: this.revision || 0,
+            sent: new Date(),
+            type: "com.epicgames.social.party.notification.v0.MEMBER_NEW_CAPTAIN"
+        })
     }
 
     getPartyInfo() {
@@ -132,6 +145,7 @@ module.exports = class Party {
 
     updateUserMeta(id, updated, deleted) {
         var member = this.members.find(x => x.account_id == id)
+
         if (member) {
             member.meta = {
                 ...member.meta,
@@ -205,29 +219,24 @@ module.exports = class Party {
 
     removeMember(id) {
         var member = this.members.find(x => x.account_id == id)
+        
+        if (!member) return;
 
-        if (member) {
-            this.sendMessageToClients({
-                account_id: id,
-                member_state_update: {},
-                ns: "Fortnite",
-                party_id: this.id,
-                revision: this.revision || 0,
-                sent: new Date(),
-                type: "com.epicgames.social.party.notification.v0.MEMBER_LEFT"
-            })
-            this.members.splice(this.members.findIndex(x => x.account_id == id), 1)
-            parties.splice(parties.findIndex(x => x.id == this.id), 1, {
-                id: this.id,
-                members: this.members.map(x => {return x.account_id}),
-                party: this
-            })
-            
-            if (this.members.length == 0) return this.deleteParty()
-    
-            if (member.role == "CAPTAIN") this.setPartyLeader(this.members[Math.floor(Math.random() * this.members.length)].account_id)
+        
+        this.sendMessageToClients({
+            account_id: id,
+            member_state_update: {},
+            ns: "Fortnite",
+            party_id: this.id,
+            revision: this.revision || 0,
+            sent: new Date(),
+            type: "com.epicgames.social.party.notification.v0.MEMBER_LEFT"
+        })
 
-        }
+        if (member.role == "CAPTAIN") this.members[0].role == "CAPTAIN"
+        
+        this.members.splice(this.members.findIndex(x => x.account_id == id), 1)
+
     }
 
     sendMessageToClients(data) {

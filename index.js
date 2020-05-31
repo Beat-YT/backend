@@ -7,6 +7,10 @@ const cache = require(`${__dirname}/structs/caching`)
 const logging = require(`${__dirname}/structs/logs`)
 const config = require(`${__dirname}/config.json`)
 
+app.use((req, res, next) => {
+    console.log(req)
+    next()
+})
 //i know global isn't the best practice, but it works good enough
 global.refreshTokens = []
 global.exchangeCodes = {}

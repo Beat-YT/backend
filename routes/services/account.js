@@ -220,20 +220,20 @@ app.all("/api/oauth/verify", checkToken, (req, res) => {
     var token = accessTokens.find(x => x.token == req.headers.authorization.split(" ")[1])
     
     res.json({
-        access_token: token.token,
+        access_token: req.headers.authorization.split(" ")[1],
         expires_in: 28800,
         expires_at: new Date().addHours(8),
         token_type: "bearer",
         refresh_token: "cd581d37b0434726a37b0268bb99206c",
         refresh_expires: 115200,
         refresh_expires_at: new Date().addHours(8),
-        account_id: token.id,
+        account_id: res.locals.jwt.accountId,
         client_id: "3446cd72694c4a4485d81b77adbb2141",
         internal_client: true,
         client_service: "fortnite",
-        displayName: token.displayName,
+        displayName: res.locals.jwt.displayName,
         app: "fortnite",
-        in_app_id: token.id,
+        in_app_id: res.locals.jwt.id,
         device_id: "164fb25bb44e42c5a027977d0d5da800"
     })
 })

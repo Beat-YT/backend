@@ -190,6 +190,28 @@ app.all("/api/v1/:accountId/friends/:friendId", checkToken, async (req, res) => 
                     await Friends.updateOne({id: req.params.accountId}, {$pull: {incoming: {id: req.params.friendId}}, $push: {accepted: {id: req.params.friendId, createdAt: new Date()}}})
                     await Friends.updateOne({id: req.params.friendId}, {$pull: {outgoing: {id: req.params.accountId}}, $push: {accepted: {id: req.params.accountId, createdAt: new Date()}}})
 
+                    if (xmppClients[req.params.friendId]) {
+                        xmppClients[req.params.friendId].client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify({
+                            type: "FRIENDSHIP_REQUEST",
+                            timestamp: new Date(),
+                            from: req.params.accountId,
+                            to: req.params.friendId,
+                            status: "PENDING"
+                        }))
+
+                        
+                        xmppClients[req.params.friendId].client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify({
+                            payload: {
+                                accountId: req.params.accountId,
+                                status: "PENDING",
+                                direction: "OUTBOUND",
+                                created: new Date(),
+                                favorite: false
+                            },
+                            type:"com.epicgames.friends.core.apiobjects.Friend",
+                            timestamp: new Date()
+                        }))
+                    }
                     res.status(204).end()
                     break;
                 default:

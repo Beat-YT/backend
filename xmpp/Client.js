@@ -203,7 +203,7 @@ module.exports = class Client extends EventEmitter {
         }
     }
 
-    handleclose() {
+    async handleclose() {
         var friends = await Friends.findOne({id: this.id})
 
         friends.accepted.forEach(friend => {

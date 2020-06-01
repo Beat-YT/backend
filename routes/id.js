@@ -24,7 +24,10 @@ app.post("/api/register", async (req, res) => {
     }
 
     var bEmailExists = await User.findOne({email: req.body.email.toLowerCase()})
-    var bUsernameExists = await User.findOne({displayName: req.body.username.toLowerCase()})
+    var bUsernameExists = await User.find({displayName: new RegExp(`^${req.body.username}$`, 'i') })
+
+    if (bUsernameExists.length != 0) bUsernameExists = true
+    else bUsernameExists = null
     if (bUsernameExists != null || bEmailExists != null) return res.status(400).json({
         error: `${bUsernameExists ? "Username" : "Email"} already exists.`
     })
@@ -84,8 +87,6 @@ app.post("/api/login", async (req, res) => {
     if (req.body ? !req.body.email && !req.body.password : true) {
         return res.status(400).json({error: `${!req.body.username ? "Email" : "Password"} field was not provided.`})
     }
-
-    var user = await User.findOne({email: req.body.email})
 
     if (!user) return res.status(404).json({
         code: 404,

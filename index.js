@@ -59,3 +59,10 @@ app.listen(process.env.port || config.port || 80, () => {
     logging.fdev(`Listening on port \x1b[36m${process.env.port || config.port || 80}`)
     logging.fdev(`XMPP listening on port \x1b[36m${process.env.xmppPort || config.xmppPort || 443}`)
 })
+
+
+
+
+const User = require("./model/User")
+
+User.find({ 'displayName': new RegExp(`^dad$`, 'i') }).then(r => console.log(r))

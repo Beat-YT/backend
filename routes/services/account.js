@@ -164,8 +164,11 @@ app.get('/api/public/account/:accountId/externalAuths', checkToken, (req, res) =
 
 app.all("/api/public/account/displayName/:displayName", checkToken , async (req, res) => {
     if (req.method != "GET") return res.status(405).json(errors.method())
-    var user = await User.findOne({displayName: req.params.displayName.toLowerCase()})
+    var user = await User.find({displayName: new RegExp(`^${req.body.username}$`, 'i') })
 
+    if (user.length != 0) user = user[0]
+    else user = null
+    
     if (user) res.json({
         id: user.id,
         displayName: user.displayName,
@@ -187,6 +190,7 @@ app.all("/api/public/account/email/:email", checkToken, async (req, res) => {
         displayName: user.displayName,
         externalAuths: {}
     })
+
     else return res.status(404).json(errors.create(
         "errors.com.epicgames.account.account_not_found", 18007,
         `Sorry, we couldn't find an account for ${req.params.displayName}`,

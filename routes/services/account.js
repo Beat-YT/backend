@@ -164,7 +164,7 @@ app.get('/api/public/account/:accountId/externalAuths', checkToken, (req, res) =
 
 app.all("/api/public/account/displayName/:displayName", checkToken , async (req, res) => {
     if (req.method != "GET") return res.status(405).json(errors.method())
-    var user = await User.findOne({displayName: req.params.displayName})
+    var user = await User.findOne({displayName: req.params.displayName.toLowerCase()})
 
     if (user) res.json({
         id: user.id,

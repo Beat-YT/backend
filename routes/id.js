@@ -23,8 +23,8 @@ app.post("/api/register", async (req, res) => {
         return res.status(400).json({error: `Email ${req.body.email} is invalid.`})
     }
 
-    var bEmailExists = await User.findOne({email: req.body.email})
-    var bUsernameExists = await User.findOne({displayName: req.body.username})
+    var bEmailExists = await User.findOne({email: req.body.email.toLowerCase()})
+    var bUsernameExists = await User.findOne({displayName: req.body.username.toLowerCase()})
     if (bUsernameExists != null || bEmailExists != null) return res.status(400).json({
         error: `${bUsernameExists ? "Username" : "Email"} already exists.`
     })

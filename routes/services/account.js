@@ -162,13 +162,13 @@ app.all("/api/public/account/:accountId", checkToken, async (req, res) => {
 app.get('/api/public/account/:accountId/externalAuths', checkToken, (req, res) => res.json({}))
 
 
-app.all("/api/public/account/displayName/:displayName", checkToken , async (req, res) => {
+app.all("/api/public/account/displayName/:displayName" , async (req, res) => {
     if (req.method != "GET") return res.status(405).json(errors.method())
-    var user = await User.find({displayName: new RegExp(`^${req.body.username}$`, 'i') })
+    var user = await User.find({displayName: new RegExp(`^${req.params.displayName}$`, 'i') })
 
     if (user.length != 0) user = user[0]
     else user = null
-    
+
     if (user) res.json({
         id: user.id,
         displayName: user.displayName,

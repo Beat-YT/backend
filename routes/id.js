@@ -50,12 +50,7 @@ app.post("/api/register", async (req, res) => {
 
     logging.accounts(`Created account \x1b[36m${req.body.username}\x1b[0m with the ID \x1b[36m${id}`)
     const createdUser = await user.save().catch(e => res.status(400).send(e))
-    res.json({
-        id: createdUser.id,
-        email: createdUser.email,
-        displayName: createdUser.displayName,
-        password: req.body.password
-    })
+    res.redirect("/login")
 })
 
 app.post("/api/exchange", async (req, res) => {
@@ -259,7 +254,7 @@ app.post("/api/level", async (req, res) => {
 
 
         var level
-        if (req.body.level > 2147483647) level = 2147483647; else level = req.body.level
+        if (req.body.level > 9999) level = 9999; else level = req.body.level
 
         await Athena.updateOne({id: req.cookies.id}, {level: level})
         res.redirect("/account")

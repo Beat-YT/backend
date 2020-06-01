@@ -204,20 +204,31 @@ module.exports = class Client extends EventEmitter {
     }
 
     handleclose() {
-        this.ws.send(xmlbuilder.create({
-            'presence': {
-                '@xmlns': 'jabber:client',
-                '@to': to,
-                '@from': from,
-                '@type': "unavailable",
-                'status': {
-                    "#text": data
-                }
+        var friends = await Friends.findOne({id: this.id})
+
+        friends.accepted.forEach(friend => {
+            if (xmppClients[friend.id]) {
+                this.ws.send(xmlbuilder.create({
+                    'presence': {
+                        '@xmlns': 'jabber:client',
+                        '@to': xmppClients[friend.id].client.jid,
+                        '@from': this.jid,
+                        '@type': "unavailable",
+                        'status': {
+                            "#text": {
+                                "bHasVoiceSupport":false,
+                                "bIsJoinable":false,
+                                "bIsPlaying":false,
+                                "Properties": {
+                                    "bInPrivate": true
+                                },
+                                "SessionId":"","Status":"Playing Battle Royale - 1 / 16"}
+                        }
+                    }
+                }).end().replace(`<?xml version="1.0"?>`, "").trim())            
             }
-        }).end().replace(`<?xml version="1.0"?>`, "").trim())
-        //this.latest = <presence xmlns="jabber:client" type="unavailable" from="10271576defb4c5f98a8956781d1db44@prod.ol.epicgames.com/V2:Fortnite:PSN::1D77E107147C45FBA539EA5ECEEE05E6" id="adf3e480-8ce0-4051-b850-5725612b21eb" to="a44546da44fb460784d1c793fa95c3c2@prod.ol.epicgames.com/V2:Fortnite:PSN::41772E6C83B240239A3CBBD2F6A62676"><status>{"bHasVoiceSupport":false,"bIsJoinable":false,"bIsPlaying":false,"Properties":{"bInPrivate":true},"SessionId":"","Status":"Playing Battle Royale - 1 / 16"}
+        })
         
-        this.sendPresenceToFriends()
         clearInterval(this.sender)
         delete xmppClients[this.id]
     }

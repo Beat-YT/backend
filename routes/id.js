@@ -107,17 +107,27 @@ app.post("/api/login", async (req, res) => {
 })
 
 app.get("/api/me", async (req, res) => {
-
     if (req.headers.discordauthor && req.headers.authorization == "slushbot!!") {
         var user = await User.findOne({"discord.id": req.headers.discordauthor})
 
         if (user) {
+            var user = await User.findOne({"discord.id": req.headers.discordauthor})
+            var athena = await Athena.findOne({id: user.id})
+            var commoncore = await CommonCore.findOne({id: user.id})
+    
             res.json({
                 id: user.id,
                 displayName: user.displayName,
                 email: user.email,
-                discord: user.discord
-            })  
+                discord: user.discord,
+                athena: {
+                    level: athena.level,
+                    banner: athena.banner
+                },
+                commoncore: {
+                    vbucks: commoncore.vbucks
+                }
+            })
         }  else {
             res.status(404).json({
                 code: 404,
@@ -222,8 +232,13 @@ app.post("/api/vbucks", async (req, res) => {
 
     if (req.headers.discordauthor && req.headers.authorization == "slushbot!!") {
         var user = await User.findOne({"discord.id": req.headers.discordauthor})
+        if (!user) return res.status(404).end()
 
-        
+        if (req.body.vbucks > 2147483647) vbucks = 2147483647; else vbucks = req.body.vbucks   
+
+        await CommonCore.updateOne({id: user.id}, {vbucks: vbucks})
+
+        res.status(204).end()
     } else if (req.cookies.token) {
         //2am: w hat could go wrong
         if (!bcrypt.compareSync(`${req.cookies.id}:omegalul`, req.cookies.token)) return res.status(401).json({
@@ -243,8 +258,13 @@ app.post("/api/vbucks", async (req, res) => {
 app.post("/api/level", async (req, res) => {
     if (req.headers.discordauthor && req.headers.authorization == "slushbot!!") {
         var user = await User.findOne({"discord.id": req.headers.discordauthor})
+        if (!user) return res.status(404).end()
 
-        
+        var level
+        if (req.body.level > 9999) level = 9999; else level = req.body.level
+
+        await Athena.updateOne({id: user.id}, {level: level})
+        res.status(204).end()
     } else if (req.cookies.token) {
         //2am: w hat could go wrong
         if (!bcrypt.compareSync(`${req.cookies.id}:omegalul`, req.cookies.token)) return res.status(401).json({

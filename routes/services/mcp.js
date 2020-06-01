@@ -85,7 +85,7 @@ app.all(`/api/game/v2/profile/:accountId/client/ClientQuestLogin`, checkToken, a
     }
 })
 
-app.post("/api/game/v2/profile/:accountId/client/SetMtxPlatform", (req, res) => {
+app.post("/api/game/v2/profile/:accountId/client/SetMtxPlatform", checkToken, (req, res) => {
     if(req.method != "POST") return res.status(405).json(errors.method("fortnite", "prod-live"))
     if(!res.locals.jwt.checkPermission(`fortnite:profile:${req.params.accountId}:commands`, "ALL")) 
         return res.status(403).json(errors.permission(`fortnite:profile:${req.params.accountId}:commands`, "ALL", "fortnite", "prod-live"))

@@ -15,12 +15,6 @@
                     success: function(res) {
                         $("#vbucks").attr("placeholder", res.commoncore.vbucks);
                         $("#level").attr("placeholder", res.athena.level);
-                        if (res.discord.id) {
-                            $("#discordlink2").remove()
-                        } else {
-                            $("#discordlink1").remove()
-
-                        }
                     },
                     error: function() {
                         window.location.replace("/login")
@@ -38,14 +32,6 @@
                 <label for="vbucks">Level</label><br>
                 <input type="number" name="level" id="level"><br>
             </form>
-            <div style="font-size: 20px" id="discordlink1">
-                <a>You are linked with Discord.</a>
-            </div>
-            <div style="font-size: 20px" id="discordlink2">
-                <a>You are not linked with Discord.</a>
-                <a style="font-size: 20px" id="learnmore" href="https://discord.com/oauth2/authorize?client_id=716499338016325712&redirect_uri=http%3A%2F%2Flocalhost%2Fid%2Fapi%2Fdiscord%2Flink&response_type=code&scope=identify">Click here</a>
-                <a>to link.</a>
-            </div>
             <form action="/id/api/logout" method="post">
                 <input type="submit" value="Logout" />
             </form>

@@ -89,7 +89,7 @@ app.post("/api/login", async (req, res) => {
     }
 
     var user = await User.find({displayName: new RegExp(`^${req.body.username}$`, 'i') })
-    if (user.length != 0) yes = yes[0]
+    if (user.length != 0) user = user[0]
     else user = null
 
     if (!user) return res.status(404).json({

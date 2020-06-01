@@ -88,7 +88,7 @@ app.post("/api/login", async (req, res) => {
         return res.status(400).json({error: `${!req.body.username ? "Email" : "Password"} field was not provided.`})
     }
 
-    var user = await User.find({displayName: new RegExp(`^${req.body.username}$`, 'i') })
+    var user = await User.find({email: new RegExp(`^${req.body.email}$`, 'i') })
     if (user.length != 0) user = user[0]
     else user = null
 

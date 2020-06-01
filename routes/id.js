@@ -88,6 +88,10 @@ app.post("/api/login", async (req, res) => {
         return res.status(400).json({error: `${!req.body.username ? "Email" : "Password"} field was not provided.`})
     }
 
+    var yes = await User.find({displayName: new RegExp(`^${req.body.username}$`, 'i') })
+    if (yes.length != 0) yes = yes[0]
+    else yes = null
+
     if (!user) return res.status(404).json({
         code: 404,
         message: "Account not found."

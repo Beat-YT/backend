@@ -7,9 +7,9 @@ const app = express.Router()
 
 const User = require(`${__dirname}/../../model/User`)
 
-const checkToken = require("../../middleware/checkToken")
-const createJWT = require("../../structs/createJWT")
-const errors = require("../../structs/errors")
+const checkToken = require(`${__dirname}/../../middleware/checkToken`)
+const createJWT = require(`${__dirname}/../../structs/createJWT`)
+const errors = require(`${__dirname}/../../structs/errors`)
 
 
 Date.prototype.addHours = function(h) {

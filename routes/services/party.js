@@ -7,7 +7,7 @@ const checkToken = require(`${__dirname}/../../middleware/checkToken`)
 const errors = require(`${__dirname}/../../structs/errors`)
 const Friends = require(`${__dirname}/../../model/Friends`)
 const User = require(`${__dirname}/../../model/User`)
-const Party = require(`../../party`)
+const Party = require(`${__dirname}/../../party`)
 
 Date.prototype.addHours = function(h) {
     this.setTime(this.getTime() + (h*60*60*1000));

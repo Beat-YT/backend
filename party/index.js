@@ -233,9 +233,19 @@ module.exports = class Party {
             type: "com.epicgames.social.party.notification.v0.MEMBER_LEFT"
         })
 
-        if (member.role == "CAPTAIN") this.members[0].role == "CAPTAIN"
+        if (member.role == "CAPTAIN") {
+            var member1 = this.members[0]
+            member1.role == "CAPTAIN"
+            this.members.splice(this.members.findIndex(x => x.account_id == member1.account_id), 1, member1)
+        }
         
         this.members.splice(this.members.findIndex(x => x.account_id == id), 1)
+
+        parties.splice(parties.findIndex(x => x.id == this.id), 1, {
+            id: this.id,
+            members: this.members.map(x => {return x.account_id}),
+            party: this
+        })
 
     }
 

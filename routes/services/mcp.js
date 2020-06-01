@@ -10,17 +10,13 @@ const Athena = require(`${__dirname}/../../model/Athena`)
 const errors = require(`${__dirname}/../../structs/errors`)
 
 function createResponse(changes, id, rvn) {
-    rvn = Number(rvn)
-    if (!rvn) {}
-    else if (changes.length == 0) rvn = rvn
-    else rvn = rvn + 1
     return {
-        profileRevision: rvn || 1,
-        profileId: id || "unknown",
-        profileChangesBaseRevision: rvn || 1,
-        profileChanges: changes || [],
+        profileRevision: rvn ? (rvn - 0) + (1 - 0) : 1,
+        profileId: id,
+        profileChangesBaseRevision: Number(rvn) || 1,
+        profileChanges: changes,
+        profileCommandRevision: rvn ? (rvn - 0) + (1 - 0) : 1,
         serverTime: new Date(),
-        profileCommandRevision: rvn || 1,
         responseVersion: 1
     }
 }
@@ -28,6 +24,7 @@ function createResponse(changes, id, rvn) {
 //query profile
 app.all(`/api/game/v2/profile/:accountId/client/QueryProfile`, checkToken, async (req, res) => {
     if(req.method != "POST") return res.status(405).json(errors.method("fortnite", "prod-live"))
+
     if(!res.locals.jwt.checkPermission(`fortnite:profile:${req.params.accountId}:commands`, "ALL")) 
         return res.status(403).json(errors.permission(`fortnite:profile:${req.params.accountId}:commands`, "ALL", "fortnite", "prod-live"))
 
@@ -88,159 +85,203 @@ app.all(`/api/game/v2/profile/:accountId/client/ClientQuestLogin`, checkToken, a
     }
 })
 
-app.post("/api/game/v2/profile/:accountId/client/SetMtxPlatform", checkToken, async (req, res) => {
+app.post("/api/game/v2/profile/:accountId/client/SetMtxPlatform", (req, res) => {
     if(req.method != "POST") return res.status(405).json(errors.method("fortnite", "prod-live"))
     if(!res.locals.jwt.checkPermission(`fortnite:profile:${req.params.accountId}:commands`, "ALL")) 
         return res.status(403).json(errors.permission(`fortnite:profile:${req.params.accountId}:commands`, "ALL", "fortnite", "prod-live"))
 
-    var types = ["WeGame", "EpicPCKorea", "Epic", "EpicPC", "EpicAndroid", "PSN", "Live", "IOSAppStore", "Nintendo", "Samsung", "GooglePlay", "Shared"]
-    
-    if (req.query.profileId != "common_core") return res.status(400).json(errors.create(
-        "errors.com.epicgames.modules.profiles.invalid_command", 12801, // Code
-        `SetMtxPlatform is not valid on player:profile_${req.query.profileId} profiles (${req.query.profileId})`, // Message
-        "fortnite", "prod-live", // Service & Intent
-        ["SetMtxPlatform", `player:profile_${req.query.profileId}`, req.query.profileId] // Variables
-    )) 
-
-    if (!req.body.newPlatform) return res.status(400).json(errors.create(
-        "errors.com.epicgames.validation.validation_failed", 12801, // Code
-        `Validation Failed. Invalid fields were [newPlatform]`, // Message
-        "fortnite", "prod-live", // Service & Intent
-        ["[newPlatform]"] // Variables
-    )) 
-
-    if (!types.includes(req.body.newPlatform)) return res.status(400).json(errors.create(
-        "errors.com.epicgames.validation.validation_failed", 12801, // Code
-        //shortening this one cuz like yeah
-        `Unable to parse command com.epicgames.fortnite.core.game.commands.mtx.SetMtxPlatform: value not one of declared Enum instance names: [WeGame, EpicPCKorea, Epic, EpicPC, EpicAndroid, PSN, Live, IOSAppStore, Nintendo, Samsung, GooglePlay, Shared]`, // Message
-        "fortnite", "prod-live", // Service & Intent
-        ["com.epicgames.fortnite.core.game.commands.mtx.SetMtxPlatform"] // Variables
-    ))
-
-    var profile = await CommonCore.findOne({id: req.params.accountId})        
-
-    if (profile.mtxplatform == req.body.newPlatform) {
-        res.json(createResponse([], "common_core", req.query.rvn))
-    } else {
-        var profile = await CommonCore.updateOne({id: req.params.accountId}, {mtxplatform: req.body.newPlatform})
-
-        res.json(createResponse([{
+    res.json(createResponse([
+        {
             changeType: "statModified",
             name: "current_mtx_platform",
-            value: req.body.newPlatform
-        }], req.query.profileId, req.query.rvn));
-    }
-});
+            value: req.body.platform
+        }
+    ], "common_core", req.query.rvn))
+})
 
-app.post("/api/game/v2/profile/:accountId/client/SetCosmeticLockerSlot", async (req, res) => {
+app.post("/api/game/v2/profile/:accountId/client/SetCosmeticLockerSlot", checkToken, async (req, res) => {
     if(req.method != "POST") return res.status(405).json(errors.method("fortnite", "prod-live"))
+
     if(!res.locals.jwt.checkPermission(`fortnite:profile:${req.params.accountId}:commands`, "ALL")) 
         return res.status(403).json(errors.permission(`fortnite:profile:${req.params.accountId}:commands`, "ALL", "fortnite", "prod-live"))
 
-    var bHasValidSlot = req.body.slotIndex ? true : req.body.slotIndex == 0 ? true : false
-    var bHasValidItem = req.body.itemToSlot ? true : req.body.itemToSlot == "" ? true : false
+    var bIsValid = req.body.category && req.body.itemToSlot ? true : req.body.itemToSlot == "" ? true : false && req.body.slotIndex ? true : req.body.slotIndex == 0 ? true : false && req.body.lockerItem
+    
+    if (!bIsValid) return res.status(400).json(errors.create(
+        "errors.com.epicgames.validation.validation_failed", 1040,
+        `Validation Failed. Invalid fields were [${[
+            req.body.category ? null : "category",
+            req.body.itemToSlot ? null : req.body.itemToSlot == "" ? null : "itemToSlot",
+            req.body.lockerItem ? null : "lockerItem",
+            req.body.slotIndex ? null : req.body.slotIndex == 0 ? null : "slotIndex",
+        ].filter(x => x != null).join(", ")}]`,
+        "fortnite", "prod-live", [`[${[
+            req.body.category ? null : "category",
+            req.body.itemToSlot ? null : req.body.itemToSlot == "" ? null : "itemToSlot",
+            req.body.lockerItem ? null : "lockerItem",
+            req.body.slotIndex ? null : req.body.slotIndex == 0 ? null : "slotIndex",
+        ].filter(x => x != null).join(", ")}]`]
+        
+    ))
 
-    if (!bHasValidSlot || !bHasValidItem) {
-        return res.status(400).json(
-            errors.create(
-                "errors.com.epicgames.validation.validation_failed", 1040, // Code
-                `Validation Failed. Valid fields are [lockerItem, category, slotIndex, itemToSlot]`, // Message
+    var fields = [
+        "Backpack", 
+        "VictoryPose", 
+        "LoadingScreen", 
+        "Character", 
+        "Glider", 
+        "Dance", 
+        "CallingCard", 
+        "ConsumableEmote", 
+        "MapMarker", 
+        "Charm", 
+        "SkyDiveContrail", 
+        "Hat", 
+        "PetSkin", 
+        "ItemWrap", 
+        "MusicPack", 
+        "BattleBus", 
+        "Pickaxe", 
+        "VehicleDecoration"
+    ]
 
-                "fortnite", "prod-live", // Service & Intent
+    if (!fields.includes(req.body.category)) return res.status(400).json(errors.create(
+        "errors.com.epicgames.modules.profiles.invalid_payload", 12806,
+        `Unable to parse command com.epicgames.fortnite.core.game.commands.cosmetics.SetCosmeticLockerSlot. Value not one of declared Enum instance names: [${fields.join(", ")}]`,
+        "fortnite", "prod-live", [
+            `Unable to parse command com.epicgames.fortnite.core.game.commands.cosmetics.SetCosmeticLockerSlot. Value not one of declared Enum instance names: [${fields.join(", ")}]`,
+        ]
+    ))
 
-                [req.query.profileId] // Variables
-            )
-        );
-    }
+    switch (req.body.category) {
+        case "Dance":
+        case "ItemWrap":
+            if (req.body.slotIndex == -1) {
+                var list = []
+                var num = req.body.category == "Dance" ? 6 : 7
 
-    var item 
-    if (req.body.itemToSlot.split(":").length == 2) {
-        item = `${req.body.itemToSlot.split(":")[0]}:${req.body.itemToSlot.split(":")[1].toLowerCase()}`
-    } else {
-        item = ""
-    }
+                for (var i = 0; i < num; i++) {list.push(`${req.body.itemToSlot.split(":")[0]}:${req.body.itemToSlot.split(":")[1].toLowerCase()}`)}
 
-    if (req.body.category == "Dance" || req.body.category == "ItemWrap") {
-        if (req.body.slotIndex == -1) {
-            var why = []
-            var num = req.body.category == "Dance" ? 6 : 7
-            for (i = 0; i < num; i++) {
-                why.push(item)
+                await Athena.updateOne({id: req.params.accountId}, {[req.body.category.toLowerCase()]: list})
+            } else {
+                await Athena.updateOne({id: req.params.accountId}, {$set: {[`${req.body.category.toLowerCase()}.${req.body.slotIndex}`]: `${req.body.itemToSlot.split(":")[0]}:${req.body.itemToSlot.split(":")[1].toLowerCase()}`}})
             }
-            await Athena.updateOne({id: req.params.accountId}, {[req.body.category.toLowerCase()]: why})
-        } else await Athena.updateOne({id: req.params.accountId}, {$set: {[`${req.body.category.toLowerCase()}.${req.body.slotIndex}`]: req.body.itemToSlot}})
-    } else {
-        await Athena.updateOne({id: req.params.accountId}, {[req.body.category.toLowerCase()]: item})
+            break;
+        default:
+            await Athena.updateOne({id: req.params.accountId}, {[req.body.category.toLowerCase()]: `${req.body.itemToSlot.split(":")[0]}:${req.body.itemToSlot.split(":")[1].toLowerCase()}`})
+            break;
     }
 
-    var locker = await Athena.findOne({id: req.params.accountId})
+    if (req.body.variantUpdates.length != 0) {
+        await Athena.updateOne({id: req.params.accountId}, {[`${req.body.category.toLowerCase()}variants`]: req.body.variantUpdates})
+    }
 
-    res.json(createResponse([{
-        changeType: "itemAttrChanged",
-        attributeName: "locker_slots_data",
-        itemId: req.body.lockerItem,
-        attributeValue: {
-            slots: {
-                Glider: {
-                    items: [
-                        locker.glider
-                    ]
-                },
-                Dance: {
-                    items: locker.dance,
-                    activeVariants: [
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null
-                    ]
-                },
-                SkyDiveContrail: {
-                    items: [
-                        locker.skydivecontrail
-                    ]
-                },
-                LoadingScreen: {
-                    items: [
-                        locker.loadingscreen
-                    ]
-                },
-                Pickaxe: {
-                    items: [
-                        locker.pickaxe
-                    ]
-                },
-                ItemWrap: {
-                    items: locker.itemwrap,
-                },
-                MusicPack: {
-                    items: [
-                        locker.musicpack
-                    ]
-                },
-                Character: {
-                    items: [
-                        locker.character
-                    ],
-                    activeVariants: [
-                        null
-                    ]
-                },
-                Backpack: {
-                    items: [
-                        locker.backpack
-                    ],
-                    activeVariants: [
-                        null
-                    ]
+    var athena = await Athena.findOne({id: req.params.accountId})
+
+    res.json(createResponse([
+        {
+            changeType: "itemAttrChanged",
+            itemId: req.body.lockerItem,
+            attributeName: "locker_slots_data",
+            attributeValue: {
+                slots:  {
+                    Glider: {
+                        items: [
+                            athena.glider
+                        ]
+                    },
+                    Dance: {
+                        items: athena.dance,
+                    },
+                    SkyDiveContrail: {
+                        items: [
+                            athena.skydivecontrail,
+                        ]
+                    },
+                    LoadingScreen: {
+                        items: [
+                            athena.loadingscreen,
+                        ]
+                    },
+                    Pickaxe: {
+                        items: [
+                            athena.pickaxe,
+                        ]
+                    },
+                    ItemWrap: {
+                        items: athena.itemwrap,
+                    },
+                    MusicPack: {
+                        items: [
+                            athena.musicpack
+                        ]
+                    },
+                    Character: {
+                        items: [
+                            athena.character
+                        ],
+                        activeVariants: [
+                            athena.charactervariants.length != 0 ? 
+                            {
+                                variants: athena.charactervariants
+                            } : null
+                        ]
+                    },
+                    Backpack: {
+                        items: [
+                            athena.backpack
+                        ],
+                        activeVariants: [
+                            athena.backpackvariants.length != 0 ? 
+                            {
+                                variants: athena.backpackvariants
+                            } : null
+                        ]
+                    }
                 }
             }
         }
-    }], "athena", Number(req.query.rvn)))
+    ], "athena", req.query.rvn))
 })
 
+app.post("/api/game/v2/profile/:accountId/client/SetCosmeticLockerBanner", checkToken, async (req, res) => {
+    if(req.method != "POST") return res.status(405).json(errors.method("fortnite", "prod-live"))
 
+    if(!res.locals.jwt.checkPermission(`fortnite:profile:${req.params.accountId}:commands`, "ALL")) 
+        return res.status(403).json(errors.permission(`fortnite:profile:${req.params.accountId}:commands`, "ALL", "fortnite", "prod-live"))
+
+    var bIsValid = req.body.lockerItem && req.body.bannerColorTemplateName && req.body.bannerIconTemplateName
+
+    if (!bIsValid) return res.status(400).json(errors.create(
+        "errors.com.epicgames.validation.validation_failed", 1040,
+        `Validation Failed. Invalid fields were [${[
+            req.body.lockerItem ? null : "lockerItem",
+            req.body.bannerColorTemplateName ? null : "bannerColorTemplateName",
+            req.body.bannerIconTemplateName ? null : "bannerIconTemplateName",
+        ].filter(x => x != null).join(", ")}]`,
+        "fortnite", "prod-live", [`[${[
+            req.body.lockerItem ? null : "lockerItem",
+            req.body.bannerColorTemplateName ? null : "bannerColorTemplateName",
+            req.body.bannerIconTemplateName ? null : "bannerIconTemplateName",
+        ].filter(x => x != null).join(", ")}]`]
+    ))
+
+    await Athena.updateOne({id: req.params.accountId}, {bannercolor: req.body.bannerColorTemplateName, banner: req.body.bannerIconTemplateName})
+
+    res.json(createResponse([
+        {
+            changeType: "itemAttrChanged",
+            itemId: req.body.lockerItem,
+            attributeName: "banner_icon_template",
+            attributeValue: req.body.bannerIconTemplateName
+        },
+        {
+            changeType: "itemAttrChanged",
+            itemId: req.body.lockerItem,
+            attributeName: "banner_color_template",
+            attributeValue: req.body.bannerColorTemplateName
+        }
+    ], "athena", req.query.rvn))
+})
 
 module.exports = app

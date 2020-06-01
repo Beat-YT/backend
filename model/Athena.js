@@ -26,16 +26,32 @@ const schema = new mongoose.Schema({
         type: String,
         default: ""
     },
+    charactervariants: {
+        type: Array,
+        default: ""
+    },
     backpack: {
         type: String,
+        default: ""
+    },
+    backpackvariants: {
+        type: Array,
         default: ""
     },
     pickaxe: {
         type: String,
         default: ""
     },
+    pickaxevariants: {
+        type: Array,
+        default: ""
+    },
     glider: {
         type: String,
+        default: ""
+    },
+    glidervaraints: {
+        type: Array,
         default: ""
     },
     skydivecontrail: {

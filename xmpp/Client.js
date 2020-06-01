@@ -195,7 +195,9 @@ module.exports = class Client extends EventEmitter {
     handlemessage(message) {
         switch(message.root.attributes.type) {
             case "chat":
-                xmppClients[message.root.attributes.to.split("@")[0]].client.sendChat(this.jid, message.root.children[0].content)
+                if (xmppClients[message.root.attributes.to.split("@")[0]]) {
+                    xmppClients[message.root.attributes.to.split("@")[0]].client.sendChat(this.jid, message.root.children[0].content)
+                }
                 break;
             case "groupchat":
                 //todo

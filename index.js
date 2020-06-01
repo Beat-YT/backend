@@ -64,5 +64,3 @@ app.listen(process.env.port || config.port || 80, () => {
 
 
 const User = require("./model/User")
-
-User.find({ 'displayName': new RegExp(`^dad$`, 'i') }).then(r => console.log(r))

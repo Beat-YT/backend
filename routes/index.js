@@ -10,7 +10,7 @@ app.get("/download", (req, res) => res.sendFile(path.join(__dirname, "/../public
 
 app.get("/login", (req, res) => res.sendFile(path.join(__dirname, "/../public/html/login.html")))
 
-app.get("/fuckukemo-signup", (req, res) => res.sendFile(path.join(__dirname, "/../public/html/signup.html")))
+app.get("/signup", (req, res) => res.sendFile(path.join(__dirname, "/../public/html/signup.html")))
 
 app.get("/account", (req, res) => res.sendFile(path.join(__dirname, "/../public/html/account.html")))
 

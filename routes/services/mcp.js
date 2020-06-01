@@ -164,7 +164,11 @@ app.post("/api/game/v2/profile/:accountId/client/SetCosmeticLockerSlot", checkTo
 
                 await Athena.updateOne({id: req.params.accountId}, {[req.body.category.toLowerCase()]: list})
             } else {
-                await Athena.updateOne({id: req.params.accountId}, {$set: {[`${req.body.category.toLowerCase()}.${req.body.slotIndex}`]: `${req.body.itemToSlot.split(":")[0]}:${req.body.itemToSlot.split(":")[1].toLowerCase()}`}})
+                if (req.body.itemToSlot == "") {
+                    await Athena.updateOne({id: req.params.accountId}, {$set: {[`${req.body.category.toLowerCase()}.${req.body.slotIndex}`]: ""}})
+                } else {
+                    await Athena.updateOne({id: req.params.accountId}, {$set: {[`${req.body.category.toLowerCase()}.${req.body.slotIndex}`]: `${req.body.itemToSlot.split(":")[0]}:${req.body.itemToSlot.split(":")[1].toLowerCase()}`}})
+                }
             }
             break;
         default:

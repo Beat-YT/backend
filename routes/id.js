@@ -23,6 +23,11 @@ app.post("/api/register", async (req, res) => {
         return res.status(400).json({error: `Email ${req.body.email} is invalid.`})
     }
 
+    // to stop UI being spammed
+    if (req.body.username.length > 16) {
+        return res.status(400).json({error: "Display name length must be 0-16"});
+    }
+
     var bEmailExists = await User.findOne({email: req.body.email.toLowerCase()})
     var bUsernameExists = await User.find({displayName: new RegExp(`^${req.body.username}$`, 'i') })
 
@@ -31,7 +36,6 @@ app.post("/api/register", async (req, res) => {
     if (bUsernameExists != null || bEmailExists != null) return res.status(400).json({
         error: `${bUsernameExists ? "Username" : "Email"} already exists.`
     })
-
 
     const id = crypto.randomBytes(16).toString('hex')
 

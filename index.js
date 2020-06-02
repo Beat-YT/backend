@@ -59,10 +59,3 @@ app.listen(process.env.port || config.port || 80, () => {
     logging.fdev(`Listening on port \x1b[36m${process.env.port || config.port || 80}`)
     logging.fdev(`XMPP listening on port \x1b[36m${process.env.xmppPort || config.xmppPort || 443}`)
 })
-
-// checking if parties are the cpu problem
-setInterval(() => {
-    console.log(parties.length)
-}, 30000);
-
-const User = require("./model/User")

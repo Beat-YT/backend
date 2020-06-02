@@ -91,6 +91,11 @@ app.get("/api/clients", (req, res) => {
     res.send(Object.keys(xmppClients).length.toString())
 })
 
+app.get("/api/parties", (req, res) => {
+    res.setHeader("content-type", "text/plain")
+    res.send(parties.length.toString())
+})
+
 app.post("/api/login", async (req, res) => {
     if (req.body ? !req.body.email && !req.body.password : true) {
         return res.status(400).json({error: `${!req.body.username ? "Email" : "Password"} field was not provided.`})

@@ -241,6 +241,10 @@ module.exports = class Party {
         
         this.members.splice(this.members.findIndex(x => x.account_id == id), 1)
 
+        if (this.members.length == 0) {
+            return this.deleteParty()
+        }
+
         parties.splice(parties.findIndex(x => x.id == this.id), 1, {
             id: this.id,
             members: this.members.map(x => {return x.account_id}),

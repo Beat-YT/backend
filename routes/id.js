@@ -15,49 +15,53 @@ app.use(cookieParser())
 
 
 app.post("/api/register", async (req, res) => {
-    if (req.body ? !req.body.username && !req.body.email && !req.body.password : true) {
-        return res.status(400).json({error: `${!req.body.username ? "Username" : !req.body.email ? "Email" : "Password"} field was not provided.`})
+    try {
+        if (req.body ? !req.body.username && !req.body.email && !req.body.password : true) {
+            return res.status(400).json({error: `${!req.body.username ? "Username" : !req.body.email ? "Email" : "Password"} field was not provided.`})
+        }
+    
+        if (!req.body.email.includes("@") && !req.body.email.includes(".")) {
+            return res.status(400).json({error: `Email ${req.body.email} is invalid.`})
+        }
+    
+        // to stop UI being spammed
+        if (req.body.username.length > 16) {
+            return res.status(400).json({error: "Display name length must be 1-16."});
+        }
+    
+        var bEmailExists = await User.findOne({email: req.body.email.toLowerCase()})
+        var bUsernameExists = await User.find({displayName: new RegExp(`^${req.body.username}$`, 'i') })
+    
+        if (bUsernameExists.length != 0) bUsernameExists = true
+        else bUsernameExists = null
+        if (bUsernameExists != null || bEmailExists != null) return res.status(400).json({
+            error: `${bUsernameExists ? "Username" : "Email"} already exists.`
+        })
+    
+        const id = crypto.randomBytes(16).toString('hex')
+    
+        const user = new User({
+            id: id,
+            displayName: req.body.username,
+            email: req.body.email,
+            password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
+        })
+    
+        const friends = new Friends({id: id})
+        friends.save()
+    
+        const commoncore = new CommonCore({id: id})
+        commoncore.save()
+    
+        const athena = new Athena({id: id})
+        athena.save()
+    
+        logging.accounts(`Created account \x1b[36m${req.body.username}\x1b[0m with the ID \x1b[36m${id}`)
+        const createdUser = await user.save().catch(e => res.status(400).send(e))
+        res.redirect("/login")
+    } catch (e) {
+        return res.status(500).json({error: "Failed to register. Please check that your username does not contain any illegal characters."});
     }
-
-    if (!req.body.email.includes("@") && !req.body.email.includes(".")) {
-        return res.status(400).json({error: `Email ${req.body.email} is invalid.`})
-    }
-
-    // to stop UI being spammed
-    if (req.body.username.length > 16) {
-        return res.status(400).json({error: "Display name length must be 1-16."});
-    }
-
-    var bEmailExists = await User.findOne({email: req.body.email.toLowerCase()})
-    var bUsernameExists = await User.find({displayName: new RegExp(`^${req.body.username}$`, 'i') })
-
-    if (bUsernameExists.length != 0) bUsernameExists = true
-    else bUsernameExists = null
-    if (bUsernameExists != null || bEmailExists != null) return res.status(400).json({
-        error: `${bUsernameExists ? "Username" : "Email"} already exists.`
-    })
-
-    const id = crypto.randomBytes(16).toString('hex')
-
-    const user = new User({
-        id: id,
-        displayName: req.body.username,
-        email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
-    })
-
-    const friends = new Friends({id: id})
-    friends.save()
-
-    const commoncore = new CommonCore({id: id})
-    commoncore.save()
-
-    const athena = new Athena({id: id})
-    athena.save()
-
-    logging.accounts(`Created account \x1b[36m${req.body.username}\x1b[0m with the ID \x1b[36m${id}`)
-    const createdUser = await user.save().catch(e => res.status(400).send(e))
-    res.redirect("/login")
 })
 
 app.post("/api/exchange", async (req, res) => {

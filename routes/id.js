@@ -25,7 +25,7 @@ app.post("/api/register", async (req, res) => {
 
     // to stop UI being spammed
     if (req.body.username.length > 16) {
-        return res.status(400).json({error: "Display name length must be 0-16"});
+        return res.status(400).json({error: "Display name length must be 1-16."});
     }
 
     var bEmailExists = await User.findOne({email: req.body.email.toLowerCase()})

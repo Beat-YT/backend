@@ -23,7 +23,7 @@ wss.on("connection", ws => {
                         'presence': {
                             '@xmlns': 'jabber:client',
                             '@to': xmppClients[friend.id].client.jid,
-                            '@from': xmppClients[friend.id].client.jid,
+                            '@from': xmppClients[client.id].client.jid,
                             '@type': "unavailable",
                             'status': {
                                 "#text": {

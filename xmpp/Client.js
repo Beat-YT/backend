@@ -207,31 +207,34 @@ module.exports = class Client extends EventEmitter {
     async handleclose() {
         var friends = await Friends.findOne({id: this.id})
 
-        friends.accepted.forEach(friend => {
-            if (xmppClients[friend.id]) {
-                this.ws.send(xmlbuilder.create({
-                    'presence': {
-                        '@xmlns': 'jabber:client',
-                        '@to': xmppClients[friend.id].client.jid,
-                        '@from': this.jid,
-                        '@type': "unavailable",
-                        'status': {
-                            "#text": {
-                                "bHasVoiceSupport":false,
-                                "bIsJoinable":false,
-                                "bIsPlaying":false,
-                                "Properties": {
-                                    "bInPrivate": true
-                                },
-                                "SessionId":"","Status":"Playing Battle Royale - 1 / 16"}
+        if (friends) {
+            friends.accepted.forEach(friend => {
+                if (xmppClients[friend.id]) {
+                    xmppClients[friend.id].client.ws.send(xmlbuilder.create({
+                        'presence': {
+                            '@xmlns': 'jabber:client',
+                            '@to': xmppClients[friend.id].client.jid,
+                            '@from': this.jid,
+                            '@type': "unavailable",
+                            'status': {
+                                "#text": {
+                                    "bHasVoiceSupport":false,
+                                    "bIsJoinable":false,
+                                    "bIsPlaying":false,
+                                    "Properties": {
+                                        "bInPrivate": true
+                                    },
+                                    "SessionId":"","Status":"Playing Battle Royale - 1 / 16"}
+                            }
                         }
-                    }
-                }).end().replace(`<?xml version="1.0"?>`, "").trim())            
-            }
-        })
-        
-        clearInterval(this.sender)
-        delete xmppClients[this.id]
+                    }).end().replace(`<?xml version="1.0"?>`, "").trim())            
+                }
+            })
+                
+        }
+
+        clearInterval(client.client.sender)
+        if (xmppClients[client.id]) delete xmppClients[client.id]
     }
 
     sendMessage(from, data) {

@@ -41,7 +41,7 @@ wss.on("connection", ws => {
             })
             
             if (client.sender) {
-                clearInterval(xmppClients[client.id].sender)
+                clearInterval(xmppClients[client.id].client.sender)
             }
             if (xmppClients[client.id]) delete xmppClients[client.id]
         }

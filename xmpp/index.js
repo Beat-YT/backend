@@ -13,7 +13,7 @@ const wss = new WebSocket.Server({ port: process.env.xmppPort || config.xmppPort
 wss.on("connection", ws => {
     var client = new Client(ws)
 
-    ws.on("close", () => {
+    ws.on("close", async () => {
         if (client.id) {
             var friends = await Friends.findOne({id: client.id})
 

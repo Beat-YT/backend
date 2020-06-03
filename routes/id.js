@@ -31,6 +31,9 @@ function virginSlayerv2(gcaptcha) {
 }
 
 app.post("/api/register", async (req, res) => {
+    res.clearCookie("id")
+    res.clearCookie("token")    
+    
     var yeah = req.body.email && req.body.username && req.body.password && req.body["g-recaptcha-response"]
 
     if (!yeah) return res.status(400).json({
@@ -179,7 +182,7 @@ app.get("/api/me", async (req, res) => {
                 message: "User is not linked to discord."
             })
         }
-    } else if (req.cookies.token) {
+    } else if (req.cookies.token && req.cookies.id) {
         //2am: w hat could go wrong
         if (!bcrypt.compareSync(`${req.cookies.id}:omegalul`, req.cookies.token)) return res.status(401).json({
             code: 401,

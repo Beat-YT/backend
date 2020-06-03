@@ -13,55 +13,84 @@ const User = require(`${__dirname}/../model/User`)
 
 app.use(cookieParser())
 
+/**
+ * Virgin Slayer v2.0
+ * Created to stop virgins (makks) from getting into our servers and spamming the fuck out of it.
+ * @param {String} gcaptcha 
+ */
+function virginSlayerv2(gcaptcha) {
+    return new Promise((resolve, reject) => {
+        request.post("https://www.google.com/recaptcha/api/siteverify", {json: true, form: {
+            secret: "6Lc-r_8UAAAAAOdX6O7zhsnwUXublLszA_ut_vCG",
+            response: gcaptcha
+        }}, (err, res, body) => {
+            if (err) resolve(false)
+            resolve(body.success)
+        })
+    })
+}
 
 app.post("/api/register", async (req, res) => {
-    try {
-        if (req.body ? !req.body.username && !req.body.email && !req.body.password : true) {
-            return res.status(400).json({error: `${!req.body.username ? "Username" : !req.body.email ? "Email" : "Password"} field was not provided.`})
-        }
-    
-        if (!req.body.email.includes("@") && !req.body.email.includes(".")) {
-            return res.status(400).json({error: `Email ${req.body.email} is invalid.`})
-        }
-    
-        // to stop UI being spammed
-        if (req.body.username.length > 16) {
-            return res.status(400).json({error: "Display name length must be 1-16."});
-        }
-    
-        var bEmailExists = await User.findOne({email: req.body.email.toLowerCase()})
-        var bUsernameExists = await User.find({displayName: new RegExp(`^${req.body.username}$`, 'i') })
-    
-        if (bUsernameExists.length != 0) bUsernameExists = true
-        else bUsernameExists = null
-        if (bUsernameExists != null || bEmailExists != null) return res.status(400).json({
-            error: `${bUsernameExists ? "Username" : "Email"} already exists.`
-        })
-    
-        const id = crypto.randomBytes(16).toString('hex')
-    
-        const user = new User({
-            id: id,
-            displayName: req.body.username,
-            email: req.body.email,
-            password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
-        })
-    
-        const friends = new Friends({id: id})
-        friends.save()
-    
-        const commoncore = new CommonCore({id: id})
-        commoncore.save()
-    
-        const athena = new Athena({id: id})
-        athena.save()
-    
-        logging.accounts(`Created account \x1b[36m${req.body.username}\x1b[0m with the ID \x1b[36m${id}`)
-        const createdUser = await user.save().catch(e => res.status(400).send(e))
-        res.redirect("/login")
-    } catch (e) {
-        return res.status(500).json({error: "Failed to register. Please check that your username does not contain any illegal characters."});
-    }
+    var yeah = req.body.email && req.body.username && req.body.password && req.body["g-recaptcha-response"]
+
+    if (!yeah) return res.status(400).json({
+        error: `Missing '${[req.body.email ? null : "email", req.body.username ? null : "username", req.body.password ? null : "password",  req.body["g-recaptcha-response"] ? null : "g-recaptcha-response"].filter(x => x != null).join(", ")}' field(s).`,
+        errorCode: "dev.aurorafn.id.register.invalid_fields",
+        statusCode: 400
+    })
+
+    var bIsVirgin = await virginSlayerv2(req.body["g-recaptcha-response"])
+    if (!bIsVirgin) return res.status(400).json({
+        error: "Recaptcha response is invalid.",
+        errorCode: "dev.aurorafn.id.register.invalid_captcha",
+        statusCode: 400
+    })
+
+    if (req.body.username.length > 32 || req.body.email.length > 50) return res.status(400).json({
+        error: `Field '${req.body.username.length > 32 ? "Username" : "Email"}' is too big.`,
+        errorCode: `dev.aurorafn.id.register.${req.body.username.length > 32 ? "username" : "email"}_too_big`,
+        statusCode: 400
+    })
+
+    var check1 = await User.findOne({displayName: new RegExp(`^${req.body.username}$`, 'i')})
+    var check2 = await User.findOne({email: new RegExp(`^${req.body.email}$`, 'i')})
+
+    if (check1 != null || check2 != null) return res.status(400).json({
+        error: `${check2 != null ? "Email" : "Username"} '${check2 != null ? req.body.email : req.body.username}' already exists`,
+        errorCode: `dev.aurorafn.id.register.${check2 != null ? "email" : "username"}_already_exists`,
+        statusCode: 400
+    })
+
+    var ip = req.ip
+    if (ip.substr(0, 7) == "::ffff:") ip = ip.substr(7)
+
+    var check3 = await User.find({ip: ip})
+
+    if (check3.length >= 3) return res.status(400).json({
+        error: `Too many accounts have been created under your IP.`,
+        errorCode: `dev.aurorafn.id.register.account_limit_reached`,
+        statusCode: 400
+    })
+
+    var id = crypto.randomBytes(16).toString('hex')
+
+    var user = new User({id: id, ip: ip,displayName: req.body.username, email: req.body.email, password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))})
+    user.save()
+    var friends = new Friends({id: id})
+    friends.save()
+    var commoncore = new CommonCore({id: id})
+    commoncore.save()
+    var athena = new Athena({id: id})
+    athena.save()
+
+    logging.accounts(`Created account \x1b[36m${req.body.username}\x1b[0m with the ID \x1b[36m${id}`)
+
+    res.json({
+        id: id,
+        email: req.body.email,
+        username: req.body.username,
+        message: "Account Created!"
+    })
 })
 
 app.post("/api/exchange", async (req, res) => {
@@ -101,9 +130,7 @@ app.post("/api/login", async (req, res) => {
         return res.status(400).json({error: `${!req.body.username ? "Email" : "Password"} field was not provided.`})
     }
 
-    var user = await User.find({email: new RegExp(`^${req.body.email}$`, 'i') })
-    if (user.length != 0) user = user[0]
-    else user = null
+    var user = await User.findOne({email: new RegExp(`^${req.body.email}$`, 'i') })
 
     if (!user) return res.status(404).json({
         code: 404,

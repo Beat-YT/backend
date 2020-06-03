@@ -16,3 +16,8 @@ button {
     overflow: hidden;
     color: white;
 }
+
+div.g-recaptcha {
+    margin: 0 auto;
+    width: 304px;
+}

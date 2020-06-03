@@ -71,6 +71,9 @@ module.exports = class Party {
             }))
         }
 
+        setInterval(() => {
+            if (this.members == 0) this.deleteParty()
+        }, 60000)
     }
 
     getPartyLeader() {

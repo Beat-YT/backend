@@ -4,21 +4,20 @@ const crypto = require("crypto")
 const schema = new mongoose.Schema({
     displayName: {
         type: String,
-        required: true,
-        min: 3,
-        max: 100
+        required: true
     },
     email: {
         type: String,
-        required: true,
-        min: 6,
-        max: 100
+        required: true
     },
     password: {
         type: String,
-        required: true,
-        min: 6,
-        max: 1024
+        required: true
+    },
+    //slush note: sad
+    ip: {
+        type: String,
+        required: true
     },
     id: {
         type: String,

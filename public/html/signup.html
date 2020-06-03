@@ -2,6 +2,8 @@
 <html>
     <head>
         <title>Aurora</title>
+        <!--cringe-->
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <link rel="stylesheet" href="../css/index.css">
         <link rel="stylesheet" href="../css/login.css">
         <link rel="stylesheet" href="../css/signup.css">
@@ -10,11 +12,12 @@
         <div class="center">
             <a id="thicc">Sign Up</a><br>
             <a style="font-size: 20px;">Do NOT use your Epic Games password.</a><br>
-            <form action="/id/api/register" method="POST">
+            <form class="form" method="post" action="/id/api/register">
                 <input type="text" name="username" placeholder="Username"><br>
                 <input type="email" name="email" placeholder="Email"><br>
                 <input type="password" name="password" placeholder="Password"><br>
-                <button type="submit">Sign Up</button>
+                <div class="g-recaptcha" data-sitekey="6Lc-r_8UAAAAADuRdfyIPrBrP-E3hzJnidcbFjHx"></div>
+                <button id="login" name="login" type="submit">Sign Up</button>
             </form>
             <a style="font-size: 20px;">Already have an account?</a> 
             <a style="font-size: 20px;" id="learnmore" href="/login">Click here</a>

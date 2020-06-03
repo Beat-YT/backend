@@ -1,6 +1,9 @@
-const WebSocket = require('ws');
+const xmlparser = require('xml-parser')
+const xmlbuilder = require("xmlbuilder")
 const Client = require("./Client")
+const WebSocket = require('ws');
 
+const Friends = require(`${__dirname}/../model/Friends`)
 const logging = require(`${__dirname}/../structs/logs`)
 const config = require(`${__dirname}/../config.json`)
 
@@ -12,6 +15,32 @@ wss.on("connection", ws => {
 
     ws.on("close", () => {
         if (client.id) {
+            var friends = await Friends.findOne({id: client.id})
+
+            friends.accepted.forEach(friend => {
+                if (xmppClients[friend.id]) {
+                    this.ws.send(xmlbuilder.create({
+                        'presence': {
+                            '@xmlns': 'jabber:client',
+                            '@to': xmppClients[friend.id].client.jid,
+                            '@from': this.jid,
+                            '@type': "unavailable",
+                            'status': {
+                                "#text": {
+                                    "bHasVoiceSupport":false,
+                                    "bIsJoinable":false,
+                                    "bIsPlaying":false,
+                                    "Properties": {
+                                        "bInPrivate": true
+                                    },
+                                    "SessionId":"","Status":"Playing Battle Royale - 1 / 16"}
+                            }
+                        }
+                    }).end().replace(`<?xml version="1.0"?>`, "").trim())            
+                }
+            })
+            
+            clearInterval(client.client.sender)
             if (xmppClients[client.id]) delete xmppClients[client.id]
         }
     })

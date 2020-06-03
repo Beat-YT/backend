@@ -38,8 +38,7 @@ app.all("/api/oauth/token", async (req, res) => {
             })
             return;
         case "password":
-            //fuck express
-            var user = await User.findOne({email: req.body.username}).catch(e => {
+            var user = await User.findOne({email: new RegExp(`^${req.body.username}$`, 'i')}).catch(e => {
                 next(e)
             })
 
@@ -164,10 +163,7 @@ app.get('/api/public/account/:accountId/externalAuths', checkToken, (req, res) =
 
 app.all("/api/public/account/displayName/:displayName" , async (req, res) => {
     if (req.method != "GET") return res.status(405).json(errors.method())
-    var user = await User.find({displayName: new RegExp(`^${req.params.displayName}$`, 'i') })
-
-    if (user.length != 0) user = user[0]
-    else user = null
+    var user = await User.findOne({displayName: new RegExp(`^${req.params.displayName}$`, 'i') })
 
     if (user) res.json({
         id: user.id,

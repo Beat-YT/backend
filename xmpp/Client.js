@@ -233,7 +233,7 @@ module.exports = class Client extends EventEmitter {
                 
         }
 
-        clearInterval(client.client.sender)
+        clearInterval(this.sender)
         if (xmppClients[client.id]) delete xmppClients[client.id]
     }
 

@@ -45,5 +45,10 @@ module.exports = {
 
     getBannerColors() {
         return JSON.parse(fs.readFileSync(`${__dirname}/../cache/colors.json`));
+    },
+
+    getVariants() {
+        return JSON.parse(fs.readFileSync(`${__dirname}/../cache/variants.json`));
     }
 }
+

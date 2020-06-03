@@ -299,20 +299,53 @@ module.exports = {
             }
         }
 
-        caching.getCosmetics().forEach(cosmetic => {
-            final.profile.items[`${cosmetic.backendType}:${cosmetic.id}`] = {
-                templateId: `${cosmetic.backendType}:${cosmetic.id}`,
+        var cosmetics = caching.getCosmetics()
+        var variants = caching.getVariants()
+
+        cosmetics.forEach(cosmetic => {
+            final.profile.items[`${cosmetic.backendType}:${cosmetic.id.toLowerCase()}`] = {
+                templateId: `${cosmetic.backendType}:${cosmetic.id.toLowerCase()}`,
                 attributes: {
                     max_level_bonus: 0,
                     level: 1,
                     item_seen: 1,
                     xp: 0,
-                    variants: [],
+                    variants: variants.find(x => x.id == cosmetic.id) ? variants.find(x => x.id == cosmetic.id).variants.map(x => {
+                        return {
+                            channel: x.channel,
+                            active: x.properties[0],
+                            owned: x.properties
+                        }
+                    }) : [],
                     favorite: false
                 },
                 quantity: 1
             }
         })
+
+        variants.forEach(variant => {
+            var attempt = cosmetics.find(x => x.id == variant.id)
+            variant.vtids.forEach(vtid => {
+                final.profile.items[`CosmeticVariantToken:${vtid.toLowerCase()}`] = {
+                    templateId: `CosmeticVariantToken:${vtid.toLowerCase()}`,
+                    attributes: {
+                        max_level_bonus: 0,
+                        cosmetic_item: `${attempt.backendType}:${attempt.id.toLowerCase()}`,
+                        level: 1,
+                        auto_equip_variant: false,
+                        item_seen: false,
+                        xp: 0,
+                        variant_name: variant.variant,
+                        create_giftbox: false,
+                        variant_channel: variant.channel,
+                        favorite: false,
+                        mark_item_unseen: true
+                    },
+                    quantity: 1
+                }
+            })
+        })
+
 
         return final
     }

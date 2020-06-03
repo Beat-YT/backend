@@ -119,7 +119,7 @@ app.post("/api/exchange", async (req, res) => {
 })
 
 app.get("/api/ip", (req, res) => {
-    var ip = req.headers["X-Real-IP"] || req.ip
+    var ip = req.headers["x-real-ip"] || req.ip
     if (ip.substr(0, 7) == "::ffff:") ip = ip.substr(7)
     
     res.setHeader("content-type", "text/plain")

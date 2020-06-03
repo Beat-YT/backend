@@ -193,6 +193,12 @@ app.get("/api/me", async (req, res) => {
         })
 
         var user = await User.findOne({id: req.cookies.id})
+        if (!user) {
+            res.clearCookie("id")
+            res.clearCookie("token")
+            res.redirect("/login")
+        }
+
         var athena = await Athena.findOne({id: user.id})
         var commoncore = await CommonCore.findOne({id: user.id})
 

@@ -70,10 +70,6 @@ module.exports = class Party {
                 updated_at: new Date()
             }))
         }
-
-        setInterval(() => {
-            if (this.members == 0) this.deleteParty()
-        }, 60000)
     }
 
     getPartyLeader() {

@@ -61,7 +61,7 @@ app.post("/api/register", async (req, res) => {
         statusCode: 400
     })
 
-    var ip = req.ip
+    var ip = req.headers["X-Real-IP"] || req.ip
     if (ip.substr(0, 7) == "::ffff:") ip = ip.substr(7)
 
     var check3 = await User.find({ip: ip})

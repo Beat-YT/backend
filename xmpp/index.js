@@ -19,11 +19,11 @@ wss.on("connection", ws => {
 
             friends.accepted.forEach(friend => {
                 if (xmppClients[friend.id]) {
-                    this.ws.send(xmlbuilder.create({
+                    xmppClients[friend.id].client.ws.send(xmlbuilder.create({
                         'presence': {
                             '@xmlns': 'jabber:client',
                             '@to': xmppClients[friend.id].client.jid,
-                            '@from': this.jid,
+                            '@from': xmppClients[friend.id].client.jid,
                             '@type': "unavailable",
                             'status': {
                                 "#text": {

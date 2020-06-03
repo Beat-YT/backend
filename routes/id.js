@@ -88,12 +88,7 @@ app.post("/api/register", async (req, res) => {
 
     logging.accounts(`Created account \x1b[36m${req.body.username}\x1b[0m with the ID \x1b[36m${id}`)
 
-    res.json({
-        id: id,
-        email: req.body.email,
-        username: req.body.username,
-        message: "Account Created!"
-    })
+    res.redirect("/login")
 })
 
 app.post("/api/exchange", async (req, res) => {

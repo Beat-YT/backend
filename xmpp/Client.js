@@ -77,11 +77,9 @@ module.exports = class Client extends EventEmitter {
     handleauth(message) {
         var parsed = Buffer.from(message.root.content, "base64").toString().split("\u0000").splice(1)
 
-        //var token = accessTokens.find(x => x.id == parsed[0])
-        var token = true
+        var token = accessTokens.find(x => x.id == parsed[0])
         if (token) {
-            if (true) {
-            //if (token.token == parsed[1]) {
+            if (token.token == parsed[1]) {
                 this.id = parsed[0]
                 this.bIsAuthenticated = true
                 xmppClients[this.id] = {
@@ -183,12 +181,13 @@ module.exports = class Client extends EventEmitter {
 
     async sendPresenceToFriends() {
         var friends = await Friends.findOne({id: this.id})
-
-        friends.accepted.forEach(friend => {
-            if (xmppClients[friend.id]) {
-                xmppClients[friend.id].client.sendPresence(`${friend.id}@prod.ol.epicgames.com`, this.jid, this.latest)
-            }
-        })
+        if (friends) {
+            friends.accepted.forEach(friend => {
+                if (xmppClients[friend.id]) {
+                    xmppClients[friend.id].client.sendPresence(`${friend.id}@prod.ol.epicgames.com`, this.jid, this.latest)
+                }
+            })
+        }
     }
 
 

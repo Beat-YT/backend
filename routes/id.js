@@ -196,7 +196,7 @@ app.get("/api/me", async (req, res) => {
         if (!user) {
             res.clearCookie("id")
             res.clearCookie("token")
-            res.redirect("/login")
+            return res.redirect("/login")
         }
 
         var athena = await Athena.findOne({id: user.id})

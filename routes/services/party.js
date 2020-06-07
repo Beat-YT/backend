@@ -39,13 +39,12 @@ app.all("/api/v1/Fortnite/parties", checkToken, (req, res) => {
         ].filter(x => x != null)
     ))
 
-    /*
     if (parties.find(x => x.members.includes(res.locals.jwt.accountId))) return res.json(errors.create(
         "errors.com.epicgames.social.party.user_has_party", 6969,
         `Operation is forbidden because the user ${res.locals.jwt.accountId} is already in a party.`,
         "party", "prod", [res.locals.jwt.accountId]
     ))
-*/
+
     if (!xmppClients[res.locals.jwt.accountId]) return res.json(errors.create(
         "errors.com.epicgames.social.party.user_is_offline", 51024,
         `Operation is forbidden because the user ${res.locals.jwt.accountId} is offline.`,

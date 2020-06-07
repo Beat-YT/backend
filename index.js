@@ -1,6 +1,7 @@
 const bodyparser = require("body-parser")
 const mongoose = require("mongoose")
 const express = require("express")
+const fs = require("fs")
 const app = express()
 
 const cache = require(`${__dirname}/structs/caching`)
@@ -17,7 +18,6 @@ global.parties = []
 global.invites = []
 global.pings = []
 global.mucs = []
-
 
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({extended: true}))
@@ -46,9 +46,11 @@ app.use("/account", require(`${__dirname}/routes/services/account`))
 app.use("/friends", require(`${__dirname}/routes/services/friends`))
 app.use("/party", require(`${__dirname}/routes/services/party`))
 
+global.launcherversion = fs.readFileSync(`${__dirname}/public/files/version`).toString()
+global.serverversion = "1.5"
 
 app.listen(process.env.port || config.port || 80, () => {
-    logging.fdev(`Created by Slushia and Cyuubi, Version \x1b[36m1.0`)
+    logging.fdev(`Created by Slushia and Cyuubi, Version \x1b[36m${serverversion}`)
     logging.fdev(`Listening on port \x1b[36m${process.env.port || config.port || 80}`)
     logging.fdev(`XMPP listening on port \x1b[36m${process.env.xmppPort || config.xmppPort || 443}`)
 })

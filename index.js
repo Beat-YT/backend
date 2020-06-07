@@ -9,7 +9,6 @@ const config = require(`${__dirname}/config.json`)
 
 
 //i know global isn't the best practice, but it works good enough
-global.refreshTokens = []
 global.exchangeCodes = {}
 global.clientTokens = []
 global.accessTokens = []
@@ -17,17 +16,7 @@ global.xmppClients = {}
 global.parties = []
 global.invites = []
 global.pings = []
-
-//commented because i was getting stream errors?
-
-/*
-cache.cosmetics()
-cache.keychain()
-setInterval(() => {
-    cache.cosmetics()
-    cache.keychain()
-}, 600000)
-*/
+global.mucs = []
 
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({extended: true}))
@@ -35,9 +24,12 @@ app.use(bodyparser.urlencoded({extended: true}))
 require("./xmpp")
 
 //db
-mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true}, (e) => {
+mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true}, async e => {
     if (e) throw e
     logging.fdev(`Connected to Mongo DB`)
+
+    const Athena = require(`${__dirname}/model/Athena`)
+    var yes = await Athena.updateMany({}, {$set: {lobbystage: "season12"}}, {strict: false, many: true})
 })
 
 require(`${__dirname}/structs/caching`)

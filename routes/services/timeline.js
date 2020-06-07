@@ -1,7 +1,12 @@
 const express = require("express")
 const app = express.Router()
 
-app.get('/api/calendar/v1/timeline', function(req, res) {
+const checkToken = require(`${__dirname}/../../middleware/checkToken`)
+
+app.get('/api/calendar/v1/timeline', checkToken, async (req, res) => {
+
+    global.useragent = `${res.locals.jwt.accountId}:${req.headers["user-agent"].replace("Fortnite", "FortniteGame")}`
+
     var season
     if (req.headers["user-agent"]) {
         try {
@@ -24,11 +29,6 @@ app.get('/api/calendar/v1/timeline', function(req, res) {
                     activeEvents: [
                         {
                             eventType: `EventFlag.LobbySeason${season}`,
-                            activeUntil: "9999-12-31T23:59:59.999Z",
-                            activeSince: "2019-12-31T23:59:59.999Z"
-                        },
-                        {
-                            eventType: "FLCD01",
                             activeUntil: "9999-12-31T23:59:59.999Z",
                             activeSince: "2019-12-31T23:59:59.999Z"
                         },

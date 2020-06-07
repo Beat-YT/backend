@@ -4,6 +4,7 @@ module.exports = class JWTInfo {
 
         this.accountId = this.jwt.sub || null
         this.displayName = this.jwt.dn || null
+        this.clientId = this.jwt.clid
 
         this.permissions = [
             {

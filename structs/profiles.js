@@ -24,7 +24,7 @@ module.exports = {
                         },
                         quantity: commoncore.vbucks,
                         templateId: "Currency:MtxPurchased"
-                    },
+                    }
                 },
                 stats: {
                     survey_data: {
@@ -71,6 +71,33 @@ module.exports = {
                 }
             }
         }
+        
+        commoncore.gifts.forEach(gift => {
+            final.profile.items[`AuroraGift:${gift.id}`] = {
+                templateId: `GiftBox:${gift.box}`,
+                attributes: {
+                    max_level_bonus: 0,
+                    fromAccountId: gift.from,
+                    lootList: gift.items.map(x => {
+                        return {
+                            itemProfile: x.profile,
+                            itemType: x.id,
+                            itemGuid: x.id,
+                            quantity: x.quantity
+                        }
+                    }),
+                    level: 1,
+                    item_seen: false,
+                    xp: 0,
+                    giftedOn: gift.giftedAt,
+                    params: {
+                        userMessage: gift.message
+                    },
+                    favorite: false
+                },
+                quantity: 1
+            }
+        })
 
         caching.getBanners().forEach(banner => {
             final.profile.items[`HomebaseBannerIcon:${banner.toLowerCase()}`] = {
@@ -91,6 +118,8 @@ module.exports = {
                 quantity: 1
             }
         })
+
+        
         
         return final
     },

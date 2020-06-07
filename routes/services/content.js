@@ -2,9 +2,32 @@ const express = require("express")
 const request = require("request")
 const app = express.Router()
 
+const checkToken = require(`${__dirname}/../../middleware/checkToken`)
+const Athena = require(`${__dirname}/../../model/Athena`)
 
+function getNews() {
+    return new Promise((resolve, reject) => {
+        try {
+            request("https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game", {json: true}, (err, res, body) => {
+                if (err) resolve([])
+                else resolve(body.playlistinformation.playlist_info.playlists)
+            })
+        } catch {
+            resolve([])
+        }
+    })
+}
 
-app.get("/api/pages/fortnite-game", (req, res) => {
+app.get("/api/pages/fortnite-game", async (req, res) => {
+    var athena
+    try {
+        if (useragent.split(":")[1] == req.headers["user-agent"]) {
+            athena = await Athena.findOne({id: useragent.split(":")[0]})
+        }
+    } catch {}
+
+    var images = await getNews()
+
     res.json({
         "jcr:isCheckedOut": true,
         _title: "Fortnite Game",
@@ -53,7 +76,48 @@ app.get("/api/pages/fortnite-game", (req, res) => {
             _activeDate: new Date(),
             lastModified: new Date(),
             _locale: "en-US"
-        }
+        },
+        dynamicbackgrounds: {
+            "jcr:isCheckedOut": true,
+            backgrounds: {
+                backgrounds: [
+                    {
+                        stage: athena ? athena.stage : undefined,
+                        _type: "DynamicBackground",
+                        key: "lobby"
+                    },
+                    {
+                        stage: athena ? athena.stage : undefined,
+                        _type: "DynamicBackground",
+                        key: "vault"
+                    }
+                ],
+                "_type": "DynamicBackgroundList"
+            },
+            _title: "dynamicbackgrounds",
+            _noIndex: false,
+            "jcr:baseVersion": "a7ca237317f1e71f17852c-bccd-4be6-89a0-1bb52672a444",
+            _activeDate: new Date(),
+            lastModified: new Date(),
+            _locale: "en-US"
+        },
+        playlistinformation: {
+            is_tile_hidden: false,
+            frontend_matchmaking_header_style: "None",
+            "jcr:isCheckedOut": true,
+            show_ad_violator: false,
+            _title: "playlistinformation",
+            frontend_matchmaking_header_text: "",
+            playlist_info: {
+                _type: "Playlist Information",
+                playlists: images
+            },
+            _noIndex: false,
+            "jcr:baseVersion": "a7ca237317f1e753075e45-ce4a-442e-83f8-9451519dab16",
+            _activeDate: "2018-04-25T15:05:39.956Z",
+            lastModified: new Date(),
+            _locale: "en-US"
+        },
     })
 })
 

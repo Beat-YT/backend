@@ -2,26 +2,43 @@
 <html>
     <head>
         <title>Aurora</title>
-        <!--cringe-->
+        <link rel="icon" type="image/ico" href="../files/favicon.ico">
+        <link rel="stylesheet" href="../css/fonts.css">
+        <link rel="stylesheet" href="../css/account.css">
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-        <link rel="stylesheet" href="../css/index.css">
-        <link rel="stylesheet" href="../css/login.css">
-        <link rel="stylesheet" href="../css/signup.css">
-    </head>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="../js/signup.js"></script>
+
+    </head>    
     <body>
+        <div class="header">
+            <a class="bold">Aurora</a>
+            <div class="header-right">
+                <a href="/">Home</a>
+                <a href="/download">Download</a>
+                <a href="/login">Login</a>
+            </div>
+        </div>
         <div class="center">
-            <a id="thicc">Sign Up</a><br>
-            <a style="font-size: 20px;">Do NOT use your Epic Games password.</a><br>
-            <form class="form" method="post" action="/id/api/register">
-                <input type="text" name="username" placeholder="Username"><br>
-                <input type="email" name="email" placeholder="Email"><br>
-                <input type="password" name="password" placeholder="Password"><br>
+            <form id="signupForm">
+                <a class="title">Sign Up</a><br><br>
+                <a>Username</a>
+                <input type="text" id="username" name="username" placeholder="Ninja"> 
+                <a>Email</a>
+                <input type="email" id="email" name="email" placeholder="you@aurorafn.dev"> 
+                <a>Password</a>
+                <input type="password" id="password" name="password" placeholder="supersecretpassword">
+                <a>Captcha</a>
                 <div class="g-recaptcha" data-sitekey="6Lc-r_8UAAAAADuRdfyIPrBrP-E3hzJnidcbFjHx"></div>
-                <button id="login" name="login" type="submit">Sign Up</button>
+                <a>Already have an account?</a>
+                <a href="/login">Click here</a>
+                <a> to login.</a>
+                <br>
+                <div id="errorClass">
+                    <a id="notice" class="title" style="font-size: 25px;"></a>
+                </div>
+                <button type="submit">Sign Up</button>
             </form>
-            <a style="font-size: 20px;">Already have an account?</a> 
-            <a style="font-size: 20px;" id="learnmore" href="/login">Click here</a>
-            <a style="font-size: 20px;">to login.</a>
         </div>
     </body>
 </html>

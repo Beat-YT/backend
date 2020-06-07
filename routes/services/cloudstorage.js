@@ -4,6 +4,7 @@ const app = express.Router()
 const path = require("path")
 const fs = require("fs")
 
+const checkClientToken = require(`${__dirname}/../../middleware/checkClientToken`)
 const checkToken = require(`${__dirname}/../../middleware/checkToken`)
 const errors = require(`${__dirname}/../../structs/errors`)
 
@@ -17,7 +18,7 @@ const uniqueFilenames = {
 }
 
 
-app.get("/api/cloudstorage/system", (req, res) => {
+app.get("/api/cloudstorage/system", checkClientToken, (req, res) => {
     var files = fs.readdirSync(`${__dirname}/../../cloudstorage`)
 
     files = files.map(x => {
@@ -39,7 +40,7 @@ app.get("/api/cloudstorage/system", (req, res) => {
     res.json(files)
 })
 
-app.get("/api/cloudstorage/system/:filename", (req, res) => {
+app.get("/api/cloudstorage/system/:filename", checkClientToken, (req, res) => {
     const reversed = {}
     Object.keys(uniqueFilenames).forEach(x => reversed[uniqueFilenames[x]] = x)
 
@@ -57,7 +58,6 @@ app.get("/api/cloudstorage/system/:filename", (req, res) => {
     res.sendFile(path.join(__dirname, `/../../cloudstorage/${reversed[req.params.filename]}`))
 })
 
-// no accounts, no user account files either lol
 app.get("/api/cloudstorage/user/:accountId", checkToken,  (req, res) => res.json([]))
 
 app.get("/api/cloudstorage/user/:accountId/:filename", checkToken,  (req, res) => res.status(204).send())

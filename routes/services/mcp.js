@@ -214,6 +214,12 @@ app.post("/api/game/v2/profile/:accountId/client/SetCosmeticLockerSlot", checkTo
                     Pickaxe: {
                         items: [
                             athena.pickaxe,
+                        ],
+                        activeVariants: [
+                            athena.pickaxevariants.length != 0 ? 
+                            {
+                                variants: athena.pickaxevariants
+                            } : null
                         ]
                     },
                     ItemWrap: {
@@ -291,5 +297,35 @@ app.post("/api/game/v2/profile/:accountId/client/SetCosmeticLockerBanner", check
         }
     ], "athena", req.query.rvn))
 })
+
+
+app.post("/api/game/v2/profile/:accountId/client/RemoveGiftBox", checkToken, async (req, res) => {
+    if(req.method != "POST") return res.status(405).json(errors.method("fortnite", "prod-live"))
+
+    if(!res.locals.jwt.checkPermission(`fortnite:profile:${req.params.accountId}:commands`, "ALL")) 
+        return res.status(403).json(errors.permission(`fortnite:profile:${req.params.accountId}:commands`, "ALL", "fortnite", "prod-live"))
+
+    if (!req.body.giftBoxItemIds) return res.status(400).json(errors.create(
+        "errors.com.epicgames.validation.validation_failed", 1040,
+        `Validation Failed. Invalid fields were [giftBoxItemIds]`,
+        "fortnite", "prod-live", ["giftBoxItemIds"]
+    ))
+
+    var commoncore = await CommonCore.findOne({id: req.params.accountId})
+    var removed = []
+
+    commoncore.gifts.forEach(async gift => {
+        if (req.body.giftBoxItemIds.includes(`AuroraGift:${gift.id}`)) {
+            removed.push(gift.id)
+            
+            var yes = await CommonCore.updateOne({id: req.params.accountId}, {$pull: {gifts: {id: gift.id}}})
+        }
+    })
+
+
+    var profile = await profiles.commoncore(req.params.accountId)
+    res.json(createResponse([profile], "common_core", req.query.rvn));
+})
+
 
 module.exports = app

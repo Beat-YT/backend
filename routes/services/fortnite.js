@@ -32,8 +32,8 @@ app.all("/api/storefront/v2/keychain", checkToken, (req, res) => {
 })
 
 app.all("/api/game/v2/matchmakingservice/ticket/player/:accountId", checkToken, (req, res) => {
-    res.status(403).json(errors.create(
-        "Matchmaking is not supported on Aurora. Sorry for any inconvience.", 12002,
+    res.status(401).json(errors.create(
+        "Due to Epic TOS, we are not able to support matchmaking. Sorry for any inconvenience.", 12002,
         "dev.slushia.fdev.matchmaking.not_enabled",
         "fortnite", "prod"
     ))

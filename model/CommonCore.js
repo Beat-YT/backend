@@ -17,6 +17,10 @@ const schema = new mongoose.Schema({
     mtxplatform: {
         type: String,
         default: "EpicPC"
+    },
+    gifts: {
+        type: Array,
+        default: []
     }
 })
 

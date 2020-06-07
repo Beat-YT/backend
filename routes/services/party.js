@@ -39,18 +39,27 @@ app.all("/api/v1/Fortnite/parties", checkToken, (req, res) => {
         ].filter(x => x != null)
     ))
 
-    /*
-    if (parties.find(x => x.members.includes(res.locals.jwt.accountId))) return res.json(errors.create(
-        "errors.com.epicgames.social.party.user_has_party", 6969,
-        `Operation is forbidden because the user ${res.locals.jwt.accountId} is already in a party.`,
-        "party", "prod", [res.locals.jwt.accountId]
-    ))
-*/
-    if (!xmppClients[res.locals.jwt.accountId]) return res.json(errors.create(
+    
+    
+
+    if (!xmppClients[res.locals.jwt.accountId]) return res.status(403).json(errors.create(
         "errors.com.epicgames.social.party.user_is_offline", 51024,
         `Operation is forbidden because the user ${res.locals.jwt.accountId} is offline.`,
         "party", "prod", [res.locals.jwt.accountId]
     ))
+
+    if (xmppClients[res.locals.jwt.accountId].client.jid != req.body.join_info.connection.id) return res.status(403).json(errors.create(
+        "errors.com.epicgames.social.party.user_is_offline", 51024,
+        `Operation is forbidden because the user ${res.locals.jwt.accountId} is offline.`,
+        "party", "prod", [res.locals.jwt.accountId]
+    ))
+
+    if (parties.find(x => x.members.includes(res.locals.jwt.accountId))) return res.status(409).json(errors.create(
+        "errors.com.epicgames.social.party.user_has_party", 51012,
+        `User [${res.locals.jwt.accountId}] already has party in namespace [Fortnite] with subtype [default]`,
+        "party", "prod", [res.locals.jwt.accountId, "Fortnite", "default"]
+    ))
+
 
     var party = new Party(req.body.config, req.body.join_info, req.body.meta)
     

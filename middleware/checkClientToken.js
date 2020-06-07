@@ -31,7 +31,10 @@ module.exports = async (req, res, next) => {
     try {
         const decoded = jwt.verify(req.headers.authorization.split("~")[1], "slushwashere")
         
-        if (!accessTokens.find(x => x.token == req.headers.authorization.split(" ")[1])) throw new Error("invalid")
+        var check1 = clientTokens.find(x => x.token == req.headers.authorization.split(" ")[1])
+        var check2 = accessTokens.find(x => x.token == req.headers.authorization.split(" ")[1])
+        if (!check1 && !check2) throw new Error("crinhge")
+
         res.locals.jwt = new JWTInfo(decoded)
         
         next()

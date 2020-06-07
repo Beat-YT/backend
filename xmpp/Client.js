@@ -128,6 +128,7 @@ module.exports = class Client extends EventEmitter {
                 this.ws.send(xmlbuilder.create({
                     'iq': {
                         '@xmlns': 'jabber:client',
+                        '@from': "prod.ol.epicgames.com",
                         '@to': this.jid,
                         '@type': "result",
                         '@id': "_xmpp_bind1",
@@ -144,6 +145,7 @@ module.exports = class Client extends EventEmitter {
                 this.ws.send(xmlbuilder.create({
                     'iq': {
                         '@xmlns': 'jabber:client',
+                        '@from': "prod.ol.epicgames.com",
                         '@to': this.jid,
                         '@type': "result",
                         '@id': "_xmpp_session1"
@@ -154,9 +156,10 @@ module.exports = class Client extends EventEmitter {
                 this.ws.send(xmlbuilder.create({
                     'iq': {
                         '@xmlns': 'jabber:client',
+                        '@from': "prod.ol.epicgames.com",
                         '@to': this.jid,
                         '@type': "result",
-                        '@id': uuid().replace(/-/g, '').toUpperCase()
+                        '@id': message.root.attributes.id
                     }
                 }).end().replace(`<?xml version="1.0"?>`, "").trim())
                 break;
@@ -205,6 +208,7 @@ module.exports = class Client extends EventEmitter {
     }
 
     async handleclose() {
+        console.log("ytea")
         var friends = await Friends.findOne({id: this.id})
 
         if (friends) {
@@ -260,7 +264,6 @@ module.exports = class Client extends EventEmitter {
                 '@type': "chat",
                 '@to': this.jid,
                 '@from': from,
-                '@id': uuid().replace(/-/g, '').toUpperCase(),
                 'body': {
                     "#text": data
                 }
@@ -271,8 +274,8 @@ module.exports = class Client extends EventEmitter {
     sendPresence(to, from, data) {
         this.ws.send(xmlbuilder.create({
             'presence': {
-                '@xmlns': 'jabber:client',
                 '@to': to,
+                '@xmlns': 'jabber:client',
                 '@from': from,
                 'status': {
                     "#text": data

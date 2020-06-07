@@ -2,29 +2,38 @@
 <html>
     <head>
         <title>Aurora</title>
-        <link rel="stylesheet" href="../css/index.css">
-        <link rel="stylesheet" href="../css/login.css">
-        <link rel="stylesheet" href="../css/signup.css">
+        <link rel="icon" type="image/ico" href="../files/favicon.ico">
+        <link rel="stylesheet" href="../css/fonts.css">
+        <link rel="stylesheet" href="../css/account.css">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script>
-            function checkAuth() {
-                if (document.cookie.split("=").find(x => x.includes("token"))) {
-                    window.location.replace("/account")
-                }
-            }
-        </script>
+        <script src="../js/login.js"></script>
+
     </head>    
     <body onload="return checkAuth()">
+        <div class="header">
+            <a class="bold">Aurora</a>
+            <div class="header-right">
+                <a href="/">Home</a>
+                <a href="/download">Download</a>
+                <a href="/signup">Signup</a>
+            </div>
+        </div>
         <div class="center">
-            <a id="thicc">Login</a><br>
-            <form action="/id/api/login" method="POST" >
-                <input type="email" name="email" placeholder="Email"><br>
-                <input type="password" name="password" id="" placeholder="password"><br>
-                <button type="submit">Login</button>
+            <form id="loginForm">
+                <a class="title">Login</a><br><br>
+                <a>Email</a>
+                <input type="email" id="email" name="email" placeholder="you@aurorafn.dev"> 
+                <a>Password</a>
+                <input type="password" id="password" name="password" placeholder="supersecretpassword">
+                <a>Don't have an account?</a>
+                <a href="/signup">Click here</a>
+                <a> to create one.</a>
+                <br>
+                <div id="errorClass">
+                    <a id="notice" class="title" style="font-size: 25px;"></a>
+                </div>      
+                <button>Login</button>
             </form>
-            <a style="font-size: 20px;">Don't have an account?</a> 
-            <a style="font-size: 20px;" id="learnmore" href="/signup">Click here</a>
-            <a style="font-size: 20px;">to create one.</a>
         </div>
     </body>
 </html>

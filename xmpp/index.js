@@ -11,19 +11,19 @@ const wss = new WebSocket.Server({ port: process.env.xmppPort || config.xmppPort
 
 
 wss.on("connection", ws => {
-    var client = new Client(ws)
+    var client = new Client(ws) 
 
-    ws.on("close", async () => {
-        if (client.id) {
-            var friends = await Friends.findOne({id: client.id})
+    ws.on("close", async (lol) => {
+        var friends = await Friends.findOne({id: client.id})
 
+        if (friends) {
             friends.accepted.forEach(friend => {
                 if (xmppClients[friend.id]) {
                     xmppClients[friend.id].client.ws.send(xmlbuilder.create({
                         'presence': {
                             '@xmlns': 'jabber:client',
                             '@to': xmppClients[friend.id].client.jid,
-                            '@from': xmppClients[client.id].client.jid,
+                            '@from': client.jid,
                             '@type': "unavailable",
                             'status': {
                                 "#text": {
@@ -39,12 +39,13 @@ wss.on("connection", ws => {
                     }).end().replace(`<?xml version="1.0"?>`, "").trim())            
                 }
             })
-            
-            if (xmppClients[client.id].client.sender) {
-                clearInterval(xmppClients[client.id].client.sender)
-            }
-            if (xmppClients[client.id]) delete xmppClients[client.id]
+                
         }
+
+        if (client.sender) {
+            clearInterval(client.sender)
+        }
+        if (xmppClients[client.id]) delete xmppClients[client.id]
     })
 })
 

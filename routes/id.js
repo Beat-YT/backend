@@ -3,15 +3,21 @@ const request = require("request")
 const express = require("express")
 const bcrypt = require("bcrypt")
 const crypto = require("crypto")
+const uuid = require("uuid").v4
 const app = express.Router()
+const fs = require("fs")
 
 const CommonCore = require(`${__dirname}/../model/CommonCore`)
+const caching = require(`${__dirname}/../structs/caching`)
 const Friends = require(`${__dirname}/../model/Friends`)
 const Athena = require(`${__dirname}/../model/Athena`)
 const logging = require(`${__dirname}/../structs/logs`)
 const User = require(`${__dirname}/../model/User`)
 
+var tokens = {}
+
 app.use(cookieParser())
+app.use("/api/discord", require(`${__dirname}/discord`))
 
 /**
  * Virgin Slayer v2.0
@@ -24,25 +30,27 @@ function virginSlayerv2(gcaptcha) {
             secret: "6Lc-r_8UAAAAAOdX6O7zhsnwUXublLszA_ut_vCG",
             response: gcaptcha
         }}, (err, res, body) => {
-            if (err) resolve(false)
-            resolve(body.success)
+            try {
+                if (err) resolve(false)
+                resolve(body.success)
+            } catch {resolve(false)}
         })
     })
 }
 
 app.post("/api/register", async (req, res) => {
-    res.clearCookie("id")
-    res.clearCookie("token")    
-    
-    var yeah = req.body.email && req.body.username && req.body.password && req.body["g-recaptcha-response"]
+    res.clearCookie("AURORA_ID")
+    res.clearCookie("AURORA_TOKEN")
+
+    var yeah = req.body.email && req.body.username && req.body.password && req.body.captcha
 
     if (!yeah) return res.status(400).json({
-        error: `Missing '${[req.body.email ? null : "email", req.body.username ? null : "username", req.body.password ? null : "password",  req.body["g-recaptcha-response"] ? null : "g-recaptcha-response"].filter(x => x != null).join(", ")}' field(s).`,
+        error: `Missing '${[req.body.email ? null : "email", req.body.username ? null : "username", req.body.password ? null : "password",  req.body.captcha ? null : "captcha"].filter(x => x != null).join(", ")}' field(s).`,
         errorCode: "dev.aurorafn.id.register.invalid_fields",
         statusCode: 400
     })
 
-    var bIsVirgin = await virginSlayerv2(req.body["g-recaptcha-response"])
+    var bIsVirgin = await virginSlayerv2(req.body.captcha)
     if (!bIsVirgin) return res.status(400).json({
         error: "Recaptcha response is invalid.",
         errorCode: "dev.aurorafn.id.register.invalid_captcha",
@@ -91,39 +99,214 @@ app.post("/api/register", async (req, res) => {
     res.redirect("/login")
 })
 
-app.post("/api/exchange", async (req, res) => {
-    if (req.body ? !req.body.email && !req.body.password : true) {
-        return res.status(400).json({error: `${!req.body.username ? "Email" : "Password"} field was not provided.`})
-    }
+app.post("/api/login", async (req, res) => {
+    var bIsValid = req.body.email && req.body.password
 
-    var user = await User.findOne({email: req.body.email})
-    var code = crypto.randomBytes(16).toString('hex')
+    if (!bIsValid) return res.status(400).json({
+        error: `Missing '${[req.body.email ? null : "email", req.body.password ? null : "password"].filter(x => x != null).join(", ")}`,
+        errorCode: "dev.aurorafn.id.login.invalid_fields",
+        statusCode: 400
+    })
 
-    if (bcrypt.compareSync(req.body.password, user.password)) {
-        setTimeout(() => {
-            if (exchangeCodes[code]) delete exchangeCodes[code]
-        }, 300000) // 300 seconds 
-        exchangeCodes[code] = user.id
-        res.json({
-            code: code,
-            expiringIn: 300
+    var check = await User.findOne({email: new RegExp(`^${req.body.email}$`, 'i')})
+
+    if (check) {
+        if (bcrypt.compareSync(req.body.password, check.password)) {
+            var token = crypto.randomBytes(16).toString("hex")
+            tokens[check.id] = token
+
+            res.cookie("AURORA_ID", check.id)
+            res.cookie("AURORA_TOKEN", token)
+
+            if (req.query.redirect) res.redirect("/login")
+            else res.json({
+                access_token: token,
+                account_id: check.id,
+                statusCode: 200
+            })
+        } else return res.status(401).json({
+            error: `Incorrect password for the account '${req.body.email}'.`,
+            errorCode: "dev.aurorafn.id.login.password_incorrect",
+            statusCode: 401
         })
-    } else {
-        return res.status(400).json({error: `Password is invalid.`})
-    }
-})
-
-app.get("/api/ip", (req, res) => {
-    var ip = req.headers["x-real-ip"] || req.ip
-    if (ip.substr(0, 7) == "::ffff:") ip = ip.substr(7)
+    } else return res.status(404).json({
+        error: `Account under the email '${req.body.email} not found.`,
+        errorCode: "dev.aurorafn.id.login.account_not_found",
+        statusCode: 404
+    })
     
-    res.setHeader("content-type", "text/plain")
-    res.send(ip)
 })
 
-app.get("/api/clients", (req, res) => {
-    res.setHeader("content-type", "text/plain")
-    res.send(Object.keys(xmppClients).length.toString())
+app.get("/api/me", async (req, res) => {
+    var bIsValid = req.cookies["AURORA_ID"] && req.cookies["AURORA_TOKEN"]
+    if (!bIsValid) return res.status(400).json({
+        error: `Missing cookies '${[req.cookies["AURORA_ID"] ? null : "AURORA_ID", req.cookies["AURORA_TOKEN"] ? null : "AURORA_TOKEN"].filter(x => x != null).join(", ")}'.`,
+        errorCode: "dev.aurorafn.id.me.invalid_fields",
+        statusCode: 400
+    })
+
+    if (tokens[req.cookies["AURORA_ID"]] == req.cookies["AURORA_TOKEN"]) {
+        var user = await User.findOne({id: req.cookies["AURORA_ID"]})
+        var athena = await Athena.findOne({id: req.cookies["AURORA_ID"]})
+        var commoncore = await CommonCore.findOne({id: req.cookies["AURORA_ID"]})
+
+        res.json({
+            id: req.cookies["AURORA_ID"],
+            displayName: user.displayName,
+            email: user.email,
+            athena: {
+                stage: athena.stage,
+                level: athena.level
+            },
+            commoncore: {
+                vbucks: commoncore.vbucks
+            }           
+        })
+    } else return res.status(401).json({
+        error: `Invalid auth token '${req.cookies["AURORA_TOKEN"]}'.`,
+        errorCode: "dev.aurorafn.id.me.invalid_auth_token",
+        statusCode: 401
+    })
+})
+
+app.get("/api/kill", (req, res) => {
+    if (tokens[req.cookies["AURORA_ID"]] == req.cookies["AURORA_TOKEN"]) delete tokens[req.cookies["AURORA_ID"]]
+    res.clearCookie("AURORA_ID")
+    res.clearCookie("AURORA_TOKEN")
+
+    if (req.query.redirect) res.redirect("/login")
+    else res.status(204).end()
+})
+
+app.post("/api/update", async (req, res) => {
+    var bIsValid = req.cookies["AURORA_ID"] && req.cookies["AURORA_TOKEN"]
+
+    if (!bIsValid) return res.status(400).json({
+        error: `Missing cookies '${[req.cookies["AURORA_ID"] ? null : "AURORA_ID", req.cookies["AURORA_TOKEN"] ? null : "AURORA_TOKEN"].filter(x => x != null).join(", ")}'.`,
+        errorCode: "dev.aurorafn.id.update.invalid_fields",
+        statusCode: 400
+    })
+
+    
+    if (tokens[req.cookies["AURORA_ID"]] != req.cookies["AURORA_TOKEN"]) return res.status(401).json({
+        error: `Invalid auth token '${req.cookies["AURORA_TOKEN"]}'.`,
+        errorCode: "dev.aurorafn.id.me.invalid_auth_token",
+        statusCode: 401
+    })
+
+    var pattern = new RegExp('^[0-9]+$')
+    var stages = JSON.parse(fs.readFileSync(`${__dirname}/../public/files/stages.json`))
+
+    var updated = {}
+
+    if (req.body.level) {
+        if (pattern.test(req.body.level)) {
+            await Athena.updateOne({id: req.cookies["AURORA_ID"]}, {level: Number(req.body.level) > 9999 ? 9999 : Number(req.body.level)})
+            updated["level"] = Number(req.body.level) > 9999 ? 9999 : Number(req.body.level)
+        } 
+    }
+
+    if (req.body.vbucks) {
+        if (pattern.test(req.body.vbucks)) {
+            await CommonCore.updateOne({id: req.cookies["AURORA_ID"]}, {vbucks: Number(req.body.vbucks) > 2147483647 ? 2147483647 : Number(req.body.vbucks)})
+            updated["vbucks"] =  Number(req.body.vbucks) > 2147483647 ? 2147483647 : Number(req.body.vbucks)
+        } 
+    }
+
+    if (req.body.stage) {
+        if (stages[req.body.stage]) {
+            var yes = await Athena.updateOne({id: req.cookies["AURORA_ID"]}, {stage: req.body.stage})
+            updated["stage"] = req.body.stage
+        } else {
+            return res.status(400).json({
+                error: `Invalid stage '${req.body.stage}'. Valid stages are [${Object.keys(stages).join(", ")}].`,
+                errorCode: "dev.aurorafn.id.update.invalid_stage",
+                statusCode: 400
+            })
+        }
+    }
+
+    res.json({
+        updated: updated,
+        statusCode: 200
+    })
+})
+
+app.post("/api/gift", async (req, res) => {
+    var bIsValid = req.body.item && req.body.to && req.body.box
+
+    if (!bIsValid) return res.status(400).json({
+        error: `Missing fields '${[
+            req.body.item ? null : "item", 
+            req.body.to ? null : "to", 
+            req.body.box ? null : "box", 
+        ].filter(x => x != null).join(", ")}'.`,
+        errorCode: "dev.aurorafn.id.gift.invalid_fields",
+        statusCode: 400
+    })
+
+    var giftboxes = JSON.parse(fs.readFileSync(`${__dirname}/../public/files/giftboxes.json`))
+    if (!giftboxes[req.body.box]) return res.status(404).json({
+        error: `Giftbox '${req.body.box}' not found.`,
+        errorCode: "dev.aurorafn.id.gift.giftbox_not_found",
+        statusCode: 404
+    })
+
+    var cosmetics = caching.getCosmetics()
+    if (!cosmetics.find(x => x.name.toLowerCase().includes(req.body.item.toLowerCase()))) return res.status(404).json({
+        error: `Cosmetic '${req.body.item}' not found.`,
+        errorCode: "dev.aurorafn.id.gift.cosmetic_not_found",
+        statusCode: 404
+    })
+
+    var cosmetic = cosmetics.find(x => x.name.toLowerCase().includes(req.body.item.toLowerCase()))
+
+    var user = await User.findOne({displayName: new RegExp(`^${req.body.to}$`, 'i')})
+    if (!user) return res.status(404).json({
+        error: `Account under the username '${req.body.to} not found.`,
+        errorCode: "dev.aurorafn.id.gift.account_not_found",
+        statusCode: 404
+    })
+
+    if (req.cookies["AURORA_ID"] != user.id) {
+        var friends = await Friends.findOne({id: user.id})
+
+        if(!friends.accepted.find(x => x.id == req.cookies["AURORA_ID"])) return res.status(404).json({
+            error: `Friendship between '${req.cookies["AURORA_ID"]}' and '${req.body.to}' does not exist.`,
+            errorCode: "dev.aurorafn.id.gift.friendship_not_found",
+            statusCode: 404
+        })
+    }
+
+    var commoncore = await CommonCore.findOne({id: user.id})
+    if (commoncore.gifts.length >= 3) return res.status(409).json({
+        error: `Account '${user.id}' has too many gifts.`,
+        errorCode: "dev.aurorafn.id.gift.account_too_many_gifts",
+        statusCode: 409
+    })
+
+    await CommonCore.updateOne({id: user.id}, {$push: {gifts: {
+        from: req.cookies["AURORA_ID"],
+        id: uuid(),
+        box: req.body.box,
+        items: [
+            {
+                id: `${cosmetic.backendType}:${cosmetic.id.toLowerCase()}`,
+                profile: cosmetic.backendType.includes("Athena") ? "athena" : "common_core",
+                quantity: req.body.quantity || 1
+            }
+        ],
+        giftedAt: new Date(),
+        message: req.body.message || ""
+    }}})
+
+    if (xmppClients[user.id]) xmppClients[user.id].client.sendMessage("xmpp-admin@prod.ol.epicgames.com", JSON.stringify({
+        type: "com.epicgames.gift.received",
+        payload: "",
+        timestamp: new Date()
+    }))
+
+    res.status(204).end()
 })
 
 app.get("/api/parties", (req, res) => {
@@ -131,212 +314,10 @@ app.get("/api/parties", (req, res) => {
     res.send(parties.length.toString())
 })
 
-app.post("/api/login", async (req, res) => {
-    if (req.body ? !req.body.email && !req.body.password : true) {
-        return res.status(400).json({error: `${!req.body.username ? "Email" : "Password"} field was not provided.`})
-    }
-
-    var user = await User.findOne({email: new RegExp(`^${req.body.email}$`, 'i') })
-
-    if (!user) return res.status(404).json({
-        code: 404,
-        message: "Account not found."
-    })
-
-    if (bcrypt.compareSync(req.body.password, user.password)) {
-        var code = bcrypt.hashSync(`${user.id}:omegalul`, bcrypt.genSaltSync(10))
-        res.cookie("id", user.id)
-        res.cookie("token", code)
-        res.redirect("/account")
-    } else {
-        res.status(401).json({
-            code: 401,
-            message: "Credentials incorrect."
-        })
-    }
-
+app.get("/api/clients", (req, res) => {
+    res.setHeader("content-type", "text/plain")
+    res.send(Object.keys(xmppClients).length.toString())
 })
 
-app.get("/api/me", async (req, res) => {
-    if (req.headers.discordauthor && req.headers.authorization == "slushbot!!") {
-        var user = await User.findOne({"discord.id": req.headers.discordauthor})
-
-        if (user) {
-            var user = await User.findOne({"discord.id": req.headers.discordauthor})
-            var athena = await Athena.findOne({id: user.id})
-            var commoncore = await CommonCore.findOne({id: user.id})
-    
-            res.json({
-                id: user.id,
-                displayName: user.displayName,
-                email: user.email,
-                discord: user.discord,
-                athena: {
-                    level: athena.level,
-                    banner: athena.banner
-                },
-                commoncore: {
-                    vbucks: commoncore.vbucks
-                }
-            })
-        }  else {
-            res.status(404).json({
-                code: 404,
-                message: "User is not linked to discord."
-            })
-        }
-    } else if (req.cookies.token && req.cookies.id) {
-        //2am: w hat could go wrong
-        if (!bcrypt.compareSync(`${req.cookies.id}:omegalul`, req.cookies.token)) return res.status(401).json({
-            code: 401,
-            message: "Unauthorized, is your token invalid?"
-        })
-
-        var user = await User.findOne({id: req.cookies.id})
-        if (!user) {
-            res.clearCookie("id")
-            res.clearCookie("token")
-            return res.redirect("/login")
-        }
-
-        var athena = await Athena.findOne({id: user.id})
-        var commoncore = await CommonCore.findOne({id: user.id})
-
-        res.json({
-            id: user.id,
-            displayName: user.displayName,
-            email: user.email,
-            discord: user.discord,
-            athena: {
-                level: athena.level,
-                banner: athena.banner
-            },
-            commoncore: {
-                vbucks: commoncore.vbucks
-            }
-        })
-    } else res.status(404).end()
-})
-
-app.get("/api/discord/link", async (req, res) => {
-    if (!req.query.code) return res.status(400).json({
-        code: 400,
-        message: "Code query not provided"
-    })
-
-    request.post("https://discordapp.com/api/oauth2/token", ({form: {
-        client_id: "716499338016325712",
-        client_secret: "e_Tsc9ydOoGitRfhTr6I5izLOMtC5VZV",
-        grant_type: "authorization_code",
-        redirect_uri: "http://localhost/id/api/discord/link",
-        scope: ["identify"],
-        code: req.query.code
-    }}), (err, response, body) => {
-        body = JSON.parse(body)
-
-        request("https://discordapp.com/api/users/@me", ({
-            headers: {
-                authorization: `Bearer ${body.access_token}`
-            }
-        }), async (err, response, body) => {
-            body = JSON.parse(body)
-
-            if (bcrypt.compareSync(`${req.cookies.id}:omegalul`, req.cookies.token)) {
-                var check = await User.findOne({"discord.id": body.id})
-
-                if (check) await User.updateOne({id: check.id}, {discord: {}})
-                
-                await User.updateOne({id: req.cookies.id}, {discord: {
-                    id: body.id,
-                    username: body.username,
-                    discriminator: body.discriminator
-                }})
-
-                res.redirect("/account")
-
-            } else return res.status(401).json({
-                code: 401,
-                message: "Unauthorized, is your token invalid?"
-            })
-        })
-
-
-    })
-})
-
-app.post("/api/logout", (req, res) => {
-    res.clearCookie("id")
-    res.clearCookie("token")
-    res.redirect("/login")
-})
-
-app.delete("/api/discord/unlink", async (req, res) => {
-
-    if (req.headers.discordauthor && req.headers.authorization == "slushbot!!") {
-        await User.updateOne({"discord.id": req.headers.discordauthor}, {discord: {}})
-
-        res.json({
-            code: 200,
-            message: "Unlinked account"
-        })
-    } else res.status(404).json({
-        code: 400,
-        message: "Unauthorized, is your token invalid?"
-    })
-})
-
-app.post("/api/vbucks", async (req, res) => {
-
-    if (req.headers.discordauthor && req.headers.authorization == "slushbot!!") {
-        var user = await User.findOne({"discord.id": req.headers.discordauthor})
-        if (!user) return res.status(404).end()
-
-        if (req.body.vbucks > 2147483647) vbucks = 2147483647; else vbucks = req.body.vbucks   
-
-        await CommonCore.updateOne({id: user.id}, {vbucks: vbucks})
-
-        res.status(204).end()
-    } else if (req.cookies.token) {
-        //2am: w hat could go wrong
-        if (!bcrypt.compareSync(`${req.cookies.id}:omegalul`, req.cookies.token)) return res.status(401).json({
-            code: 401,
-            message: "Unauthorized, is your token invalid?"
-        })
-
-        var vbucks
-        if (req.body.vbucks > 2147483647) vbucks = 2147483647; else vbucks = req.body.vbucks   
-
-        await CommonCore.updateOne({id: req.cookies.id}, {vbucks: vbucks})
-        res.redirect("/account")
-
-    } else res.status(404).end()
-})
-
-app.post("/api/level", async (req, res) => {
-    if (req.headers.discordauthor && req.headers.authorization == "slushbot!!") {
-        var user = await User.findOne({"discord.id": req.headers.discordauthor})
-        if (!user) return res.status(404).end()
-
-        var level
-        if (req.body.level > 9999) level = 9999; else level = req.body.level
-
-        await Athena.updateOne({id: user.id}, {level: level})
-        res.status(204).end()
-    } else if (req.cookies.token) {
-        //2am: w hat could go wrong
-        if (!bcrypt.compareSync(`${req.cookies.id}:omegalul`, req.cookies.token)) return res.status(401).json({
-            code: 401,
-            message: "Unauthorized, is your token invalid?"
-        })
-
-
-        var level
-        if (req.body.level > 9999) level = 9999; else level = req.body.level
-
-        await Athena.updateOne({id: req.cookies.id}, {level: level})
-        res.redirect("/account")
-
-    } else res.status(404).end()
-})
 
 module.exports = app

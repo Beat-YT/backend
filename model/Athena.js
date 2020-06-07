@@ -14,6 +14,10 @@ const schema = new mongoose.Schema({
         type: Number,
         default: 999
     },
+    stage: {
+        type: String,
+        default: "season12"
+    },
     banner: {
         type: String,
         default: ""

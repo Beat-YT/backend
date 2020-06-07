@@ -1,0 +1,16 @@
+.middle {
+    font-size: 30px;
+    text-align: center;
+}
+
+.link {
+    text-decoration: underline;
+    font-family: "SF Text Bold";
+    background-clip: text;
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    background-image: url("../files/gradient.png");
+    background-size: cover;
+    background-position: center;
+}
+

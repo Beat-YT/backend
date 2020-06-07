@@ -18,6 +18,7 @@ global.invites = []
 global.pings = []
 global.mucs = []
 
+
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({extended: true}))
 

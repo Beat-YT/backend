@@ -40,8 +40,6 @@ app.all("/api/v1/Fortnite/parties", checkToken, (req, res) => {
     ))
 
     
-    
-
     if (!xmppClients[res.locals.jwt.accountId]) return res.status(403).json(errors.create(
         "errors.com.epicgames.social.party.user_is_offline", 51024,
         `Operation is forbidden because the user ${res.locals.jwt.accountId} is offline.`,

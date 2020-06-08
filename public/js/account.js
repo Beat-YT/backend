@@ -46,6 +46,7 @@ $(document).ready(function() {
 
     lobbyForm.on("submit", (e) => {
         e.preventDefault();
+
         $.ajax({
             type: "POST",
             url: "/id/api/update",

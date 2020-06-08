@@ -26,16 +26,31 @@ async function grabData() {
     $.ajax({
         url: "/id/api/me",
         success: (data) => {
-            console.log(data)
-            $(`#${data.athena.stage}`).attr("selected","selected");
+            //$(`#${data.athena.stage}`).attr("selected","selected");
             $("#vbucks").attr("placeholder", data.commoncore.vbucks).val("")
             $("#level").attr("placeholder", data.athena.level).val("")
             $("#accountid").text(data.id)
             $("#username").text(data.displayName)
             $("#giftusername").text(data.displayName)
+            $(`#${data.misc.allowsGifts == true ? "yes" : "no"}`).attr("selected","selected");
         },
         error: () => {
             document.location.href = "/id/api/kill?redirect=true"
+        }
+    }) 
+}
+
+async function removeGifts() {
+    $.ajax({
+        url: "/id/api/gifts",
+        type: "DELETE",
+        success: () => {
+            $("#updated-account").text("Cleared Gifts!")
+            $("#updated-account").show()
+        },
+        error: () => {
+            $("#updated-account").text("Unable To Update Account.")
+            $("#updated-account").show()        
         }
     }) 
 }
@@ -47,14 +62,17 @@ $(document).ready(function() {
     lobbyForm.on("submit", (e) => {
         e.preventDefault();
 
+        var level = $("#level").val() == "" ? undefined : $("#level").val()
+        var vbucks = $("#vbucks").val() == "" ? undefined : $("#vbucks").val()
         $.ajax({
             type: "POST",
             url: "/id/api/update",
-            data: {
-                level:  $("#level").val(),
-                vbucks:  $("#vbucks").val(),
-                stage:  $("#stage").val()
-            },
+            contentType: 'application/json',
+            data: JSON.stringify({
+                level:  level,
+                vbucks:  vbucks,
+                allowsGifts: $("#allowgifts").val() == "yes" ? true : false
+            }),
             success: (data) => {
                 if (data.updated.vbucks) $("#vbucks").attr("placeholder", data.updated.vbucks).val("")
                 if (data.updated.level) $("#level").attr("placeholder", data.updated.level).val("")
@@ -62,6 +80,7 @@ $(document).ready(function() {
                 $("#level").text("")
                 $("#vbucks").text("")
 
+                $("#updated-account").text("Updated Account!")
                 $("#updated-account").show()
             },
             error: (data) => {
@@ -79,7 +98,7 @@ $(document).ready(function() {
         e.preventDefault();
         $.ajax({
             type: "POST",
-            url: "/id/api/gift",
+            url: "/id/api/gifts",
             data: {
                 to:  $("#gift_username").val(),
                 box:  $("#giftbox").val(),
@@ -114,6 +133,10 @@ $(document).ready(function() {
                         break;
                     case "dev.aurorafn.id.gift.account_too_many_gifts":
                         $("#gift-notice").text("Error: Account has too many gifts.")
+                        $("#gift-notice").show()
+                        break;
+                    case "dev.aurorafn.id.gift.account_gifting_disabled":
+                        $("#gift-notice").text("Error: Account has gifting disabled.")
                         $("#gift-notice").show()
                         break;
                     default:

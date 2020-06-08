@@ -5,8 +5,6 @@ const checkToken = require(`${__dirname}/../../middleware/checkToken`)
 
 app.get('/api/calendar/v1/timeline', checkToken, async (req, res) => {
 
-    global.useragent = `${res.locals.jwt.accountId}:${req.headers["user-agent"].replace("Fortnite", "FortniteGame")}`
-
     var season
     if (req.headers["user-agent"]) {
         try {

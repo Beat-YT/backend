@@ -160,6 +160,9 @@ app.get("/api/me", async (req, res) => {
             },
             commoncore: {
                 vbucks: commoncore.vbucks
+            },
+            misc: {
+                allowsGifts: user.allowsGifts
             }           
         })
     } else return res.status(401).json({
@@ -179,6 +182,7 @@ app.get("/api/kill", (req, res) => {
 })
 
 app.post("/api/update", async (req, res) => {
+    
     var bIsValid = req.cookies["AURORA_ID"] && req.cookies["AURORA_TOKEN"]
 
     if (!bIsValid) return res.status(400).json({
@@ -187,7 +191,6 @@ app.post("/api/update", async (req, res) => {
         statusCode: 400
     })
 
-    
     if (tokens[req.cookies["AURORA_ID"]] != req.cookies["AURORA_TOKEN"]) return res.status(401).json({
         error: `Invalid auth token '${req.cookies["AURORA_TOKEN"]}'.`,
         errorCode: "dev.aurorafn.id.me.invalid_auth_token",
@@ -226,13 +229,37 @@ app.post("/api/update", async (req, res) => {
         }
     }
 
+    if (req.body.allowsGifts != undefined) {
+        if (req.body.allowsGifts == true) {
+            await User.updateOne({id: req.cookies["AURORA_ID"]}, {allowsGifts: true})
+            updated.allowsGifts = true
+        } else if (req.body.allowsGifts == false) {
+            await User.updateOne({id: req.cookies["AURORA_ID"]}, {allowsGifts: false})
+            updated.allowsGifts = false
+        }
+    }
+
     res.json({
         updated: updated,
         statusCode: 200
     })
 })
 
-app.post("/api/gift", async (req, res) => {
+app.post("/api/gifts", async (req, res) => {
+    var bIsValid = req.cookies["AURORA_ID"] && req.cookies["AURORA_TOKEN"]
+
+    if (!bIsValid) return res.status(400).json({
+        error: `Missing cookies '${[req.cookies["AURORA_ID"] ? null : "AURORA_ID", req.cookies["AURORA_TOKEN"] ? null : "AURORA_TOKEN"].filter(x => x != null).join(", ")}'.`,
+        errorCode: "dev.aurorafn.id.update.invalid_fields",
+        statusCode: 400
+    })
+
+    if (tokens[req.cookies["AURORA_ID"]] != req.cookies["AURORA_TOKEN"]) return res.status(401).json({
+        error: `Invalid auth token '${req.cookies["AURORA_TOKEN"]}'.`,
+        errorCode: "dev.aurorafn.id.me.invalid_auth_token",
+        statusCode: 401
+    })
+
     var bIsValid = req.body.item && req.body.to && req.body.box
 
     if (!bIsValid) return res.status(400).json({
@@ -265,6 +292,12 @@ app.post("/api/gift", async (req, res) => {
     if (!user) return res.status(404).json({
         error: `Account under the username '${req.body.to} not found.`,
         errorCode: "dev.aurorafn.id.gift.account_not_found",
+        statusCode: 404
+    })
+
+    if (!user.allowsGifts) return res.status(404).json({
+        error: `Account has gifting disabled.`,
+        errorCode: "dev.aurorafn.id.gift.account_gifting_disabled",
         statusCode: 404
     })
 
@@ -308,6 +341,27 @@ app.post("/api/gift", async (req, res) => {
 
     res.status(204).end()
 })
+
+
+app.delete("/api/gifts", async (req, res) => {
+    var bIsValid = req.cookies["AURORA_ID"] && req.cookies["AURORA_TOKEN"]
+
+    if (!bIsValid) return res.status(400).json({
+        error: `Missing cookies '${[req.cookies["AURORA_ID"] ? null : "AURORA_ID", req.cookies["AURORA_TOKEN"] ? null : "AURORA_TOKEN"].filter(x => x != null).join(", ")}'.`,
+        errorCode: "dev.aurorafn.id.update.invalid_fields",
+        statusCode: 400
+    })
+
+    if (tokens[req.cookies["AURORA_ID"]] != req.cookies["AURORA_TOKEN"]) return res.status(401).json({
+        error: `Invalid auth token '${req.cookies["AURORA_TOKEN"]}'.`,
+        errorCode: "dev.aurorafn.id.me.invalid_auth_token",
+        statusCode: 401
+    })
+
+    var yes = await CommonCore.updateOne({id: req.cookies["AURORA_ID"]}, {$set: {gifts: []}})
+    res.status(204).end()
+})
+
 
 app.get("/api/parties", (req, res) => {
     res.setHeader("content-type", "text/plain")

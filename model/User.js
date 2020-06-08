@@ -14,7 +14,6 @@ const schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    //slush note: sad
     ip: {
         type: String,
         required: true
@@ -22,6 +21,10 @@ const schema = new mongoose.Schema({
     id: {
         type: String,
         default: crypto.randomBytes(16).toString("hex")
+    },
+    allowsGifts: {
+        type: Boolean,
+        default: true
     },
     createdAt: {
         type: Date,

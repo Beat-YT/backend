@@ -19,13 +19,6 @@ function getNews() {
 }
 
 app.get("/api/pages/fortnite-game", async (req, res) => {
-    var athena
-    try {
-        if (useragent.split(":")[1] == req.headers["user-agent"]) {
-            athena = await Athena.findOne({id: useragent.split(":")[0]})
-        }
-    } catch {}
-
     var images = await getNews()
 
     res.json({
@@ -82,12 +75,12 @@ app.get("/api/pages/fortnite-game", async (req, res) => {
             backgrounds: {
                 backgrounds: [
                     {
-                        stage: athena ? athena.stage : undefined,
+                        stage: "season12",
                         _type: "DynamicBackground",
                         key: "lobby"
                     },
                     {
-                        stage: athena ? athena.stage : undefined,
+                        stage: "season12",
                         _type: "DynamicBackground",
                         key: "vault"
                     }

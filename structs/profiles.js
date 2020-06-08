@@ -143,7 +143,7 @@ module.exports = {
                         templateId: "CosmeticLocker:cosmeticlocker_athena",
                         attributes: {
                             locker_slots_data: {
-                                slots: {
+                                slots:  {
                                     Glider: {
                                         items: [
                                             athena.glider
@@ -151,32 +151,30 @@ module.exports = {
                                     },
                                     Dance: {
                                         items: athena.dance,
-                                        activeVariants: [
-                                            null,
-                                            null,
-                                            null,
-                                            null,
-                                            null,
-                                            null
-                                        ]
                                     },
                                     SkyDiveContrail: {
                                         items: [
-                                            athena.skydivecontrail
+                                            athena.skydivecontrail,
                                         ]
                                     },
                                     LoadingScreen: {
                                         items: [
-                                            athena.loadinscreen
+                                            athena.loadingscreen,
                                         ]
                                     },
                                     Pickaxe: {
                                         items: [
-                                            athena.pickaxe
+                                            athena.pickaxe,
+                                        ],
+                                        activeVariants: [
+                                            athena.pickaxevariants.length != 0 ? 
+                                            {
+                                                variants: athena.pickaxevariants
+                                            } : null
                                         ]
                                     },
                                     ItemWrap: {
-                                        items: athena.itemwrap
+                                        items: athena.itemwrap,
                                     },
                                     MusicPack: {
                                         items: [
@@ -188,7 +186,10 @@ module.exports = {
                                             athena.character
                                         ],
                                         activeVariants: [
-                                            null
+                                            athena.charactervariants.length != 0 ? 
+                                            {
+                                                variants: athena.charactervariants
+                                            } : null
                                         ]
                                     },
                                     Backpack: {
@@ -196,7 +197,10 @@ module.exports = {
                                             athena.backpack
                                         ],
                                         activeVariants: [
-                                            null
+                                            athena.backpackvariants.length != 0 ? 
+                                            {
+                                                variants: athena.backpackvariants
+                                            } : null
                                         ]
                                     }
                                 }

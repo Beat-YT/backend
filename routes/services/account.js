@@ -151,8 +151,17 @@ app.all("/api/oauth/sessions/kill/:accessToken", checkToken, (req, res) => {
         "com.epicgames.account.public", "prod", [req.params.accessToken] 
     ))
 
-    if (check1) accessTokens.splice(accessTokens.findIndex(x => x.token == req.params.accessToken), 1)
-    if (check2) clientTokens.splice(clientTokens.findIndex(x => x.token == req.params.accessToken), 1)
+    if (check1) {
+        if (parties.find(x => x.members.includes(check1.id))) {
+            var party = parties.find(x => x.members.includes(check1.id))
+
+            party.party.removeMember(check1.id)
+        }
+        accessTokens.splice(accessTokens.findIndex(x => x.token == req.params.accessToken), 1)
+    }
+    if (check2) {
+        clientTokens.splice(clientTokens.findIndex(x => x.token == req.params.accessToken), 1)
+    }
     res.status(204).end()
 })
 

@@ -184,7 +184,7 @@ app.post("/api/game/v2/profile/:accountId/client/SetCosmeticLockerSlot", checkTo
         await Athena.updateOne({id: req.params.accountId}, {[`${req.body.category.toLowerCase()}variants`]: req.body.variantUpdates})
     }
 
-    var athena = await Athena.findOne({id: req.params.accountId})
+    var athena = await Athena.findOne({id: req.params.accountId}).lean().catch(e => next(e))
 
     res.json(createResponse([
         {
@@ -311,7 +311,7 @@ app.post("/api/game/v2/profile/:accountId/client/RemoveGiftBox", checkToken, asy
         "fortnite", "prod-live", ["giftBoxItemIds"]
     ))
 
-    var commoncore = await CommonCore.findOne({id: req.params.accountId})
+    var commoncore = await CommonCore.findOne({id: req.params.accountId}).lean().catch(e => next(e))
     var removed = []
 
     commoncore.gifts.forEach(async gift => {

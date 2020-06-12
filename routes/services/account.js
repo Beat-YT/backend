@@ -64,7 +64,7 @@ app.all("/api/oauth/token", async (req, res) => {
                 "com.epicgames.account.public", "prod", []
             ))
 
-            user = await User.findOne({id: exchangeCodes[req.body.exchange_code]})
+            user = await User.findOne({id: exchangeCodes[req.body.exchange_code]}).lean();
             break;
         case "refresh_token":
             if (!req.body.refresh_token) return res.status(400).json(errors.create(
@@ -79,7 +79,7 @@ app.all("/api/oauth/token", async (req, res) => {
                 "com.epicgames.account.public", "prod"
             ))
 
-            user = await User.findOne({id: accessTokens.find(x => x.refresh == req.body.refresh_token).id})
+            user = await User.findOne({id: accessTokens.find(x => x.refresh == req.body.refresh_token).id}).lean();
             break;
         case "password":
             var bIsValid = req.body.username && req.body.password
@@ -90,7 +90,7 @@ app.all("/api/oauth/token", async (req, res) => {
                 "com.epicgames.account.public", "prod", []
             )
 
-            user = await User.findOne({email: new RegExp(`^${req.body.username}$`, 'i') })
+            user = await User.findOne({email: new RegExp(`^${req.body.username}$`, 'i') }).lean();
 
             if (!user ? true : !bcrypt.compareSync(req.body.password, user.password)) return res.status(401).json(errors.create(
                 "errors.com.epicgames.account.invalid_account_credentials", 18031,
@@ -170,7 +170,7 @@ app.all("/api/oauth/sessions/kill/:accessToken", checkToken, (req, res) => {
 
 app.all("/api/public/account/:accountId", checkToken, async (req, res) => {
     if (req.method != "GET") return res.status(405).json(errors.method())
-    var user = await User.findOne({id: req.params.accountId})
+    var user = await User.findOne({id: req.params.accountId}).lean();
 
     if (user) res.json({
         id: user.id,
@@ -189,7 +189,7 @@ app.get('/api/public/account/:accountId/externalAuths', checkToken, (req, res) =
 
 app.all("/api/public/account/displayName/:displayName" , async (req, res) => {
     if (req.method != "GET") return res.status(405).json(errors.method())
-    var user = await User.findOne({displayName: new RegExp(`^${req.params.displayName}$`, 'i') })
+    var user = await User.findOne({displayName: new RegExp(`^${req.params.displayName}$`, 'i') }).lean();
 
     if (user) res.json({
         id: user.id,
@@ -205,7 +205,7 @@ app.all("/api/public/account/displayName/:displayName" , async (req, res) => {
 
 app.all("/api/public/account/email/:email", checkToken, async (req, res) => {
     if (req.method != "GET") return res.status(405).json(errors.method())
-    var user = await User.findOne({email: new RegExp(`^${req.params.email}$`, 'i') })
+    var user = await User.findOne({email: new RegExp(`^${req.params.email}$`, 'i') }).lean();
 
     if (user) res.json({
         id: user.id,
@@ -229,7 +229,7 @@ app.all("/api/public/account", checkToken, async (req, res) => {
         "com.epicgames.account.public", "prod", []
     ))
 
-    var users = await User.find({'id': { $in: req.query.accountId}})
+    var users = await User.find({'id': { $in: req.query.accountId}}).lean()
     
     res.json(users.map(x => {
         return {

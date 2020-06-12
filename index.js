@@ -51,7 +51,9 @@ global.serverversion = "1.5"
 
 //hopefully this should fix the memory leak issue
 setInterval(() => {
-    console.log("checking for dead parties");
+    logging.fdev(`Checking for dead parties`)
+    var num = 0
+    var num2 = 0
 
     parties.forEach(party => {
         // check if the member still exists in xmpp, if not delete them and then do the check
@@ -60,7 +62,7 @@ setInterval(() => {
                 let index = party.members.indexOf(member);
                 if (index !== 1) {
                     party.members.splice(index, 1);
-                    console.log("removed member from party, no longer present in xmpp");
+                    num++
                 }
             }
         });
@@ -69,10 +71,15 @@ setInterval(() => {
             let index = parties.indexOf(party);
             if (index !== -1) {
                 parties.splice(index, 1);
-                console.log("removed party, member count == 0");
+                num2++
             }
         }
     });
+
+    logging.fdev(`Removed ${num} people from parties with no XMPP connection`)
+    num = 0
+    logging.fdev(`Removed ${num2} parties with 0 people`)
+    num2 = 0
 }, 30000);
 
 app.listen(process.env.port || config.port || 80, () => {

@@ -63,8 +63,8 @@ app.post("/api/register", async (req, res) => {
         statusCode: 400
     })
 
-    var check1 = await User.findOne({displayName: new RegExp(`^${req.body.username}$`, 'i')})
-    var check2 = await User.findOne({email: new RegExp(`^${req.body.email}$`, 'i')})
+    var check1 = await User.findOne({displayName: new RegExp(`^${req.body.username}$`, 'i')}).lean().catch(e => next(e))
+    var check2 = await User.findOne({email: new RegExp(`^${req.body.email}$`, 'i')}).lean().catch(e => next(e))
 
     if (check1 != null || check2 != null) return res.status(400).json({
         error: `${check2 != null ? "Email" : "Username"} '${check2 != null ? req.body.email : req.body.username}' already exists`,
@@ -108,7 +108,7 @@ app.post("/api/login", async (req, res) => {
         statusCode: 400
     })
 
-    var check = await User.findOne({email: new RegExp(`^${req.body.email}$`, 'i')})
+    var check = await User.findOne({email: new RegExp(`^${req.body.email}$`, 'i')}).lean()
 
     if (check) {
         if (bcrypt.compareSync(req.body.password, check.password)) {
@@ -146,9 +146,9 @@ app.get("/api/me", async (req, res) => {
     })
 
     if (tokens[req.cookies["AURORA_ID"]] == req.cookies["AURORA_TOKEN"]) {
-        var user = await User.findOne({id: req.cookies["AURORA_ID"]})
-        var athena = await Athena.findOne({id: req.cookies["AURORA_ID"]})
-        var commoncore = await CommonCore.findOne({id: req.cookies["AURORA_ID"]})
+        var user = await User.findOne({id: req.cookies["AURORA_ID"]}).lean()
+        var athena = await Athena.findOne({id: req.cookies["AURORA_ID"]}).lean()
+        var commoncore = await CommonCore.findOne({id: req.cookies["AURORA_ID"]}).lean()
 
         res.json({
             id: req.cookies["AURORA_ID"],
@@ -288,7 +288,7 @@ app.post("/api/gifts", async (req, res) => {
 
     var cosmetic = cosmetics.find(x => x.name.toLowerCase().includes(req.body.item.toLowerCase()))
 
-    var user = await User.findOne({displayName: new RegExp(`^${req.body.to}$`, 'i')})
+    var user = await User.findOne({displayName: new RegExp(`^${req.body.to}$`, 'i')}).lean()
     if (!user) return res.status(404).json({
         error: `Account under the username '${req.body.to} not found.`,
         errorCode: "dev.aurorafn.id.gift.account_not_found",
@@ -302,7 +302,7 @@ app.post("/api/gifts", async (req, res) => {
     })
 
     if (req.cookies["AURORA_ID"] != user.id) {
-        var friends = await Friends.findOne({id: user.id})
+        var friends = await Friends.findOne({id: user.id}).lean()
 
         if(!friends.accepted.find(x => x.id == req.cookies["AURORA_ID"])) return res.status(404).json({
             error: `Friendship between '${req.cookies["AURORA_ID"]}' and '${req.body.to}' does not exist.`,
@@ -311,7 +311,7 @@ app.post("/api/gifts", async (req, res) => {
         })
     }
 
-    var commoncore = await CommonCore.findOne({id: user.id})
+    var commoncore = await CommonCore.findOne({id: user.id}).lean()
     if (commoncore.gifts.length >= 3) return res.status(409).json({
         error: `Account '${user.id}' has too many gifts.`,
         errorCode: "dev.aurorafn.id.gift.account_too_many_gifts",

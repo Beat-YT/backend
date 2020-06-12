@@ -12,8 +12,8 @@ app.all("/api/v1/:accountId/friends", checkToken, async (req, res) => {
 
     if(!res.locals.jwt.checkPermission(`friends:${req.params.accountId}`, "READ")) 
         return res.status(403).json(errors.permission(`friends:${req.params.accountId}`, "READ", "friends", "prod"))
-
-    var friends = await Friends.findOne({id: req.params.accountId}).catch(e => next(e))
+ 
+    var friends = await Friends.findOne({id: req.params.accountId}).lean().catch(e => next(e))
 
     if (!friends) return res.status(404).json(errors.create(
         "errors.com.epicgames.account.account_not_found", 18007,
@@ -40,7 +40,7 @@ app.all("/api/v1/:accountId/outgoing", checkToken, async (req, res) => {
     if(!res.locals.jwt.checkPermission(`friends:${req.params.accountId}`, "READ")) 
         return res.status(403).json(errors.permission(`friends:${req.params.accountId}`, "READ", "friends", "prod"))
 
-    var friends = await Friends.findOne({id: req.params.accountId}).catch(e => next(e))
+    var friends = await Friends.findOne({id: req.params.accountId}).lean().catch(e => next(e))
 
     if (!friends) return res.status(404).json(errors.create(
         "errors.com.epicgames.account.account_not_found", 18007,
@@ -66,7 +66,7 @@ app.all("/api/v1/:accountId/incoming", checkToken, async (req, res) => {
     if(!res.locals.jwt.checkPermission(`friends:${req.params.accountId}`, "READ")) 
         return res.status(403).json(errors.permission(`friends:${req.params.accountId}`, "READ", "friends", "prod"))
 
-    var friends = await Friends.findOne({id: req.params.accountId}).catch(e => next(e))
+    var friends = await Friends.findOne({id: req.params.accountId}).lean().catch(e => next(e))
 
     if (!friends) return res.status(404).json(errors.create(
         "errors.com.epicgames.account.account_not_found", 18007,
@@ -93,7 +93,7 @@ app.all("/api/v1/:accountId/summary", checkToken, async (req, res) => {
     if(!res.locals.jwt.checkPermission(`friends:${req.params.accountId}`, "READ")) 
         return res.status(403).json(errors.permission(`friends:${req.params.accountId}`, "READ", "friends", "prod"))
 
-    var friends = await Friends.findOne({id: req.params.accountId}).catch(e => next(e))
+    var friends = await Friends.findOne({id: req.params.accountId}).lean().catch(e => next(e))
 
     if (!friends) return res.status(404).json(errors.create(
         "errors.com.epicgames.account.account_not_found", 18007,
@@ -139,7 +139,7 @@ app.all("/api/v1/:accountId/friends/:friendId", checkToken, async (req, res) => 
     if(!res.locals.jwt.checkPermission(`friends:${req.params.accountId}`, req.method == "GET" ? "READ" : req.method == "POST" ? "UPDATE" : req.method == "DELETE" ? "DELETE" : "")) 
         return res.status(403).json(errors.permission(`friends:${req.params.accountId}`, req.method == "GET" ? "READ" : req.method == "POST" ? "UPDATE" : req.method == "DELETE" ? "DELETE" : null, "friends", "prod"))
 
-    var friends = await Friends.findOne({id: req.params.accountId}).catch(e => next(e))
+    var friends = await Friends.findOne({id: req.params.accountId}).lean().catch(e => next(e))
 
     if (!friends) return res.status(404).json(errors.create(
         "errors.com.epicgames.account.account_not_found", 18007,

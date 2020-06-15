@@ -1,5 +1,17 @@
 [
     {
+        "name": "ur mom",
+        "description": "",
+        "rarity": "Uncommon",
+        "backendRarity": "EFortRarity::Uncommon",
+        "type": "Birthday Bus",
+        "backendType": "AthenaCharacter",
+        "id": "CID_756_Athena_Commando_M_JonesyAgent",
+        "gameplayTags": [],
+        "variants": [],
+        "icon": "https://static.snail-api.com/BBID_BirthdayBus2nd/icon.png"
+    },
+    {
         "name": "Birthday Bus",
         "description": "",
         "rarity": "Uncommon",

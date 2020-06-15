@@ -37,6 +37,7 @@ require(`${__dirname}/structs/caching`)
 app.use(require(`${__dirname}/routes`))
 
 //gets the services working n shit
+app.use("/waitingroom", require(`${__dirname}/routes/services/waitingroom`))
 app.use("/lightswitch", require(`${__dirname}/routes/services/lightswitch`))
 app.use("/datarouter", require(`${__dirname}/routes/services/datarouter`))
 app.use("/fortnite", require(`${__dirname}/routes/services/fortnite`))

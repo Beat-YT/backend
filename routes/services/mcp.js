@@ -33,6 +33,10 @@ app.all(`/api/game/v2/profile/:accountId/client/QueryProfile`, checkToken, async
             var profile = await profiles.athena(req.params.accountId)
             res.json(createResponse([profile], "athena"));
             break;
+        case "profile0": 
+            var profile = await profiles.athena(req.params.accountId)
+            res.json(createResponse([profile], "profile0"));
+            break;
         case "creative":
             res.json(createResponse([], "creative"));
             break;
@@ -42,6 +46,14 @@ app.all(`/api/game/v2/profile/:accountId/client/QueryProfile`, checkToken, async
             break;
         case "common_public":
             res.json(createResponse([], "common_public"));
+            break;
+        case "collection_book_schematics0":
+        case "collection_book_people0":
+        case "metadata":
+        case "theater0":
+        case "outpost0":
+        case "metadata":
+            res.json(createResponse([], req.query.profileId));
             break;
         default:
             res.status(400).json(errors.create(

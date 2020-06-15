@@ -46,6 +46,14 @@ app.all("/api/game/v2/privacy/account/:accountId", checkToken, (req, res) => {
     })
 })
 
+app.all("/api/game/v2/world/info", checkToken, (req, res) => {
+    res.json({})
+})
+
+app.all("/api/matchmaking/session/findPlayer/:accountId", (req, res) => {
+    res.status(204).end()
+})
+
 app.use((req, res, next) => {
     res.status(404).json(errors.create(
         "errors.com.epicgames.common.not_found", 1004,

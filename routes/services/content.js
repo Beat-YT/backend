@@ -75,12 +75,12 @@ app.get("/api/pages/fortnite-game", async (req, res) => {
             backgrounds: {
                 backgrounds: [
                     {
-                        stage: "season12",
+                        stage: "season13",
                         _type: "DynamicBackground",
                         key: "lobby"
                     },
                     {
-                        stage: "season12",
+                        stage: "season13",
                         _type: "DynamicBackground",
                         key: "vault"
                     }

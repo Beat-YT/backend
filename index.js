@@ -28,10 +28,8 @@ require("./xmpp")
 mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true}, async e => {
     if (e) throw e
     logging.fdev(`Connected to Mongo DB`)
-
-    const Athena = require(`${__dirname}/model/Athena`)
-    var yes = await Athena.updateMany({}, {$set: {lobbystage: "season12"}}, {strict: false, many: true})
 })
+
 
 require(`${__dirname}/structs/caching`)
 app.use(require(`${__dirname}/routes`))

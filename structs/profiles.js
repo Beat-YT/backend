@@ -301,7 +301,7 @@ module.exports = {
                             dailyQuestRerolls: 1
                         },
                         book_level: athena.level,
-                        season_num: 12,
+                        season_num: 13,
                         season_update: 0,
                         book_xp: 99999999,
                         permissions: [],
@@ -315,7 +315,7 @@ module.exports = {
                         book_purchased: true,
                         purchased_battle_pass_tier_offers: {},
                         rested_xp_exchange: 1.0,
-                        level: athena.level,
+                        book_level: athena.level,
                         xp_overflow: 0,
                         rested_xp: 0,
                         rested_xp_mult: 1,

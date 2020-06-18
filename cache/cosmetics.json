@@ -7329,7 +7329,6 @@
         "backendType": "AthenaBackpack",
         "name": "Ice Cube"
     },
-
     {
         "id": "CID_793_Athena_Commando_M_HenchmanBadShorts_C",
         "backendType": "AthenaCharacter",
@@ -7980,7 +7979,6 @@
         "backendType": "AthenaDance",
         "name": "Nod Head"
     },
-
     {
         "id": "Wrap_185_SnowCover",
         "backendType": "AthenaItemWrap",
@@ -10720,7 +10718,7 @@
         "id": "CID_446_Athena_Commando_M_BannerA",
         "backendType": "AthenaCharacter",
         "name": "Symbol Stalwart"
-    }, 
+    },
     {
         "id": "BID_348_PaddedArmor",
         "backendType": "AthenaBackpack",

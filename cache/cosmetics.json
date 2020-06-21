@@ -2165,6 +2165,11 @@
         "name": "Fierce"
     },
     {
+        "id": "EID_Loofah",
+        "backendType": "AthenaDance",
+        "name": "Bounce Berry"
+    },
+    {
         "id": "TOY_002_Golfball",
         "backendType": "AthenaToy",
         "name": "Golf Ball"
@@ -6865,6 +6870,11 @@
         "name": "Recruit"
     },
     {
+        "id": "CID_764_Athena_Commando_F_Loofah",
+        "backendType": "AthenaCharacter",
+        "name": "Loserfruit"
+    },
+    {
         "id": "CID_293_Athena_Commando_M_RavenWinter",
         "backendType": "AthenaCharacter",
         "name": "Frozen Raven"
@@ -9238,6 +9248,11 @@
         "id": "LSID_075_TacticalSanta",
         "backendType": "AthenaLoadingScreen",
         "name": "Sgt. Winter"
+    },
+    {
+        "id": "BID_527_Loofah",
+        "backendType": "AthenaBackpack",
+        "name": "Buddy Bag"
     },
     {
         "id": "CID_254_Athena_Commando_M_Zombie",
@@ -15878,6 +15893,11 @@
         "id": "BID_073_DarkViking",
         "backendType": "AthenaBackpack",
         "name": "Frozen Shroud"
+    },
+    {
+        "id": "Pickaxe_ID_399_LoofahFemale1H",
+        "backendType": "AthenaPickaxe",
+        "name": "Fruit Punchers"
     },
     {
         "id": "EID_BalletSpin",

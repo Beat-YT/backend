@@ -17043,5 +17043,20 @@
         "id": "Emoji_CrossSwords",
         "backendType": "AthenaEmoji",
         "name": "Cross Swords"
+    },
+    {
+        "id": "BID_545_RenegadeRaiderFire",
+        "backendType": "AthenaBackpack",
+        "name": "Firestarter"
+    },
+    {
+        "id": "CID_784_Athena_Commando_F_RenegadeRaiderFire",
+        "backendType": "AthenaCharacter",
+        "name": "Blaze"
+    },
+    {
+        "id": "CID_756_Athena_Commando_M_JonesyAgent",
+        "backendType": "AthenaCharacter",
+        "name": "Agent Jonesy"
     }
 ]

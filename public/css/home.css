@@ -14,3 +14,15 @@
     background-position: center;
 }
 
+.footer {
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-image: url("../files/gradient.png");
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+}

@@ -1,5 +1,6 @@
 [
     {
+        "vtids": [],
         "id": "BID_034_RockerPunk",
         "variants": [
             {
@@ -12,6 +13,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_037_BunnyMale",
         "variants": [
             {
@@ -24,6 +26,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_038_BunnyFemale",
         "variants": [
             {
@@ -36,6 +39,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_050_Hazmat",
         "variants": [
             {
@@ -48,6 +52,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_052_HazmatFemale",
         "variants": [
             {
@@ -60,6 +65,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_105_GhostPortal",
         "variants": [
             {
@@ -73,6 +79,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_133_GuanYu",
         "variants": [
             {
@@ -85,6 +92,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_145_AnimalJacketsMale",
         "variants": [
             {
@@ -97,6 +105,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_146_AnimalJacketsFemale",
         "variants": [
             {
@@ -109,6 +118,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_149_Wizard",
         "variants": [
             {
@@ -122,6 +132,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_150_Witch",
         "variants": [
             {
@@ -135,6 +146,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_155_SniperHoodMale",
         "variants": [
             {
@@ -147,6 +159,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_156_SniperHoodFemale",
         "variants": [
             {
@@ -159,6 +172,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_163_IceKing",
         "variants": [
             {
@@ -173,6 +187,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_171_Rhino",
         "variants": [
             {
@@ -187,6 +202,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_199_IceQueen",
         "variants": [
             {
@@ -201,6 +217,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_211_SkullBrite",
         "variants": [
             {
@@ -213,6 +230,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_217_ShinyFemale",
         "variants": [
             {
@@ -225,6 +243,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_221_AztecMale",
         "variants": [
             {
@@ -237,6 +256,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_222_AztecFemale",
         "variants": [
             {
@@ -249,6 +269,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_235_Heist",
         "variants": [
             {
@@ -262,6 +283,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_236_Pirate01Female",
         "variants": [
             {
@@ -274,6 +296,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_238_Pirate02Male",
         "variants": [
             {
@@ -286,6 +309,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_261_Rooster",
         "variants": [
             {
@@ -298,6 +322,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_262_BountyHunterFemale",
         "variants": [
             {
@@ -311,6 +336,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_265_BattleSuit",
         "variants": [
             {
@@ -325,6 +351,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_278_VigilanteBoard",
         "variants": [
             {
@@ -355,10 +382,12 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_289_Banner",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "BID_311_Multibot",
         "variants": [
             {
@@ -371,6 +400,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_312_Stealth",
         "variants": [
             {
@@ -383,6 +413,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_315_PizzaPit",
         "variants": [
             {
@@ -395,6 +426,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_316_GraffitiRemix",
         "variants": [
             {
@@ -408,6 +440,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_317_KnightRemix",
         "variants": [
             {
@@ -421,6 +454,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_320_RustLordRemix",
         "variants": [
             {
@@ -435,6 +469,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_322_VoyagerRemix",
         "variants": [
             {
@@ -448,6 +483,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_331_DarkNinjaWhite",
         "variants": [
             {
@@ -460,6 +496,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_332_FrostMystery",
         "variants": [
             {
@@ -472,6 +509,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_333_Reverb",
         "variants": [
             {
@@ -484,10 +522,12 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_334_BannerMale",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "BID_339_Syko",
         "variants": [
             {
@@ -500,6 +540,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_342_LemonLime",
         "variants": [
             {
@@ -512,6 +553,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_346_BlackWidowRogue",
         "variants": [
             {
@@ -525,6 +567,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_356_Punchy",
         "variants": [
             {
@@ -537,6 +580,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_357_Sleepytime",
         "variants": [
             {
@@ -549,6 +593,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_359_MeteorManRemix",
         "variants": [
             {
@@ -561,14 +606,17 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_360_BlackMondayKansas_VCZ9M",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "BID_362_BlackMondayHouston_2I53G",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "BID_364_LlamaHero",
         "variants": [
             {
@@ -581,6 +629,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_367_TacticalFishermanMale",
         "variants": [
             {
@@ -593,6 +642,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_368_RockClimber",
         "variants": [
             {
@@ -605,6 +655,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_369_CrazyEight",
         "variants": [
             {
@@ -619,6 +670,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_370_RebirthMedic",
         "variants": [
             {
@@ -632,6 +684,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_371_Sheath",
         "variants": [
             {
@@ -645,6 +698,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_372_Viper",
         "variants": [
             {
@@ -658,6 +712,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_378_FishermanFemale",
         "variants": [
             {
@@ -670,6 +725,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_382_DarkDinoMale",
         "variants": [
             {
@@ -682,6 +738,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_383_DarkDinoFemale",
         "variants": [
             {
@@ -694,6 +751,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_395_Phantom",
         "variants": [
             {
@@ -708,6 +766,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_399_SpookyNeon",
         "variants": [
             {
@@ -720,6 +779,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_400_HalloweenAlt",
         "variants": [
             {
@@ -732,6 +792,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_408_WeepingWoods",
         "variants": [
             {
@@ -744,6 +805,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_410_ShirtlessWarpaint",
         "variants": [
             {
@@ -756,6 +818,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_411_BaneFemale",
         "variants": [
             {
@@ -769,6 +832,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_426_GalileoKayak_NS67T",
         "variants": [
             {
@@ -781,6 +845,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_433_NeonAnimal",
         "variants": [
             {
@@ -795,6 +860,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_434_NeonAnimalFemale",
         "variants": [
             {
@@ -809,6 +875,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_437_TNTina",
         "variants": [
             {
@@ -827,6 +894,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_445_Elf",
         "variants": [
             {
@@ -839,10 +907,12 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_446_Barefoot",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "BID_451_HolidayDeck",
         "variants": [
             {
@@ -857,6 +927,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_454_Gummi",
         "variants": [
             {
@@ -870,6 +941,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_458_TheGoldenSkeleton",
         "variants": [
             {
@@ -883,6 +955,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_464_MartialArtist",
         "variants": [
             {
@@ -895,6 +968,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_465_VirtualShadow",
         "variants": [
             {
@@ -907,6 +981,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_467_DragonRacer",
         "variants": [
             {
@@ -919,6 +994,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_472_DesertOpsCamo",
         "variants": [
             {
@@ -934,6 +1010,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_473_Photographer",
         "variants": [
             {
@@ -948,6 +1025,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_474_DarkHeart",
         "variants": [
             {
@@ -960,6 +1038,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_475_AgentAce",
         "variants": [
             {
@@ -979,6 +1058,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_476_AgentRogue",
         "variants": [
             {
@@ -998,6 +1078,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_477_BuffCat",
         "variants": [
             {
@@ -1012,6 +1093,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_478_HenchmanTough",
         "variants": [
             {
@@ -1026,6 +1108,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_479_CatBurglar",
         "variants": [
             {
@@ -1040,6 +1123,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_485_BananaAgent",
         "variants": [
             {
@@ -1052,6 +1136,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_489_TwinDark",
         "variants": [
             {
@@ -1064,6 +1149,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_506_DonutCup",
         "variants": [
             {
@@ -1076,6 +1162,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_511_BadEgg",
         "variants": [
             {
@@ -1088,6 +1175,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_514_NeonCatSpy",
         "variants": [
             {
@@ -1102,6 +1190,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_515_Hostile",
         "variants": [
             {
@@ -1114,6 +1203,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_516_RaveNinja",
         "variants": [
             {
@@ -1133,6 +1223,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_517_Splinter",
         "variants": [
             {
@@ -1145,6 +1236,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_518_HitmanCase",
         "variants": [
             {
@@ -1157,6 +1249,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_520_CycloneUniverse",
         "variants": [
             {
@@ -1170,6 +1263,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_530_BlackKnightFemale",
         "variants": [
             {
@@ -1190,6 +1284,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_534_OceanRider",
         "variants": [
             {
@@ -1203,6 +1298,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_537_TacticalScuba",
         "variants": [
             {
@@ -1216,6 +1312,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_540_Python",
         "variants": [
             {
@@ -1228,6 +1325,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_541_Gator",
         "variants": [
             {
@@ -1240,6 +1338,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_546_CavalryBanditGhost",
         "variants": [
             {
@@ -1252,6 +1351,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_547_HeistGhost",
         "variants": [
             {
@@ -1264,6 +1364,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_548_MastermindGhost",
         "variants": [
             {
@@ -1276,6 +1377,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "BID_550_JonesyVagabond",
         "variants": [
             {
@@ -1288,6 +1390,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_022_Athena_Commando_F",
         "variants": [
             {
@@ -1300,6 +1403,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_028_Athena_Commando_F",
         "variants": [
             {
@@ -1312,6 +1416,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_029_Athena_Commando_F_Halloween",
         "variants": [
             {
@@ -1325,6 +1430,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_030_Athena_Commando_M_Halloween",
         "variants": [
             {
@@ -1339,6 +1445,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_031_Athena_Commando_M_Retro",
         "variants": [
             {
@@ -1351,6 +1458,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_038_Athena_Commando_M_Disco",
         "variants": [
             {
@@ -1363,6 +1471,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_043_Athena_Commando_F_Stealth",
         "variants": [
             {
@@ -1375,6 +1484,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_048_Athena_Commando_F_HolidayGingerbread",
         "variants": [
             {
@@ -1389,6 +1499,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_049_Athena_Commando_M_HolidayGingerbread",
         "variants": [
             {
@@ -1403,6 +1514,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_050_Athena_Commando_M_HolidayNutcracker",
         "variants": [
             {
@@ -1417,6 +1529,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_051_Athena_Commando_M_HolidayElf",
         "variants": [
             {
@@ -1429,6 +1542,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_080_Athena_Commando_M_Space",
         "variants": [
             {
@@ -1442,6 +1556,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_081_Athena_Commando_F_Space",
         "variants": [
             {
@@ -1455,6 +1570,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_083_Athena_Commando_F_Tactical",
         "variants": [
             {
@@ -1467,6 +1583,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_087_Athena_Commando_F_RedSilk",
         "variants": [
             {
@@ -1479,6 +1596,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_097_Athena_Commando_F_RockerPunk",
         "variants": [
             {
@@ -1491,6 +1609,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_099_Athena_Commando_F_Scathach",
         "variants": [
             {
@@ -1503,6 +1622,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_103_Athena_Commando_M_Bunny",
         "variants": [
             {
@@ -1515,6 +1635,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_104_Athena_Commando_F_Bunny",
         "variants": [
             {
@@ -1527,6 +1648,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_109_Athena_Commando_M_Pizza",
         "variants": [
             {
@@ -1539,6 +1661,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_115_Athena_Commando_M_CarbideBlue",
         "variants": [
             {
@@ -1564,6 +1687,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_116_Athena_Commando_M_CarbideBlack",
         "variants": [
             {
@@ -1589,6 +1713,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_127_Athena_Commando_M_Hazmat",
         "variants": [
             {
@@ -1601,6 +1726,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_128_Athena_Commando_F_Hazmat",
         "variants": [
             {
@@ -1613,6 +1739,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_130_Athena_Commando_M_Merman",
         "variants": [
             {
@@ -1627,6 +1754,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_131_Athena_Commando_M_Warpaint",
         "variants": [
             {
@@ -1639,6 +1767,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_140_Athena_Commando_M_Visitor",
         "variants": [
             {
@@ -1653,6 +1782,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_144_Athena_Commando_M_SoccerDudeA",
         "variants": [
             {
@@ -1705,6 +1835,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_145_Athena_Commando_M_SoccerDudeB",
         "variants": [
             {
@@ -1757,6 +1888,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_146_Athena_Commando_M_SoccerDudeC",
         "variants": [
             {
@@ -1809,6 +1941,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_147_Athena_Commando_M_SoccerDudeD",
         "variants": [
             {
@@ -1861,6 +1994,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_148_Athena_Commando_F_SoccerGirlA",
         "variants": [
             {
@@ -1913,6 +2047,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_149_Athena_Commando_F_SoccerGirlB",
         "variants": [
             {
@@ -1965,6 +2100,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_150_Athena_Commando_F_SoccerGirlC",
         "variants": [
             {
@@ -2017,6 +2153,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_151_Athena_Commando_F_SoccerGirlD",
         "variants": [
             {
@@ -2069,6 +2206,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_157_Athena_Commando_M_StarsAndStripes",
         "variants": [
             {
@@ -2081,6 +2219,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_158_Athena_Commando_F_StarsAndStripes",
         "variants": [
             {
@@ -2093,6 +2232,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_161_Athena_Commando_M_Drift",
         "variants": [
             {
@@ -2109,6 +2249,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_165_Athena_Commando_M_DarkViking",
         "variants": [
             {
@@ -2126,6 +2267,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_177_Athena_Commando_M_StreetRacerCobra",
         "variants": [
             {
@@ -2139,6 +2281,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_178_Athena_Commando_F_StreetRacerCobra",
         "variants": [
             {
@@ -2152,6 +2295,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_188_Athena_Commando_F_StreetRacerWhite",
         "variants": [
             {
@@ -2164,6 +2308,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_190_Athena_Commando_M_StreetRacerWhite",
         "variants": [
             {
@@ -2176,6 +2321,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_198_Athena_Commando_M_BlueSamurai",
         "variants": [
             {
@@ -2189,6 +2335,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_199_Athena_Commando_F_BlueSamurai",
         "variants": [
             {
@@ -2202,6 +2349,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_206_Athena_Commando_M_Bling",
         "variants": [
             {
@@ -2216,6 +2364,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_207_Athena_Commando_M_FootballDudeA",
         "variants": [
             {
@@ -2267,6 +2416,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_208_Athena_Commando_M_FootballDudeB",
         "variants": [
             {
@@ -2318,6 +2468,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_209_Athena_Commando_M_FootballDudeC",
         "variants": [
             {
@@ -2369,6 +2520,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_210_Athena_Commando_F_FootballGirlA",
         "variants": [
             {
@@ -2420,6 +2572,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_211_Athena_Commando_F_FootballGirlB",
         "variants": [
             {
@@ -2471,6 +2624,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_212_Athena_Commando_F_FootballGirlC",
         "variants": [
             {
@@ -2522,6 +2676,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_216_Athena_Commando_F_Medic",
         "variants": [
             {
@@ -2534,6 +2689,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_220_Athena_Commando_F_Clown",
         "variants": [
             {
@@ -2547,6 +2703,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_221_Athena_Commando_M_Clown",
         "variants": [
             {
@@ -2560,6 +2717,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_230_Athena_Commando_M_Werewolf",
         "variants": [
             {
@@ -2585,6 +2743,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_237_Athena_Commando_F_Cowgirl",
         "variants": [
             {
@@ -2610,6 +2769,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_238_Athena_Commando_F_FootballGirlD",
         "variants": [
             {
@@ -2661,6 +2821,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_239_Athena_Commando_M_FootballDudeD",
         "variants": [
             {
@@ -2712,6 +2873,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_242_Athena_Commando_F_Bullseye",
         "variants": [
             {
@@ -2724,6 +2886,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_245_Athena_Commando_F_DurrburgerPjs",
         "variants": [
             {
@@ -2736,6 +2899,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_246_Athena_Commando_F_Grave",
         "variants": [
             {
@@ -2748,6 +2912,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_247_Athena_Commando_M_GuanYu",
         "variants": [
             {
@@ -2760,6 +2925,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_254_Athena_Commando_M_Zombie",
         "variants": [
             {
@@ -2772,6 +2938,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_264_Athena_Commando_M_AnimalJackets",
         "variants": [
             {
@@ -2784,6 +2951,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_265_Athena_Commando_F_AnimalJackets",
         "variants": [
             {
@@ -2796,6 +2964,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_269_Athena_Commando_M_Wizard",
         "variants": [
             {
@@ -2809,6 +2978,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_270_Athena_Commando_F_Witch",
         "variants": [
             {
@@ -2822,6 +2992,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_271_Athena_Commando_F_SushiChef",
         "variants": [
             {
@@ -2834,6 +3005,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_275_Athena_Commando_M_SniperHood",
         "variants": [
             {
@@ -2846,6 +3018,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_276_Athena_Commando_F_SniperHood",
         "variants": [
             {
@@ -2858,6 +3031,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_278_Athena_Commando_M_Yeti",
         "variants": [
             {
@@ -2870,6 +3044,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_279_Athena_Commando_M_TacticalSanta",
         "variants": [
             {
@@ -2883,6 +3058,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_281_Athena_Commando_F_SnowBoard",
         "variants": [
             {
@@ -2895,6 +3071,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_286_Athena_Commando_F_NeonCat",
         "variants": [
             {
@@ -2920,6 +3097,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_287_Athena_Commando_M_ArcticSniper",
         "variants": [
             {
@@ -2952,6 +3130,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_288_Athena_Commando_M_IceKing",
         "variants": [
             {
@@ -2966,6 +3145,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_290_Athena_Commando_F_BlueBadass",
         "variants": [
             {
@@ -2985,6 +3165,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_301_Athena_Commando_M_Rhino",
         "variants": [
             {
@@ -2999,6 +3180,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_304_Athena_Commando_M_Gnome",
         "variants": [
             {
@@ -3011,6 +3193,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_308_Athena_Commando_F_FortniteDJ",
         "variants": [
             {
@@ -3023,6 +3206,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_310_Athena_Commando_F_StreetGoth",
         "variants": [
             {
@@ -3035,6 +3219,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_315_Athena_Commando_M_TeriyakiFish",
         "variants": [
             {
@@ -3049,6 +3234,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_330_Athena_Commando_F_IceQueen",
         "variants": [
             {
@@ -3063,6 +3249,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_332_Athena_Commando_M_Prisoner",
         "variants": [
             {
@@ -3077,6 +3264,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_338_Athena_Commando_M_DumplingMan",
         "variants": [
             {
@@ -3091,6 +3279,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_341_Athena_Commando_F_SkullBrite",
         "variants": [
             {
@@ -3103,6 +3292,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_346_Athena_Commando_M_DragonNinja",
         "variants": [
             {
@@ -3135,6 +3325,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_347_Athena_Commando_M_PirateProgressive",
         "variants": [
             {
@@ -3162,6 +3353,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_348_Athena_Commando_F_Medusa",
         "variants": [
             {
@@ -3174,6 +3366,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_350_Athena_Commando_M_MasterKey",
         "variants": [
             {
@@ -3193,6 +3386,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_351_Athena_Commando_F_FireElf",
         "variants": [
             {
@@ -3205,6 +3399,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_352_Athena_Commando_F_Shiny",
         "variants": [
             {
@@ -3219,6 +3414,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_353_Athena_Commando_F_Bandolier",
         "variants": [
             {
@@ -3231,6 +3427,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_358_Athena_Commando_M_Aztec",
         "variants": [
             {
@@ -3243,6 +3440,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_359_Athena_Commando_F_Aztec",
         "variants": [
             {
@@ -3257,6 +3455,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_372_Athena_Commando_F_Pirate01",
         "variants": [
             {
@@ -3269,6 +3468,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_373_Athena_Commando_M_Pirate01",
         "variants": [
             {
@@ -3281,6 +3481,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_385_Athena_Commando_M_PilotSkull",
         "variants": [
             {
@@ -3295,6 +3496,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_391_Athena_Commando_M_HoppityHeist",
         "variants": [
             {
@@ -3307,6 +3509,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_396_Athena_Commando_F_Swashbuckler",
         "variants": [
             {
@@ -3319,6 +3522,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_397_Athena_Commando_F_TreasureHunterFashion",
         "variants": [
             {
@@ -3331,6 +3535,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_398_Athena_Commando_M_TreasureHunterFashion",
         "variants": [
             {
@@ -3343,6 +3548,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_399_Athena_Commando_F_AshtonBoardwalk",
         "variants": [
             {
@@ -3355,6 +3561,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_403_Athena_Commando_M_Rooster",
         "variants": [
             {
@@ -3367,6 +3574,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_404_Athena_Commando_F_BountyHunter",
         "variants": [
             {
@@ -3380,6 +3588,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_405_Athena_Commando_F_Masako",
         "variants": [
             {
@@ -3392,6 +3601,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_406_Athena_Commando_M_StormTracker",
         "variants": [
             {
@@ -3404,6 +3614,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_407_Athena_Commando_M_BattleSuit",
         "variants": [
             {
@@ -3437,6 +3648,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_408_Athena_Commando_F_StrawberryPilot",
         "variants": [
             {
@@ -3470,6 +3682,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_409_Athena_Commando_M_BunkerMan",
         "variants": [
             {
@@ -3482,6 +3695,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_416_Athena_Commando_M_AssassinSuit",
         "variants": [
             {
@@ -3494,6 +3708,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_419_Athena_Commando_M_Pug",
         "variants": [
             {
@@ -3507,6 +3722,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_421_Athena_Commando_M_MaskedWarrior",
         "variants": [
             {
@@ -3520,6 +3736,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_422_Athena_Commando_F_MaskedWarrior",
         "variants": [
             {
@@ -3533,6 +3750,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_423_Athena_Commando_F_Painter",
         "variants": [
             {
@@ -3547,6 +3765,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_424_Athena_Commando_M_Vigilante",
         "variants": [
             {
@@ -3561,6 +3780,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_425_Athena_Commando_F_CyberRunner",
         "variants": [
             {
@@ -3573,6 +3793,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_427_Athena_Commando_M_DemonHunter",
         "variants": [
             {
@@ -3585,6 +3806,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_435_Athena_Commando_M_MunitionsExpertGreenPlastic",
         "variants": [
             {
@@ -3598,6 +3820,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_440_Athena_Commando_F_BullseyeGreenPlastic",
         "variants": [
             {
@@ -3611,38 +3834,47 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_442_Athena_Commando_F_BannerA",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "CID_443_Athena_Commando_F_BannerB",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "CID_444_Athena_Commando_F_BannerC",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "CID_445_Athena_Commando_F_BannerD",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "CID_446_Athena_Commando_M_BannerA",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "CID_447_Athena_Commando_M_BannerB",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "CID_448_Athena_Commando_M_BannerC",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "CID_449_Athena_Commando_M_BannerD",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "CID_453_Athena_Commando_F_GlowBro",
         "variants": [
             {
@@ -3655,6 +3887,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_454_Athena_Commando_M_GlowBro",
         "variants": [
             {
@@ -3667,6 +3900,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_461_Athena_Commando_M_DriftSummer",
         "variants": [
             {
@@ -3679,6 +3913,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_462_Athena_Commando_M_HeistSummer",
         "variants": [
             {
@@ -3691,6 +3926,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_467_Athena_Commando_M_WeirdObjectsPolice",
         "variants": [
             {
@@ -3703,6 +3939,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_469_Athena_Commando_F_BattleSuit",
         "variants": [
             {
@@ -3727,6 +3964,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_471_Athena_Commando_F_Bani",
         "variants": [
             {
@@ -3739,6 +3977,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_475_Athena_Commando_M_Multibot",
         "variants": [
             {
@@ -3751,6 +3990,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_480_Athena_Commando_F_Bubblegum",
         "variants": [
             {
@@ -3763,6 +4003,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_483_Athena_Commando_F_GraffitiRemix",
         "variants": [
             {
@@ -3783,6 +4024,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_484_Athena_Commando_M_KnightRemix",
         "variants": [
             {
@@ -3803,6 +4045,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_485_Athena_Commando_F_SparkleRemix",
         "variants": [
             {
@@ -3825,6 +4068,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_486_Athena_Commando_F_StreetRacerDrift",
         "variants": [
             {
@@ -3847,6 +4091,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_487_Athena_Commando_M_DJRemix",
         "variants": [
             {
@@ -3876,6 +4121,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_488_Athena_Commando_M_RustRemix",
         "variants": [
             {
@@ -3897,6 +4143,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_489_Athena_Commando_M_VoyagerRemix",
         "variants": [
             {
@@ -3918,6 +4165,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_490_Athena_Commando_M_BlueBadass",
         "variants": [
             {
@@ -3937,6 +4185,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_497_Athena_Commando_F_WildWest",
         "variants": [
             {
@@ -3949,6 +4198,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_498_Athena_Commando_M_WildWest",
         "variants": [
             {
@@ -3961,6 +4211,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_501_Athena_Commando_M_FrostMystery",
         "variants": [
             {
@@ -3973,6 +4224,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_502_Athena_Commando_F_Reverb",
         "variants": [
             {
@@ -3985,6 +4237,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_505_Athena_Commando_M_MilitiaMascotBurger",
         "variants": [
             {
@@ -3997,6 +4250,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_506_Athena_Commando_M_MilitiaMascotTomato",
         "variants": [
             {
@@ -4009,6 +4263,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_508_Athena_Commando_M_Syko",
         "variants": [
             {
@@ -4021,6 +4276,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_516_Athena_Commando_M_BlackWidowRogue",
         "variants": [
             {
@@ -4034,6 +4290,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_520_Athena_Commando_M_PaddedArmor",
         "variants": [
             {
@@ -4046,6 +4303,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_525_Athena_Commando_F_LemonLime",
         "variants": [
             {
@@ -4058,6 +4316,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_530_Athena_Commando_F_BlackMonday_1BV6J",
         "variants": [
             {
@@ -4070,6 +4329,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_531_Athena_Commando_M_Sleepytime",
         "variants": [
             {
@@ -4082,6 +4342,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_532_Athena_Commando_F_Punchy",
         "variants": [
             {
@@ -4094,6 +4355,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_535_Athena_Commando_M_Traveler",
         "variants": [
             {
@@ -4106,6 +4368,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_540_Athena_Commando_M_MeteorManRemix",
         "variants": [
             {
@@ -4128,6 +4391,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_542_Athena_Commando_F_CarbideFrostMystery",
         "variants": [
             {
@@ -4140,6 +4404,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_543_Athena_Commando_M_LlamaHero",
         "variants": [
             {
@@ -4153,6 +4418,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_547_Athena_Commando_F_Meteorwoman",
         "variants": [
             {
@@ -4175,6 +4441,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_554_Athena_Commando_F_MilitiaMascotCuddle",
         "variants": [
             {
@@ -4189,6 +4456,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_564_Athena_Commando_M_TacticalFisherman",
         "variants": [
             {
@@ -4201,6 +4469,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_565_Athena_Commando_F_RockClimber",
         "variants": [
             {
@@ -4213,6 +4482,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_566_Athena_Commando_M_CrazyEight",
         "variants": [
             {
@@ -4227,6 +4497,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_567_Athena_Commando_F_RebirthMedic",
         "variants": [
             {
@@ -4241,6 +4512,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_570_Athena_Commando_M_SlurpMonster",
         "variants": [
             {
@@ -4254,6 +4526,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_571_Athena_Commando_F_Sheath",
         "variants": [
             {
@@ -4267,6 +4540,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_572_Athena_Commando_M_Viper",
         "variants": [
             {
@@ -4280,6 +4554,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_578_Athena_Commando_F_Fisherman",
         "variants": [
             {
@@ -4292,6 +4567,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_579_Athena_Commando_F_RedRidingRemix",
         "variants": [
             {
@@ -4304,6 +4580,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_581_Athena_Commando_M_DarkDino",
         "variants": [
             {
@@ -4316,6 +4593,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_582_Athena_Commando_F_DarkDino",
         "variants": [
             {
@@ -4328,6 +4606,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_586_Athena_Commando_F_PunkDevil",
         "variants": [
             {
@@ -4340,6 +4619,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_589_Athena_Commando_M_SoccerZombieA",
         "variants": [
             {
@@ -4349,6 +4629,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_590_Athena_Commando_M_SoccerZombieB",
         "variants": [
             {
@@ -4358,6 +4639,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_591_Athena_Commando_M_SoccerZombieC",
         "variants": [
             {
@@ -4367,6 +4649,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_592_Athena_Commando_M_SoccerZombieD",
         "variants": [
             {
@@ -4376,6 +4659,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_593_Athena_Commando_F_SoccerZombieA",
         "variants": [
             {
@@ -4385,6 +4669,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_594_Athena_Commando_F_SoccerZombieB",
         "variants": [
             {
@@ -4394,6 +4679,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_595_Athena_Commando_F_SoccerZombieC",
         "variants": [
             {
@@ -4403,6 +4689,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_596_Athena_Commando_F_SoccerZombieD",
         "variants": [
             {
@@ -4412,6 +4699,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_598_Athena_Commando_M_Mastermind",
         "variants": [
             {
@@ -4424,6 +4712,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_599_Athena_Commando_M_Phantom",
         "variants": [
             {
@@ -4438,6 +4727,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_600_Athena_Commando_M_SkeletonHunter",
         "variants": [
             {
@@ -4450,6 +4740,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_601_Athena_Commando_F_Palespooky",
         "variants": [
             {
@@ -4462,6 +4753,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_603_Athena_Commando_M_SpookyNeon",
         "variants": [
             {
@@ -4474,6 +4766,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_605_Athena_Commando_M_TourBus",
         "variants": [
             {
@@ -4488,6 +4781,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_608_Athena_Commando_F_ModernWitch",
         "variants": [
             {
@@ -4500,6 +4794,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_611_Athena_Commando_M_WeepingWoods",
         "variants": [
             {
@@ -4512,6 +4807,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_614_Athena_Commando_M_MissingLink",
         "variants": [
             {
@@ -4524,6 +4820,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_615_Athena_Commando_F_Bane",
         "variants": [
             {
@@ -4537,6 +4834,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_624_Athena_Commando_M_TeriyakiWarrior",
         "variants": [
             {
@@ -4550,6 +4848,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_625_Athena_Commando_F_PinkTrooper",
         "variants": [
             {
@@ -4563,6 +4862,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_626_Athena_Commando_M_PinkTrooper",
         "variants": [
             {
@@ -4576,6 +4876,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_638_Athena_Commando_M_NeonAnimal",
         "variants": [
             {
@@ -4590,6 +4891,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_639_Athena_Commando_F_NeonAnimal",
         "variants": [
             {
@@ -4604,6 +4906,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_642_Athena_Commando_F_ConstellationStar",
         "variants": [
             {
@@ -4616,6 +4919,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_644_Athena_Commando_M_Cattus",
         "variants": [
             {
@@ -4628,6 +4932,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_646_Athena_Commando_F_ElfAttack",
         "variants": [
             {
@@ -4640,6 +4945,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_649_Athena_Commando_F_HolidayPJ",
         "variants": [
             {
@@ -4654,6 +4960,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_650_Athena_Commando_F_HolidayPJ_B",
         "variants": [
             {
@@ -4668,6 +4975,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_651_Athena_Commando_F_HolidayPJ_C",
         "variants": [
             {
@@ -4682,6 +4990,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_652_Athena_Commando_F_HolidayPJ_D",
         "variants": [
             {
@@ -4696,6 +5005,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_674_Athena_Commando_F_HoodieBandit",
         "variants": [
             {
@@ -4708,6 +5018,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_675_Athena_Commando_M_TheGoldenSkeleton",
         "variants": [
             {
@@ -4721,6 +5032,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_681_Athena_Commando_M_MartialArtist",
         "variants": [
             {
@@ -4733,6 +5045,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_682_Athena_Commando_M_VirtualShadow",
         "variants": [
             {
@@ -4745,6 +5058,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_684_Athena_Commando_F_DragonRacer",
         "variants": [
             {
@@ -4757,6 +5071,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_685_Athena_Commando_M_TundraYellow",
         "variants": [
             {
@@ -4769,6 +5084,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_687_Athena_Commando_M_AgentAce",
         "variants": [
             {
@@ -4788,6 +5104,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_688_Athena_Commando_F_AgentRogue",
         "variants": [
             {
@@ -4807,6 +5124,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_690_Athena_Commando_F_Photographer",
         "variants": [
             {
@@ -4821,6 +5139,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_691_Athena_Commando_F_TNTina",
         "variants": [
             {
@@ -4839,6 +5158,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_692_Athena_Commando_M_HenchmanTough",
         "variants": [
             {
@@ -4853,6 +5173,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_693_Athena_Commando_M_BuffCat",
         "variants": [
             {
@@ -4867,6 +5188,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_694_Athena_Commando_M_CatBurglar",
         "variants": [
             {
@@ -4881,6 +5203,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_695_Athena_Commando_F_DesertOpsCamo",
         "variants": [
             {
@@ -4994,6 +5317,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_696_Athena_Commando_F_DarkHeart",
         "variants": [
             {
@@ -5006,6 +5330,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_701_Athena_Commando_M_BananaAgent",
         "variants": [
             {
@@ -5020,6 +5345,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_703_Athena_Commando_M_Cyclone",
         "variants": [
             {
@@ -5032,6 +5358,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_704_Athena_Commando_F_LollipopTrickster",
         "variants": [
             {
@@ -5044,6 +5371,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_705_Athena_Commando_M_Donut",
         "variants": [
             {
@@ -5063,6 +5391,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_708_Athena_Commando_M_SoldierSlurp",
         "variants": [
             {
@@ -5077,6 +5406,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_709_Athena_Commando_F_BandolierSlurp",
         "variants": [
             {
@@ -5091,6 +5421,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_710_Athena_Commando_M_FishheadSlurp",
         "variants": [
             {
@@ -5104,6 +5435,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_712_Athena_Commando_M_Spy",
         "variants": [
             {
@@ -5116,6 +5448,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_715_Athena_Commando_F_TwinDark",
         "variants": [
             {
@@ -5128,6 +5461,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_721_Athena_Commando_F_PineappleBandit",
         "variants": [
             {
@@ -5140,6 +5474,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_722_Athena_Commando_M_TeriyakiFishAssassin",
         "variants": [
             {
@@ -5152,6 +5487,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_735_Athena_Commando_M_Informer",
         "variants": [
             {
@@ -5164,6 +5500,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_744_Athena_Commando_F_DuckHero",
         "variants": [
             {
@@ -5178,6 +5515,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_747_Athena_Commando_M_BadEgg",
         "variants": [
             {
@@ -5198,6 +5536,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_748_Athena_Commando_F_Hitman",
         "variants": [
             {
@@ -5210,6 +5549,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_751_Athena_Commando_F_NeonCatSpy",
         "variants": [
             {
@@ -5231,6 +5571,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_753_Athena_Commando_F_Hostile",
         "variants": [
             {
@@ -5243,6 +5584,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_754_Athena_Commando_F_RaveNinja",
         "variants": [
             {
@@ -5269,6 +5611,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_755_Athena_Commando_M_Splinter",
         "variants": [
             {
@@ -5281,6 +5624,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_761_Athena_Commando_M_CycloneSpace",
         "variants": [
             {
@@ -5293,6 +5637,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_765_Athena_Commando_F_SpaceWanderer",
         "variants": [
             {
@@ -5313,6 +5658,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_767_Athena_Commando_F_BlackKnight",
         "variants": [
             {
@@ -5333,6 +5679,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_770_Athena_Commando_F_MechanicalEngineer",
         "variants": [
             {
@@ -5346,6 +5693,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_771_Athena_Commando_F_OceanRider",
         "variants": [
             {
@@ -5361,6 +5709,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_772_Athena_Commando_M_Sandcastle",
         "variants": [
             {
@@ -5373,6 +5722,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_774_Athena_Commando_M_TacticalScuba",
         "variants": [
             {
@@ -5393,6 +5743,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_775_Athena_Commando_F_StreetRacerCobraGold",
         "variants": [
             {
@@ -5405,6 +5756,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_776_Athena_Commando_M_ProfessorPup",
         "variants": [
             {
@@ -5418,6 +5770,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_777_Athena_Commando_M_RacerZero",
         "variants": [
             {
@@ -5431,6 +5784,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_778_Athena_Commando_M_Gator",
         "variants": [
             {
@@ -5443,6 +5797,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_785_Athena_Commando_F_Python",
         "variants": [
             {
@@ -5455,6 +5810,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_786_Athena_Commando_F_CavalryBandit_Ghost",
         "variants": [
             {
@@ -5467,6 +5823,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_787_Athena_Commando_M_Heist_Ghost",
         "variants": [
             {
@@ -5479,6 +5836,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_788_Athena_Commando_M_Mastermind_Ghost",
         "variants": [
             {
@@ -5498,6 +5856,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_802_Athena_Commando_F_HeartBreaker",
         "variants": [
             {
@@ -5510,6 +5869,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_803_Athena_Commando_F_SharkSuit",
         "variants": [
             {
@@ -5522,6 +5882,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_805_Athena_Commando_F_PunkDevilSummer",
         "variants": [
             {
@@ -5534,6 +5895,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_NPC_Athena_Commando_F_HenchmanSpyDark",
         "variants": [
             {
@@ -5545,6 +5907,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_NPC_Athena_Commando_F_HenchmanSpyGood",
         "variants": [
             {
@@ -5556,6 +5919,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_NPC_Athena_Commando_F_RebirthDefault_Henchman",
         "variants": [
             {
@@ -5571,6 +5935,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_NPC_Athena_Commando_M_HeistSummerIsland",
         "variants": [
             {
@@ -5582,6 +5947,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_NPC_Athena_Commando_M_HenchmanBad",
         "variants": [
             {
@@ -5593,6 +5959,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_NPC_Athena_Commando_M_HenchmanGood",
         "variants": [
             {
@@ -5604,6 +5971,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_NPC_Athena_Commando_M_PaddedArmorArctic",
         "variants": [
             {
@@ -5615,6 +5983,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "CID_NPC_Athena_Commando_M_TacticalFishermanOil",
         "variants": [
             {
@@ -5626,14 +5995,17 @@
         ]
     },
     {
+        "vtids": [],
         "id": "EID_BannerFlagWave",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "EID_Galileo2_2VYEJ",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "EID_Photographer",
         "variants": [
             {
@@ -5647,6 +6019,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "EID_SpyMale",
         "variants": [
             {
@@ -5656,6 +6029,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_085_SkullTrooper",
         "variants": [
             {
@@ -5668,6 +6042,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_093_AnimalJackets",
         "variants": [
             {
@@ -5680,6 +6055,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_102_Rhino",
         "variants": [
             {
@@ -5694,6 +6070,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_132_Pirate01Octopus",
         "variants": [
             {
@@ -5703,10 +6080,12 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_153_Banner",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "Glider_ID_169_VoyagerRemix",
         "variants": [
             {
@@ -5720,6 +6099,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_179_CrazyEight",
         "variants": [
             {
@@ -5733,6 +6113,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_181_RockClimber",
         "variants": [
             {
@@ -5745,6 +6126,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_182_Sheath",
         "variants": [
             {
@@ -5758,6 +6140,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_183_TacticalFisherman",
         "variants": [
             {
@@ -5770,6 +6153,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_184_Viper",
         "variants": [
             {
@@ -5782,6 +6166,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_193_TheGoldenSkeleton",
         "variants": [
             {
@@ -5795,6 +6180,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_194_Agent",
         "variants": [
             {
@@ -5814,6 +6200,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_197_HenchmanMale",
         "variants": [
             {
@@ -5827,6 +6214,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_200_PhotographerFemale",
         "variants": [
             {
@@ -5840,6 +6228,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_201_TNTinaFemale",
         "variants": [
             {
@@ -5853,6 +6242,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_203_TwinDarkFemale",
         "variants": [
             {
@@ -5865,6 +6255,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_205_DesertOpsCamo",
         "variants": [
             {
@@ -5880,6 +6271,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_213_BlackKnightFemale",
         "variants": [
             {
@@ -5893,6 +6285,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_219_OceanRiderFemale",
         "variants": [
             {
@@ -5906,6 +6299,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_220_ProfessorPup",
         "variants": [
             {
@@ -5919,6 +6313,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_221_PythonFemale",
         "variants": [
             {
@@ -5931,6 +6326,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Glider_ID_225_TacticalScubaMale",
         "variants": [
             {
@@ -5944,6 +6340,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "PetCarrier_001_Dog",
         "variants": [
             {
@@ -5957,6 +6354,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "PetCarrier_002_Chameleon",
         "variants": [
             {
@@ -5968,6 +6366,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "PetCarrier_003_Dragon",
         "variants": [
             {
@@ -5981,6 +6380,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "PetCarrier_004_Hamster",
         "variants": [
             {
@@ -5994,6 +6394,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "PetCarrier_005_Wolf",
         "variants": [
             {
@@ -6007,6 +6408,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "PetCarrier_007_Woodsy",
         "variants": [
             {
@@ -6020,6 +6422,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "PetCarrier_008_Fox",
         "variants": [
             {
@@ -6033,6 +6436,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "PetCarrier_010_RoboKitty",
         "variants": [
             {
@@ -6047,6 +6451,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "PetCarrier_012_Drift_Fox",
         "variants": [
             {
@@ -6060,6 +6465,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_109_SkullTrooper",
         "variants": [
             {
@@ -6069,6 +6475,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_112_GuanYu",
         "variants": [
             {
@@ -6081,6 +6488,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_122_Witch",
         "variants": [
             {
@@ -6090,6 +6498,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_127_Rhino",
         "variants": [
             {
@@ -6099,6 +6508,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_131_NeonCat",
         "variants": [
             {
@@ -6113,6 +6523,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_133_IceKing",
         "variants": [
             {
@@ -6127,6 +6538,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_150_IceQueen",
         "variants": [
             {
@@ -6141,6 +6553,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_162_SkullBrite",
         "variants": [
             {
@@ -6153,6 +6566,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_164_DragonNinja",
         "variants": [
             {
@@ -6167,6 +6581,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_195_SpaceBunny",
         "variants": [
             {
@@ -6179,6 +6594,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_206_StrawberryPilot_1H",
         "variants": [
             {
@@ -6193,6 +6609,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_207_BountyHunter",
         "variants": [
             {
@@ -6206,6 +6623,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_209_BattleSuit",
         "variants": [
             {
@@ -6220,6 +6638,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_211_BunkerMan_1H",
         "variants": [
             {
@@ -6229,6 +6648,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_220_ForkKnife1H",
         "variants": [
             {
@@ -6238,10 +6658,12 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_222_Banner",
         "variants": []
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_244_RustRemix1H",
         "variants": [
             {
@@ -6256,6 +6678,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_245_VoyagerRemix1H",
         "variants": [
             {
@@ -6269,6 +6692,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_254_Syko",
         "variants": [
             {
@@ -6281,6 +6705,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_257_FrostMystery1H",
         "variants": [
             {
@@ -6293,6 +6718,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_264_LemonLime1H",
         "variants": [
             {
@@ -6305,6 +6731,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_275_Traveler",
         "variants": [
             {
@@ -6317,6 +6744,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_284_CrazyEight1H",
         "variants": [
             {
@@ -6330,6 +6758,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_286_FishermanFemale1H",
         "variants": [
             {
@@ -6342,6 +6771,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_287_RockClimber1H",
         "variants": [
             {
@@ -6354,6 +6784,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_288_RebirthMedicFemale",
         "variants": [
             {
@@ -6363,6 +6794,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_290_Sheath1H",
         "variants": [
             {
@@ -6376,6 +6808,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_291_SlurpMonster",
         "variants": [
             {
@@ -6389,6 +6822,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_292_TacticalFisherman1H",
         "variants": [
             {
@@ -6401,6 +6835,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_293_Viper",
         "variants": [
             {
@@ -6413,6 +6848,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_308_SpookyNeonMale",
         "variants": [
             {
@@ -6425,6 +6861,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_314_WeepingWoodsMale1H",
         "variants": [
             {
@@ -6434,6 +6871,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_315_BaneFemale1H",
         "variants": [
             {
@@ -6447,6 +6885,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_323_PinkTrooperMale1H",
         "variants": [
             {
@@ -6460,6 +6899,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_336_TNTinaFemale",
         "variants": [
             {
@@ -6469,6 +6909,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_340_DragonRacerFemale",
         "variants": [
             {
@@ -6481,6 +6922,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_344_MartialArtistMale",
         "variants": [
             {
@@ -6493,6 +6935,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_350_TheGoldenSkeleton",
         "variants": [
             {
@@ -6506,6 +6949,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_352_VirtualShadowMale1H",
         "variants": [
             {
@@ -6518,6 +6962,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_353_AgentAce1H",
         "variants": [
             {
@@ -6530,6 +6975,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_354_AgentRogue1H",
         "variants": [
             {
@@ -6542,6 +6988,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_360_DesertOpsCamoFemale",
         "variants": [
             {
@@ -6557,6 +7004,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_364_PhotographerFemale1H",
         "variants": [
             {
@@ -6570,6 +7018,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_374_TwinDarkFemale1H",
         "variants": [
             {
@@ -6582,6 +7031,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_392_Hostile",
         "variants": [
             {
@@ -6594,6 +7044,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_393_NeonCatSpyFemale",
         "variants": [
             {
@@ -6608,6 +7059,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_394_RaveNinjaFemale1H",
         "variants": [
             {
@@ -6620,6 +7072,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_402_BlackKnightFemale1H",
         "variants": [
             {
@@ -6629,6 +7082,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_404_GatorMale",
         "variants": [
             {
@@ -6641,6 +7095,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_409_MechanicalEngineer1H",
         "variants": [
             {
@@ -6650,6 +7105,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_410_OceanRiderFemale1H",
         "variants": [
             {
@@ -6667,6 +7123,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_412_ProfessorPupMale1H",
         "variants": [
             {
@@ -6684,6 +7141,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_413_PythonFemale1H",
         "variants": [
             {
@@ -6696,6 +7154,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_414_RacerZero",
         "variants": [
             {
@@ -6705,6 +7164,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Pickaxe_ID_416_SpaceWandererFemale1H",
         "variants": [
             {
@@ -6722,6 +7182,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "REG_ID_001_Winterfest",
         "variants": [
             {
@@ -6784,6 +7245,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Trails_ID_082_HolidayGarland",
         "variants": [
             {
@@ -6797,6 +7259,7 @@
         ]
     },
     {
+        "vtids": [],
         "id": "Umbrella_BuildABrella",
         "variants": [
             {

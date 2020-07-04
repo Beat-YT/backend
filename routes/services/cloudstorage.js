@@ -14,7 +14,8 @@ const uniqueFilenames = {
     "WindowsClient_Game.ini": "7e2a66ce68554814b1bd0aa14351cd71",
     "WindowsClient_RuntimeOptions.ini": "b800b911053c4906a5bd399f46ae0055",
     "WindowsClient_Engine.ini": "b6c60402a72e4081a6a47c641371c19f",
-    "DefaultEngine.ini": "3460cbe1c57d4a838ace32951a4d7171"
+    "DefaultEngine.ini": "3460cbe1c57d4a838ace32951a4d7171",
+    "test.pak": "testingnothingtoseehere"
 }
 
 

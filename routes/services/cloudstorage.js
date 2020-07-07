@@ -15,7 +15,6 @@ const uniqueFilenames = {
     "WindowsClient_RuntimeOptions.ini": "b800b911053c4906a5bd399f46ae0055",
     "WindowsClient_Engine.ini": "b6c60402a72e4081a6a47c641371c19f",
     "DefaultEngine.ini": "3460cbe1c57d4a838ace32951a4d7171",
-    "WindowsClient_CandyApple.pak": "abcdefe1c57d4a838ace32951a4d7171"
 }
 
 

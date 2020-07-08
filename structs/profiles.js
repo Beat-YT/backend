@@ -315,6 +315,7 @@ module.exports = {
                         book_purchased: true,
                         purchased_battle_pass_tier_offers: {},
                         rested_xp_exchange: 1.0,
+                        level: athena.level,
                         book_level: athena.level,
                         xp_overflow: 0,
                         rested_xp: 0,

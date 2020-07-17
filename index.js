@@ -28,8 +28,6 @@ mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true, u
     logging.fdev(`Connected to Mongo DB`)
 })
 
-
-require(`${__dirname}/structs/caching`)
 app.use(require(`${__dirname}/routes`))
 
 //gets the services working n shit

@@ -15,7 +15,6 @@ $(document).ready(function() {
                 username:  $("#username").val(),
                 email:  $("#email").val(),
                 password:  $("#password").val(),
-                captcha: grecaptcha.getResponse()
             },
             success: (data) => {
                 document.location.href="/login"

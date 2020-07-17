@@ -41,7 +41,7 @@ app.post("/api/register", async (req, res) => {
     res.clearCookie("AURORA_ID")
     res.clearCookie("AURORA_TOKEN")
 
-    var yeah = req.body.email && req.body.username && req.body.password && req.body.captcha
+    var yeah = req.body.email && req.body.username && req.body.password
 
     if (!yeah) return res.status(400).json({
         error: `Missing '${[req.body.email ? null : "email", req.body.username ? null : "username", req.body.password ? null : "password",  

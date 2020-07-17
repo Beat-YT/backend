@@ -6595,11 +6595,6 @@
         "id": "CID_807_Athena_Commando_M_CandyApple_B1U7X"
     },
     {
-        "name": "Test Item",
-        "backendType": "AthenaCharacter",
-        "id": "CID_999_Athena_Commando_M_ThisIsMagmaReefX"
-    },
-    {
         "name": "Starflare",
         "backendType": "AthenaCharacter",
         "id": "CID_808_Athena_Commando_F_ConstellationSun"

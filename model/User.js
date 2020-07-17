@@ -14,10 +14,6 @@ const schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    ip: {
-        type: String,
-        required: true
-    },
     id: {
         type: String,
         default: crypto.randomBytes(16).toString("hex")

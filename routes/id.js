@@ -17,17 +17,16 @@ const User = require(`${__dirname}/../model/User`)
 var tokens = {}
 
 app.use(cookieParser())
-app.use("/api/discord", require(`${__dirname}/discord`))
 
 /**
  * Virgin Slayer v2.0
- * Created to stop virgins (makks) from getting into our servers and spamming the fuck out of it.
+ * Created to stop virgins (makks, kemo, fuck all) from getting into our servers and spamming the fuck out of it.
  * @param {String} gcaptcha 
  */
 function virginSlayerv2(gcaptcha) {
     return new Promise((resolve, reject) => {
         request.post("https://www.google.com/recaptcha/api/siteverify", {json: true, form: {
-            secret: "6Lc-r_8UAAAAAOdX6O7zhsnwUXublLszA_ut_vCG",
+            secret: "insert captha here",
             response: gcaptcha
         }}, (err, res, body) => {
             try {
@@ -45,17 +44,21 @@ app.post("/api/register", async (req, res) => {
     var yeah = req.body.email && req.body.username && req.body.password && req.body.captcha
 
     if (!yeah) return res.status(400).json({
-        error: `Missing '${[req.body.email ? null : "email", req.body.username ? null : "username", req.body.password ? null : "password",  req.body.captcha ? null : "captcha"].filter(x => x != null).join(", ")}' field(s).`,
+        error: `Missing '${[req.body.email ? null : "email", req.body.username ? null : "username", req.body.password ? null : "password",  
+        //req.body.captcha ? null : "captcha"
+        ].filter(x => x != null).join(", ")}' field(s).`,
         errorCode: "dev.aurorafn.id.register.invalid_fields",
         statusCode: 400
     })
 
+    /*
     var bIsVirgin = await virginSlayerv2(req.body.captcha)
     if (!bIsVirgin) return res.status(400).json({
         error: "Recaptcha response is invalid.",
         errorCode: "dev.aurorafn.id.register.invalid_captcha",
         statusCode: 400
     })
+    */
 
     if (req.body.username.length > 32 || req.body.email.length > 50) return res.status(400).json({
         error: `Field '${req.body.username.length > 32 ? "Username" : "Email"}' is too big.`,
@@ -72,6 +75,7 @@ app.post("/api/register", async (req, res) => {
         statusCode: 400
     })
 
+    /*
     var ip = req.headers["x-real-ip"] || req.ip
     if (ip.substr(0, 7) == "::ffff:") ip = ip.substr(7)
 
@@ -82,7 +86,8 @@ app.post("/api/register", async (req, res) => {
         errorCode: `dev.aurorafn.id.register.account_limit_reached`,
         statusCode: 400
     })
-
+    */
+   
     var id = crypto.randomBytes(16).toString('hex')
 
     var user = new User({id: id, ip: ip,displayName: req.body.username, email: req.body.email, password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))})

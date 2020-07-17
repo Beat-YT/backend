@@ -1,26 +1,8 @@
 const express = require("express")
-const request = require("request")
 const app = express.Router()
 
-const checkToken = require(`${__dirname}/../../middleware/checkToken`)
-const Athena = require(`${__dirname}/../../model/Athena`)
-
-function getNews() {
-    return new Promise((resolve, reject) => {
-        try {
-            request("https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game", {json: true}, (err, res, body) => {
-                if (err) resolve([])
-                else resolve(body.playlistinformation.playlist_info.playlists)
-            })
-        } catch {
-            resolve([])
-        }
-    })
-}
 
 app.get("/api/pages/fortnite-game", async (req, res) => {
-    var images = await getNews()
-
     res.json({
         "jcr:isCheckedOut": true,
         _title: "Fortnite Game",
@@ -40,7 +22,7 @@ app.get("/api/pages/fortnite-game", async (req, res) => {
                         tabTitleOverride: "Aurora",
                         _type: "CommonUI Simple Message MOTD",
                         title: "Aurora",
-                        body: "Welcome to Aurora, a private server created by Slushia (@Slushia) & Cyuubi (@uguuNatalie). Join our Discord for more information: discord.gg/AuroraFN",
+                        body: "Welcome to Aurora, a private server created by Slushia (@Slushia) & Cyuubi (@uguuNatalie). We are now open source! https://github.com/AuroraFN/backend",
                         videoLoop: false,
                         videoStreamingEnabled: false,
                         sortingPriority: 0,
@@ -60,7 +42,7 @@ app.get("/api/pages/fortnite-game", async (req, res) => {
                         _type: "CommonUI Simple Message Base",
                         subgame: "br",
                         title: "Aurora",
-                        body: "Credits: Slushia (@Slushia) and Cyuubi (@uguuNatalie)\nDiscord: https://discord.gg/AuroraFN",
+                        body: "Credits: Slushia (@Slushia) and Cyuubi (@uguuNatalie)\nGitHub: https://github.com/AuroraFN/backend",
                         spotlight: true
                     }
                 ]
@@ -93,24 +75,7 @@ app.get("/api/pages/fortnite-game", async (req, res) => {
             _activeDate: new Date(),
             lastModified: new Date(),
             _locale: "en-US"
-        },
-        playlistinformation: {
-            is_tile_hidden: false,
-            frontend_matchmaking_header_style: "None",
-            "jcr:isCheckedOut": true,
-            show_ad_violator: false,
-            _title: "playlistinformation",
-            frontend_matchmaking_header_text: "",
-            playlist_info: {
-                _type: "Playlist Information",
-                playlists: images
-            },
-            _noIndex: false,
-            "jcr:baseVersion": "a7ca237317f1e753075e45-ce4a-442e-83f8-9451519dab16",
-            _activeDate: "2018-04-25T15:05:39.956Z",
-            lastModified: new Date(),
-            _locale: "en-US"
-        },
+        }
     })
 })
 

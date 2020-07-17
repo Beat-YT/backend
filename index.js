@@ -4,7 +4,6 @@ const express = require("express")
 const fs = require("fs")
 const app = express()
 
-const cache = require(`${__dirname}/structs/caching`)
 const logging = require(`${__dirname}/structs/logs`)
 const config = require(`${__dirname}/config.json`)
 
@@ -17,7 +16,6 @@ global.xmppClients = {}
 global.parties = []
 global.invites = []
 global.pings = []
-global.mucs = []
 
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({extended: true}))

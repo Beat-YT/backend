@@ -3,7 +3,7 @@ const app = express.Router()
 
 const checkToken = require(`${__dirname}/../../middleware/checkToken`)
 
-app.get('/api/calendar/v1/timeline', checkToken, async (req, res) => {
+app.get('/api/calendar/v1/timeline', /*checkToken,*/ async (req, res) => {
 
     var season
     if (req.headers["user-agent"]) {
@@ -29,17 +29,7 @@ app.get('/api/calendar/v1/timeline', checkToken, async (req, res) => {
                             eventType: `EventFlag.LobbySeason${season}`,
                             activeUntil: "9999-12-31T23:59:59.999Z",
                             activeSince: "2019-12-31T23:59:59.999Z"
-                        },
-                        {
-                            eventType: "EventFlag.Season11.Fortnitemares.Event",
-                            activeUntil: "9999-12-31T23:59:59.999Z",
-                            activeSince: "2019-09-27T00:00:00.000Z"
-                        },
-                        {
-                            eventType: "EventFlag.LTE_Fortnitemares2019",
-                            activeUntil: "9999-12-31T23:59:59.999Z",
-                            activeSince: "2019-10-29T13:00:00.000Z"
-                        },
+                        }
                     ],
                     state: {
                         activeStorefronts: [],

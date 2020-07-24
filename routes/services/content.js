@@ -3,6 +3,15 @@ const app = express.Router()
 
 
 app.get("/api/pages/fortnite-game", async (req, res) => {
+    var season
+    if (req.headers["user-agent"]) {
+        try {
+            season = req.headers["user-agent"].split("-")[1].split(".")[0]
+        } catch {
+            season = 2
+        }
+    } else season = 2
+
     res.json({
         "jcr:isCheckedOut": true,
         _title: "Fortnite Game",
@@ -57,12 +66,12 @@ app.get("/api/pages/fortnite-game", async (req, res) => {
             backgrounds: {
                 backgrounds: [
                     {
-                        stage: "season13",
+                        stage: `season${season}`,
                         _type: "DynamicBackground",
                         key: "lobby"
                     },
                     {
-                        stage: "season13",
+                        stage: `season${season}`,
                         _type: "DynamicBackground",
                         key: "vault"
                     }

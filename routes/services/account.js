@@ -16,6 +16,8 @@ Date.prototype.addHours = function(h) {
     return this;
 }
 
+app.get("/api/epicdomains/ssodomains", (req, res) => res.json([]))
+
 app.all("/api/oauth/token", async (req, res) => {
     if (req.method != "POST") return res.status(405).json(errors.method("com.epicgames.account.public", "prod"))
 

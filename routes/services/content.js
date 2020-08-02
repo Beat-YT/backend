@@ -7,6 +7,7 @@ app.get("/api/pages/fortnite-game", async (req, res) => {
     if (req.headers["user-agent"]) {
         try {
             season = req.headers["user-agent"].split("-")[1].split(".")[0]
+            if (season == 10) season = "x"
         } catch {
             season = 2
         }

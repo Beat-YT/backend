@@ -19,6 +19,11 @@ const uniqueFilenames = {
 
 
 app.get("/api/cloudstorage/system", checkClientToken, (req, res) => {
+    if (req.headers["user-agent"].split("-")[1].includes("13.40")) {
+        res.status(404).end()
+        return
+    }
+
     var files = fs.readdirSync(`${__dirname}/../../cloudstorage`)
 
     files = files.map(x => {

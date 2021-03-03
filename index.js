@@ -49,7 +49,7 @@ setInterval(() => {
     parties.forEach(party => {
         // check if the member still exists in xmpp, if not delete them and then do the check
         party.members.forEach(member => {
-            if (!xmppClients[member.account_id]) {
+            if (!xmppClients[member]) {
                 let index = party.members.indexOf(member);
                 if (index !== 1) {
                     party.members.splice(index, 1);
